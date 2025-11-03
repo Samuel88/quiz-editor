@@ -1,0 +1,92 @@
+[
+  {
+    "domanda": "Cos’è Git?",
+    "risposte": [
+      "Un sistema di versionamento distribuito del codice sorgente",
+      "Una piattaforma per pubblicare siti web statici",
+      "Un editor di testo avanzato"
+    ],
+    "corretta": 0
+  },
+  {
+    "domanda": "Che cos’è l’area di staging in Git?",
+    "risposte": [
+      "L’area dove si preparano le modifiche prima di effettuare il commit",
+      "La cartella temporanea dei file eliminati",
+      "Uno spazio su GitHub per gestire le issue"
+    ],
+    "corretta": 0
+  },
+  {
+    "domanda": "Cosa rappresenta un commit in Git?",
+    "risposte": [
+      "Una fotografia dello stato del progetto in un determinato momento",
+      "Una richiesta di aiuto agli altri collaboratori",
+      "Un file temporaneo creato da GitHub"
+    ],
+    "corretta": 0
+  },
+  {
+    "domanda": "Qual è la differenza principale tra Git e GitHub?",
+    "risposte": [
+      "Git è uno strumento locale per il versionamento, GitHub è una piattaforma online per collaborare sui repository Git",
+      "Git funziona solo online, GitHub funziona anche offline",
+      "Git serve solo per i documenti di testo, GitHub solo per le immagini"
+    ],
+    "corretta": 0
+  },
+  {
+    "domanda": "A cosa serve il comando 'git init'?",
+    "risposte": [
+      "Crea un nuovo repository Git nella cartella di lavoro",
+      "Aggiunge file all’area di staging",
+      "Invia le modifiche al repository remoto"
+    ],
+    "corretta": 0
+  },
+  {
+    "domanda": "Quale comando si usa per aggiungere file all’area di staging?",
+    "risposte": [
+      "git add",
+      "git push",
+      "git branch"
+    ],
+    "corretta": 0
+  },
+  {
+    "domanda": "Cosa fa il comando 'git commit'?",
+    "risposte": [
+      "Salva in modo permanente le modifiche presenti nell’area di staging",
+      "Sincronizza il repository locale con quello remoto",
+      "Crea una copia del repository"
+    ],
+    "corretta": 0
+  },
+  {
+    "domanda": "Cosa fa il comando 'git push'?",
+    "risposte": [
+      "Invia i cambiamenti al repository remoto",
+      "Scarica e integra le modifiche dal repository remoto",
+      "Elimina il repository remoto"
+    ],
+    "corretta": 0
+  },
+  {
+    "domanda": "Cosa fa il comando 'git pull'?",
+    "risposte": [
+      "Scarica e integra le modifiche dal repository remoto",
+      "Elimina il repository locale",
+      "Visualizza lo stato dei file modificati"
+    ],
+    "corretta": 0
+  },
+  {
+    "domanda": "Quale differenza descrive la funzione di 'git revert' e 'git reset'?",
+    "risposte": [
+      "Revert annulla un commit lasciando intatta la cronologia, Reset riporta il progetto a uno stato precedente modificando la cronologia locale",
+      "Entrambi cancellano tutte le modifiche dal repository remoto",
+      "Revert elimina definitivamente file dal repository locale"
+    ],
+    "corretta": 0
+  }
+]
