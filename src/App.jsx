@@ -23,17 +23,17 @@ function App() {
     css: {
       title: 'Quiz CSS Basics',
       subtitle: 'Metti alla prova le tue conoscenze sui fondamenti del CSS',
-      file: '/src/questions/css.json'
+      file: '/questions/css.json'
     },
     flex: {
       title: 'Quiz CSS Flexbox',
       subtitle: 'Metti alla prova le tue conoscenze su Flexbox',
-      file: '/src/questions/flex.json'
+      file: '/questions/flex.json'
     },
     git: {
       title: 'Quiz Git & Version Control',
       subtitle: 'Metti alla prova le tue conoscenze su Git',
-      file: '/src/questions/git.json'
+      file: '/questions/git.json'
     }
   }
 

@@ -9,9 +9,9 @@
     "corretta": 0
   },
   {
-    "domanda": "Che cos'è l’area di staging in Git?",
+    "domanda": "Che cos'è l'area di staging in Git?",
     "risposte": [
-      "L’area dove si preparano le modifiche prima di effettuare il commit",
+      "L'area dove si preparano le modifiche prima di effettuare il commit",
       "La cartella temporanea dei file eliminati",
       "Uno spazio su GitHub per gestire le issue"
     ],
@@ -39,13 +39,13 @@
     "domanda": "A cosa serve il comando 'git init'?",
     "risposte": [
       "Crea un nuovo repository Git nella cartella di lavoro",
-      "Aggiunge file all’area di staging",
+      "Aggiunge file all'area di staging",
       "Invia le modifiche al repository remoto"
     ],
     "corretta": 0
   },
   {
-    "domanda": "Quale comando si usa per aggiungere file all’area di staging?",
+    "domanda": "Quale comando si usa per aggiungere file all'area di staging?",
     "risposte": [
       "git add",
       "git push",
@@ -56,7 +56,7 @@
   {
     "domanda": "Cosa fa il comando 'git commit'?",
     "risposte": [
-      "Salva in modo permanente le modifiche presenti nell’area di staging",
+      "Salva in modo permanente le modifiche presenti nell'area di staging",
       "Sincronizza il repository locale con quello remoto",
       "Crea una copia del repository"
     ],

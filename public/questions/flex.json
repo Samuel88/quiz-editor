@@ -1,0 +1,92 @@
+[
+    {
+        "domanda": "Cosa significa la proprietà 'display: flex' in CSS?",
+        "risposte": [
+            "Crea un contenitore flex che dispone i suoi figli secondo le regole di Flexbox",
+            "Rende gli elementi trasparenti e flessibili",
+            "Aggiunge un bordo dinamico al contenitore"
+        ],
+        "corretta": 0
+    },
+    {
+        "domanda": "Qual è il valore di default di flex-direction?",
+        "risposte": [
+            "row",
+            "column",
+            "row-reverse"
+        ],
+        "corretta": 0
+    },
+    {
+        "domanda": "Quale proprietà serve per centrare gli elementi lungo l'asse principale?",
+        "risposte": [
+            "align-items",
+            "justify-content",
+            "align-content"
+        ],
+        "corretta": 1
+    },
+    {
+        "domanda": "Quale proprietà permette agli elementi di andare a capo su più righe?",
+        "risposte": [
+            "flex-wrap",
+            "flex-grow",
+            "flex-direction"
+        ],
+        "corretta": 0
+    },
+    {
+        "domanda": "La shorthand 'flex: 1' corrisponde a quale combinazione?",
+        "risposte": [
+            "flex-grow: 1; flex-shrink: 1; flex-basis: 0%;",
+            "flex-grow: 0; flex-shrink: 1; flex-basis: auto;",
+            "flex-grow: 1; flex-shrink: 0; flex-basis: 100%;"
+        ],
+        "corretta": 0
+    },
+    {
+        "domanda": "Quando si usa align-content invece di align-items?",
+        "risposte": [
+            "Quando ci sono più righe/colonne (flex-wrap attivo)",
+            "Per allineare singoli elementi",
+            "Solo con flex-direction: column"
+        ],
+        "corretta": 0
+    },
+    {
+        "domanda": "Quale proprietà cambia l'ordine visivo di un elemento senza modificare l'HTML?",
+        "risposte": [
+            "order",
+            "flex-basis",
+            "z-index"
+        ],
+        "corretta": 0
+    },
+    {
+        "domanda": "Come si centra completamente un elemento in un contenitore flex?",
+        "risposte": [
+            "justify-content: center; align-items: center;",
+            "align-content: center; flex-wrap: wrap;",
+            "flex-direction: column; order: 1;"
+        ],
+        "corretta": 0
+    },
+    {
+        "domanda": "Cosa indica flex-basis: 200px?",
+        "risposte": [
+            "La dimensione iniziale dell'elemento prima della distribuzione dello spazio",
+            "La dimensione minima che l'elemento può assumere",
+            "La distanza dall'elemento precedente"
+        ],
+        "corretta": 0
+    },
+    {
+        "domanda": "Quale valore di justify-content distribuisce lo spazio equamente tra gli elementi?",
+        "risposte": [
+            "space-between",
+            "space-around",
+            "space-evenly"
+        ],
+        "corretta": 2
+    }
+]
