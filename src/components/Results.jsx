@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import '../styles/Results.css'
 
-const Results = ({ score, total, onRestart, userAnswers }) => {
+const Results = ({ score, total, onRestart, userAnswers, onChangeQuiz }) => {
   const [highScores, setHighScores] = useState([])
   const percentage = (score / total) * 100
 
@@ -94,6 +94,9 @@ const Results = ({ score, total, onRestart, userAnswers }) => {
       <div className="results-actions">
         <button onClick={onRestart} className="restart-button">
           🔄 Ricomincia Quiz
+        </button>
+        <button onClick={onChangeQuiz} className="change-quiz-btn">
+          ← Cambia Quiz
         </button>
       </div>
     </div>

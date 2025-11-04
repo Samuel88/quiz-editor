@@ -2,9 +2,11 @@ import { useState, useEffect } from 'react'
 import Question from './components/Question'
 import Results from './components/Results'
 import ProgressBar from './components/ProgressBar'
+import QuizSelector from './components/QuizSelector'
 import './styles/App.css'
 
 function App() {
+  const [selectedQuiz, setSelectedQuiz] = useState(null) // null = mostra selector
   const [questions, setQuestions] = useState([])
   const [currentQuestion, setCurrentQuestion] = useState(0)
   const [score, setScore] = useState(0)
@@ -14,13 +16,35 @@ function App() {
   const [timeLeft, setTimeLeft] = useState(30)
   const [showFeedback, setShowFeedback] = useState(false)
   const [isCorrect, setIsCorrect] = useState(false)
-  const [isLoading, setIsLoading] = useState(true)
+  const [isLoading, setIsLoading] = useState(false)
 
-  // Caricamento domande
+  // Informazioni sui quiz
+  const quizInfo = {
+    css: {
+      title: 'Quiz CSS Basics',
+      subtitle: 'Metti alla prova le tue conoscenze sui fondamenti del CSS',
+      file: '/src/questions/css.json'
+    },
+    flex: {
+      title: 'Quiz CSS Flexbox',
+      subtitle: 'Metti alla prova le tue conoscenze su Flexbox',
+      file: '/src/questions/flex.json'
+    },
+    git: {
+      title: 'Quiz Git & Version Control',
+      subtitle: 'Metti alla prova le tue conoscenze su Git',
+      file: '/src/questions/git.json'
+    }
+  }
+
+  // Caricamento domande quando viene selezionato un quiz
   useEffect(() => {
+    if (!selectedQuiz) return // Non caricare se non è stato selezionato un quiz
+
     const loadQuestions = async () => {
+      setIsLoading(true)
       try {
-        const response = await fetch('/questions.json')
+        const response = await fetch(quizInfo[selectedQuiz].file)
         const data = await response.json()
 
         // Shuffle delle domande per variare l'esperienza
@@ -34,7 +58,7 @@ function App() {
     }
 
     loadQuestions()
-  }, [])
+  }, [selectedQuiz])
 
   // Timer per domanda
   useEffect(() => {
@@ -102,6 +126,32 @@ function App() {
     }
   }
 
+  // Gestione selezione quiz
+  const handleSelectQuiz = (quizId) => {
+    setSelectedQuiz(quizId)
+    // Reset tutti gli stati
+    setCurrentQuestion(0)
+    setScore(0)
+    setSelectedAnswer(null)
+    setShowResult(false)
+    setUserAnswers([])
+    setTimeLeft(30)
+    setShowFeedback(false)
+  }
+
+  // Cambia quiz (torna alla selezione)
+  const handleChangeQuiz = () => {
+    setSelectedQuiz(null)
+    setQuestions([])
+    setCurrentQuestion(0)
+    setScore(0)
+    setSelectedAnswer(null)
+    setShowResult(false)
+    setUserAnswers([])
+    setTimeLeft(30)
+    setShowFeedback(false)
+  }
+
   // Restart quiz
   const restartQuiz = () => {
     // Shuffle domande per una nuova esperienza
@@ -128,6 +178,11 @@ function App() {
     localStorage.setItem('quizScores', JSON.stringify(scores))
   }
 
+  // Mostra il selettore di quiz se non è stato selezionato nessun quiz
+  if (!selectedQuiz) {
+    return <QuizSelector onSelectQuiz={handleSelectQuiz} />
+  }
+
   if (isLoading) {
     return (
       <div className="quiz-container">
@@ -145,6 +200,9 @@ function App() {
         <div className="error">
           <h2>Errore</h2>
           <p>Impossibile caricare le domande del quiz.</p>
+          <button onClick={handleChangeQuiz} className="change-quiz-button">
+            Torna alla Selezione
+          </button>
         </div>
       </div>
     )
@@ -153,8 +211,15 @@ function App() {
   return (
     <div className="quiz-container">
       <header className="quiz-header">
-        <h1>Quiz CSS Flexbox</h1>
-        <p className="subtitle">Metti alla prova le tue conoscenze su Flexbox</p>
+        <div className="header-content">
+          <div>
+            <h1>{quizInfo[selectedQuiz].title}</h1>
+            <p className="subtitle">{quizInfo[selectedQuiz].subtitle}</p>
+          </div>
+          <button onClick={handleChangeQuiz} className="change-quiz-button" title="Cambia Quiz">
+            ← Cambia Quiz
+          </button>
+        </div>
       </header>
 
       {!showResult ? (
@@ -189,6 +254,7 @@ function App() {
           total={questions.length}
           onRestart={restartQuiz}
           userAnswers={userAnswers}
+          onChangeQuiz={handleChangeQuiz}
         />
       )}
     </div>
