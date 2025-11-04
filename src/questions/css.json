@@ -1,0 +1,92 @@
+[
+  {
+    "domanda": "Cos'è il CSS?",
+    "risposte": [
+      "Un linguaggio che serve per organizzare i dati nei database",
+      "Un linguaggio che serve a stilizzare l'aspetto delle pagine web",
+      "Un programma per modificare le immagini"
+    ],
+    "corretta": 1
+  },
+  {
+    "domanda": "Dove si inserisce il collegamento al file CSS in una pagina HTML?",
+    "risposte": [
+      "Nel tag <head>",
+      "All'inizio del <body>",
+      "Nel tag <footer>"
+    ],
+    "corretta": 0
+  },
+  {
+    "domanda": "Quale differenza c'è tra gli attributi 'class' e 'id' in CSS?",
+    "risposte": [
+      "'class' può essere usato da più elementi, 'id' solo da uno",
+      "'id' può essere usato da più elementi, 'class' solo da uno",
+      "Non esiste alcuna differenza"
+    ],
+    "corretta": 0
+  },
+  {
+    "domanda": "Quale tra questi è un selettore CSS per selezionare tutti gli elementi di una classe?",
+    "risposte": [
+      "#titolo",
+      ".introduzione",
+      "p"
+    ],
+    "corretta": 1
+  },
+  {
+    "domanda": "Cosa fa la proprietà 'margin' in CSS?",
+    "risposte": [
+      "Aggiunge uno sfondo colorato",
+      "Imposta lo spazio esterno attorno a un elemento",
+      "Cambia il tipo di font"
+    ],
+    "corretta": 1
+  },
+  {
+    "domanda": "Qual è la differenza tra elementi block e inline in HTML?",
+    "risposte": [
+      "Block occupa tutta la larghezza, inline solo lo spazio necessario",
+      "Inline occupa tutta la larghezza, block solo lo spazio necessario",
+      "Non esiste differenza"
+    ],
+    "corretta": 0
+  },
+  {
+    "domanda": "Quale proprietà CSS si usa per cambiare il colore del testo?",
+    "risposte": [
+      "background-color",
+      "color",
+      "border"
+    ],
+    "corretta": 1
+  },
+  {
+    "domanda": "Quale proprietà CSS serve ad aggiungere uno sfondo colorato a un elemento?",
+    "risposte": [
+      "color",
+      "background-color",
+      "padding"
+    ],
+    "corretta": 1
+  },
+  {
+    "domanda": "Cosa rappresenta la proprietà 'padding' in CSS?",
+    "risposte": [
+      "Lo spazio interno tra il bordo e il contenuto dell'elemento",
+      "Lo spazio esterno tra l'elemento e quelli vicini",
+      "Il colore dello sfondo dell'elemento"
+    ],
+    "corretta": 0
+  },
+  {
+    "domanda": "Quale unità di misura CSS è relativa alla dimensione del font corrente?",
+    "risposte": [
+      "px",
+      "%",
+      "em"
+    ],
+    "corretta": 2
+  }
+]
