@@ -1,6 +1,6 @@
 [
   {
-    "domanda": "Cos’è Git?",
+    "domanda": "Cos'è Git?",
     "risposte": [
       "Un sistema di versionamento distribuito del codice sorgente",
       "Una piattaforma per pubblicare siti web statici",
@@ -9,7 +9,7 @@
     "corretta": 0
   },
   {
-    "domanda": "Che cos’è l’area di staging in Git?",
+    "domanda": "Che cos'è l’area di staging in Git?",
     "risposte": [
       "L’area dove si preparano le modifiche prima di effettuare il commit",
       "La cartella temporanea dei file eliminati",
