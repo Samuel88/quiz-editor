@@ -19,6 +19,14 @@ const QuizSelector = ({ onSelectQuiz }) => {
       topics: ['Flex Container', 'Flex Items', 'Alignment', 'Direction']
     },
     {
+      id: 'flexBasics',
+      title: 'Flexbox Basics',
+      description: 'Impara i fondamenti di Flexbox',
+      icon: '📏',
+      color: '#10b981',
+      topics: ['Main Axis', 'Cross Axis', 'Flex Container', 'Flex Items']
+    },
+    {
       id: 'git',
       title: 'Git & Version Control',
       description: 'Verifica le tue competenze su Git e controllo versioni',
