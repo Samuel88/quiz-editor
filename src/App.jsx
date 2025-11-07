@@ -30,6 +30,11 @@ function App() {
       subtitle: 'Metti alla prova le tue conoscenze su Flexbox',
       file: '/questions/flex.json'
     },
+    flexBasics: {
+      title: 'Quiz Flexbox Basics',
+      subtitle: 'Impara i fondamenti di Flexbox',
+      file: '/questions/flexbox-basics.json'
+    },
     git: {
       title: 'Quiz Git & Version Control',
       subtitle: 'Metti alla prova le tue conoscenze su Git',

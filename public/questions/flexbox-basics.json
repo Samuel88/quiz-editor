@@ -1,0 +1,110 @@
+[
+    {
+        "domanda": "A quale elemento si applica la proprietà 'display: flex'?",
+        "risposte": [
+            "Al contenitore genitore (flex-container)",
+            "Agli elementi figli (flex-item)",
+            "A tutti gli elementi della pagina"
+        ],
+        "corretta": 0
+    },
+    {
+        "domanda": "Quali elementi diventano automaticamente flex-item quando il genitore ha 'display: flex'?",
+        "risposte": [
+            "Tutti i discendenti (figli, nipoti, ecc.)",
+            "Solo i figli diretti",
+            "Solo gli elementi con una classe specifica"
+        ],
+        "corretta": 1
+    },
+    {
+        "domanda": "Cos'è il Main Axis in Flexbox?",
+        "risposte": [
+            "L'asse perpendicolare alla direzione dei flex-item",
+            "L'asse lungo cui vengono disposti i flex-item",
+            "L'asse verticale del contenitore"
+        ],
+        "corretta": 1
+    },
+    {
+        "domanda": "Cosa succede al Main Axis quando si cambia flex-direction da 'row' a 'column'?",
+        "risposte": [
+            "Il Main Axis diventa verticale invece che orizzontale",
+            "Il Main Axis rimane sempre orizzontale",
+            "Il Main Axis viene eliminato"
+        ],
+        "corretta": 0
+    },
+    {
+        "domanda": "Quale proprietà allinea gli elementi lungo il Cross Axis?",
+        "risposte": [
+            "justify-content",
+            "flex-direction",
+            "align-items"
+        ],
+        "corretta": 2
+    },
+    {
+        "domanda": "Qual è il valore di default di flex-wrap?",
+        "risposte": [
+            "wrap",
+            "nowrap",
+            "wrap-reverse"
+        ],
+        "corretta": 1
+    },
+    {
+        "domanda": "Cosa fa 'justify-content: space-between'?",
+        "risposte": [
+            "Mette spazio solo tra il primo e l'ultimo elemento",
+            "Distribuisce lo spazio equamente tra gli elementi, senza spazio ai bordi",
+            "Centra tutti gli elementi"
+        ],
+        "corretta": 1
+    },
+    {
+        "domanda": "Quale valore di align-items allunga gli elementi per riempire il contenitore sul Cross Axis?",
+        "risposte": [
+            "flex-start",
+            "center",
+            "stretch"
+        ],
+        "corretta": 2
+    },
+    {
+        "domanda": "In quale anno sono state introdotte le specifiche di Flexbox?",
+        "risposte": [
+            "2010",
+            "2015",
+            "2020"
+        ],
+        "corretta": 1
+    },
+    {
+        "domanda": "Con 'flex-direction: column', cosa fa 'justify-content: flex-end'?",
+        "risposte": [
+            "Allinea gli elementi in alto",
+            "Allinea gli elementi a destra",
+            "Allinea gli elementi in basso"
+        ],
+        "corretta": 2
+    },
+    {
+        "domanda": "Quale valore di align-items allinea gli elementi alla baseline del testo?",
+        "risposte": [
+            "baseline",
+            "center",
+            "flex-start"
+        ],
+        "corretta": 0
+    },
+    {
+        "domanda": "Quale percentuale di browser supporta Flexbox attualmente?",
+        "risposte": [
+            "75%",
+            "85%",
+            "97%"
+        ],
+        "corretta": 2
+    }
+]
