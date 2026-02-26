@@ -1,0 +1,74 @@
+[
+  {
+    "domanda": "Chi è un Frontend Developer?",
+    "risposte": [
+      "Uno sviluppatore che si occupa della parte visiva di un sito web (interfaccia, pulsanti, layout)",
+      "Uno sviluppatore che gestisce la logica del server e i database",
+      "Chi sceglie i colori del caffè aziendale"
+    ],
+    "corretta": 0
+  },
+  {
+    "domanda": "Chi è un Backend Developer?",
+    "risposte": [
+      "Uno sviluppatore che crea l'aspetto grafico e i menu di navigazione del sito",
+      "Uno sviluppatore che si occupa della logica nascosta dietro un sito web (server, database)",
+      "Chi lavora sempre con le cuffie e risponde solo agli errori del server"
+    ],
+    "corretta": 1
+  },
+  {
+    "domanda": "Che cos'è un server?",
+    "risposte": [
+      "Un computer portatile ad alte prestazioni usato dai programmatori per sviluppare software",
+      "Il cameriere digitale che porta i dati al tavolo",
+      "Un computer sempre acceso, raggiungibile via rete, con un programma per rispondere alle richieste degli utenti"
+    ],
+    "corretta": 2
+  },
+  {
+    "domanda": "Il tuo pc può essere un server?",
+    "risposte": [
+      "Sì, qualsiasi computer connesso alla rete con il software giusto può fare da server",
+      "No, solo macchine con hardware certificato possono essere server",
+      "Solo se lo lasci acceso tutta la notte e non ci giochi"
+    ],
+    "corretta": 0
+  },
+  {
+    "domanda": "Che cos'è il \"cloud\"?",
+    "risposte": [
+      "Una rete puramente virtuale senza hardware fisico, che esiste solo come software",
+      "Un insieme di computer sempre accesi, fisicamente presenti in data center nel mondo, accessibili via internet",
+      "Una nuvola magica dove i tuoi dati fluttuano liberi nell'aria"
+    ],
+    "corretta": 1
+  },
+  {
+    "domanda": "Che cos'è un indirizzo IP?",
+    "risposte": [
+      "La targa del tuo computer, ma nessuno la ricorda mai a memoria",
+      "Il nome scelto dall'utente per identificare il proprio computer sulla rete",
+      "Un numero univoco che identifica ogni dispositivo in rete — è più facile ricordare 'google.com' che il suo IP '142.250.180.46'"
+    ],
+    "corretta": 2
+  },
+  {
+    "domanda": "Che cos'è un server DNS?",
+    "risposte": [
+      "Un server che traduce i nomi facili da ricordare (come 'google.com') nel corrispondente indirizzo IP",
+      "Un server che salva copie dei siti web per farli caricare più velocemente",
+      "La rubrica telefonica di internet: lui sa il numero, tu ricordi solo il nome"
+    ],
+    "corretta": 0
+  },
+  {
+    "domanda": "Come fa una VPN a nascondere il tuo traffico?",
+    "risposte": [
+      "Cancella automaticamente la cronologia di navigazione e i cookie dopo ogni sessione",
+      "Instrada il tuo traffico attraverso uno o più server intermedi, così il destinatario vede l'IP del server VPN e non il tuo",
+      "Mette un cappello invisibile sui tuoi dati così nessuno li vede passare"
+    ],
+    "corretta": 1
+  }
+]
