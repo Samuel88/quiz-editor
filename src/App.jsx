@@ -3,6 +3,7 @@ import Question from './components/Question'
 import Results from './components/Results'
 import ProgressBar from './components/ProgressBar'
 import QuizSelector from './components/QuizSelector'
+import { quizMap } from './quizzes'
 import './styles/App.css'
 
 function App() {
@@ -18,30 +19,6 @@ function App() {
   const [isCorrect, setIsCorrect] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
 
-  // Informazioni sui quiz
-  const quizInfo = {
-    css: {
-      title: 'Quiz CSS Basics',
-      subtitle: 'Metti alla prova le tue conoscenze sui fondamenti del CSS',
-      file: '/questions/css.json'
-    },
-    flex: {
-      title: 'Quiz CSS Flexbox',
-      subtitle: 'Metti alla prova le tue conoscenze su Flexbox',
-      file: '/questions/flex.json'
-    },
-    flexBasics: {
-      title: 'Quiz Flexbox Basics',
-      subtitle: 'Impara i fondamenti di Flexbox',
-      file: '/questions/flexbox-basics.json'
-    },
-    git: {
-      title: 'Quiz Git & Version Control',
-      subtitle: 'Metti alla prova le tue conoscenze su Git',
-      file: '/questions/git.json'
-    }
-  }
-
   // Caricamento domande quando viene selezionato un quiz
   useEffect(() => {
     if (!selectedQuiz) return // Non caricare se non è stato selezionato un quiz
@@ -49,7 +26,7 @@ function App() {
     const loadQuestions = async () => {
       setIsLoading(true)
       try {
-        const response = await fetch(quizInfo[selectedQuiz].file)
+        const response = await fetch(quizMap[selectedQuiz].file)
         const data = await response.json()
 
         // Shuffle delle domande per variare l'esperienza
@@ -218,8 +195,8 @@ function App() {
       <header className="quiz-header">
         <div className="header-content">
           <div>
-            <h1>{quizInfo[selectedQuiz].title}</h1>
-            <p className="subtitle">{quizInfo[selectedQuiz].subtitle}</p>
+            <h1>{quizMap[selectedQuiz].title}</h1>
+            <p className="subtitle">{quizMap[selectedQuiz].subtitle}</p>
           </div>
           <button onClick={handleChangeQuiz} className="change-quiz-button" title="Cambia Quiz">
             ← Cambia Quiz

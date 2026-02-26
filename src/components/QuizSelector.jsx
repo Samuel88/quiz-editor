@@ -1,41 +1,7 @@
+import { quizzes } from '../quizzes'
 import '../styles/QuizSelector.css'
 
 const QuizSelector = ({ onSelectQuiz }) => {
-  const quizzes = [
-    {
-      id: 'css',
-      title: 'CSS Basics',
-      description: 'Metti alla prova le tue conoscenze sui fondamenti del CSS',
-      icon: '🎨',
-      color: '#3b82f6',
-      topics: ['Selettori', 'Proprietà', 'Box Model', 'Unità di misura']
-    },
-    {
-      id: 'flex',
-      title: 'CSS Flexbox',
-      description: 'Impara e verifica la tua conoscenza di Flexbox',
-      icon: '📐',
-      color: '#8b5cf6',
-      topics: ['Flex Container', 'Flex Items', 'Alignment', 'Direction']
-    },
-    {
-      id: 'flexBasics',
-      title: 'Flexbox Basics',
-      description: 'Impara i fondamenti di Flexbox',
-      icon: '📏',
-      color: '#10b981',
-      topics: ['Main Axis', 'Cross Axis', 'Flex Container', 'Flex Items']
-    },
-    {
-      id: 'git',
-      title: 'Git & Version Control',
-      description: 'Verifica le tue competenze su Git e controllo versioni',
-      icon: '🔀',
-      color: '#f97316',
-      topics: ['Commit', 'Branch', 'Merge', 'Remote']
-    }
-  ]
-
   return (
     <div className="quiz-selector-container">
       <div className="selector-header">
@@ -55,7 +21,7 @@ const QuizSelector = ({ onSelectQuiz }) => {
           >
             <div className="quiz-card-icon">{quiz.icon}</div>
             <h2 className="quiz-card-title">{quiz.title}</h2>
-            <p className="quiz-card-description">{quiz.description}</p>
+            <p className="quiz-card-description">{quiz.subtitle}</p>
 
             <div className="quiz-topics">
               {quiz.topics.map((topic, index) => (
