@@ -1,4 +1,6 @@
 import { useState, useEffect } from 'react'
+
+const QUESTION_TIMEOUT = 60
 import Question from './components/Question'
 import Results from './components/Results'
 import ProgressBar from './components/ProgressBar'
@@ -14,7 +16,7 @@ function App() {
   const [selectedAnswer, setSelectedAnswer] = useState(null)
   const [showResult, setShowResult] = useState(false)
   const [userAnswers, setUserAnswers] = useState([])
-  const [timeLeft, setTimeLeft] = useState(30)
+  const [timeLeft, setTimeLeft] = useState(QUESTION_TIMEOUT)
   const [showFeedback, setShowFeedback] = useState(false)
   const [isCorrect, setIsCorrect] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
@@ -101,7 +103,7 @@ function App() {
       setCurrentQuestion(currentQuestion + 1)
       setSelectedAnswer(null)
       setShowFeedback(false)
-      setTimeLeft(30) // Reset timer
+      setTimeLeft(QUESTION_TIMEOUT) // Reset timer
     } else {
       setShowResult(true)
       saveScore(score + (correct ? 1 : 0), questions.length)
@@ -117,7 +119,7 @@ function App() {
     setSelectedAnswer(null)
     setShowResult(false)
     setUserAnswers([])
-    setTimeLeft(30)
+    setTimeLeft(QUESTION_TIMEOUT)
     setShowFeedback(false)
   }
 
@@ -130,7 +132,7 @@ function App() {
     setSelectedAnswer(null)
     setShowResult(false)
     setUserAnswers([])
-    setTimeLeft(30)
+    setTimeLeft(QUESTION_TIMEOUT)
     setShowFeedback(false)
   }
 
@@ -144,7 +146,7 @@ function App() {
     setSelectedAnswer(null)
     setShowResult(false)
     setUserAnswers([])
-    setTimeLeft(30)
+    setTimeLeft(QUESTION_TIMEOUT)
     setShowFeedback(false)
   }
 
