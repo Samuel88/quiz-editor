@@ -1,5 +1,14 @@
 export const quizzes = [
   {
+    id: 'html',
+    title: 'Quiz HTML Basics',
+    subtitle: "Metti alla prova le tue conoscenze sulle basi dell'HTML",
+    file: '/questions/html.json',
+    icon: '🏗️',
+    color: '#e44d26',
+    topics: ['Tag', 'Attributi', 'Semantica', 'Link', 'Tabelle', 'Liste']
+  },
+  {
     id: 'intro',
     title: 'Quiz Intro Corso Web Development',
     subtitle: 'Metti alla prova le tue conoscenze sui concetti base del web development',

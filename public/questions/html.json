@@ -1,0 +1,119 @@
+[
+  {
+    "domanda": "Che cosa si intende per HTML e perché non è considerato un linguaggio di programmazione?",
+    "risposte": [
+      "HTML (HyperText Markup Language) è un linguaggio di marcatura che descrive la struttura di una pagina web tramite tag. Non è un linguaggio di programmazione perché non ha istruzioni logiche come cicli o condizioni: si limita a descrivere come organizzare il contenuto.",
+      "HTML è così avanzato che si programma da solo. Non è considerato un linguaggio di programmazione solo perché i veri programmatori lo reputano troppo semplice per loro.",
+      "HTML è un linguaggio di scripting eseguito lato server. Non è considerato un linguaggio di programmazione completo perché manca di un compilatore che trasformi il codice in istruzioni eseguibili dalla macchina."
+    ],
+    "corretta": 0
+  },
+  {
+    "domanda": "Qual è il ruolo del browser nell'interpretazione di HTML, CSS e JavaScript?",
+    "risposte": [
+      "Il browser è un traduttore universale che prende il codice dei programmatori e lo converte in qualcosa di comprensibile. Tecnicamente 'renderizza', ma in pratica compie miracoli quotidiani.",
+      "Il browser riceve i file HTML, CSS e JavaScript e li interpreta per mostrare la pagina all'utente: HTML definisce la struttura, CSS l'aspetto visivo e JavaScript il comportamento interattivo. Questo processo si chiama 'rendering'.",
+      "Il browser invia il codice HTML e CSS a un server che li compila e restituisce la pagina già pronta. JavaScript invece viene eseguito direttamente nel browser senza passare dal server."
+    ],
+    "corretta": 1
+  },
+  {
+    "domanda": "Qual è la struttura minima di un documento HTML e a cosa servono i tag <html>, <head> e <body>?",
+    "risposte": [
+      "Il documento HTML minimo è una pagina bianca con scritto 'Hello World'. Il browser indovina il resto da solo grazie all'intelligenza artificiale integrata.",
+      "Un documento HTML minimo deve avere <html>, <body> e almeno un tag <p>. Il tag <head> è opzionale e serve solo per inserire immagini e link.",
+      "Un documento HTML minimo contiene: <!DOCTYPE html> per dichiarare il tipo, <html> che racchiude tutto, <head> con informazioni non visibili (titolo, metadati, CSS) e <body> con tutto il contenuto visibile nella pagina."
+    ],
+    "corretta": 2
+  },
+  {
+    "domanda": "Che differenza c'è tra tag di tipo block-level e inline? Fai almeno un esempio per ciascuno.",
+    "risposte": [
+      "I tag block-level (come <div> e <p>) occupano tutta la larghezza disponibile e iniziano sempre su una nuova riga. I tag inline (come <span> e <a>) occupano solo lo spazio del loro contenuto e si dispongono nella stessa riga del testo circostante.",
+      "I tag block-level hanno priorità di caricamento alta e vengono mostrati per primi dal browser. I tag inline (come <img>) vengono caricati solo quando l'utente scorre la pagina fino a vederli.",
+      "I tag block-level sono i più prepotenti: occupano tutto lo spazio disponibile anche se non ne hanno bisogno. I tag inline invece sono i timidi della situazione: stanno buoni in fila senza disturbare nessuno."
+    ],
+    "corretta": 0
+  },
+  {
+    "domanda": "Che differenza c'è tra tag con apertura/chiusura e tag self-closing? Elenca almeno due self-closing comuni.",
+    "risposte": [
+      "I tag con apertura/chiusura appartengono all'HTML4, mentre i self-closing sono stati introdotti in HTML5. Esempi self-closing: <video> e <audio>, perché il contenuto viene caricato da fonti esterne.",
+      "I tag con apertura/chiusura racchiudono del contenuto tra <tag> e </tag> (es: <p>testo</p>). I tag self-closing non hanno contenuto da racchiudere e si chiudono da soli (es: <img> per le immagini, <br> per andare a capo).",
+      "I tag self-closing sono quelli che hanno già imparato a cavarsela da soli senza aspettare il tag di chiusura, come quei bambini prodigio che si allacciano le scarpe già a sei mesi."
+    ],
+    "corretta": 1
+  },
+  {
+    "domanda": "A cosa servono i commenti in HTML e qual è la sintassi corretta per scriverli?",
+    "risposte": [
+      "I commenti in HTML servono per sfogare la frustrazione del programmatore. La sintassi corretta è <!-- perché non funziona niente --> e il browser li ignora diplomaticamente.",
+      "I commenti si scrivono con // commento oppure /* commento */ come in altri linguaggi. Servono a disabilitare temporaneamente parti di codice e vengono visualizzati solo in modalità sviluppatore.",
+      "I commenti servono a inserire note nel codice che il browser non mostra all'utente, utili per spiegare il codice a se stessi o ad altri sviluppatori. La sintassi corretta è <!-- testo del commento -->."
+    ],
+    "corretta": 2
+  },
+  {
+    "domanda": "Quali sono alcuni tag 'comuni' per testi e liste (titoli, paragrafi, liste ordinate e non ordinate)?",
+    "risposte": [
+      "Per i titoli si usano <h1>...<h6> (dal più grande al più piccolo), <p> per i paragrafi. Per le liste: <ul> per liste non ordinate (con pallini), <ol> per liste ordinate (con numeri), e <li> per ogni elemento della lista.",
+      "Per i titoli si usa <title>, per i paragrafi <text> e per le liste <list> con elementi <item>. Questi sono i tag standard definiti dalla specifica HTML.",
+      "Per scrivere testo grande si usa <big>, per i titoli <heading> e per le liste <bullets> con elementi <point>. Questi tag funzionano su tutti i browser moderni."
+    ],
+    "corretta": 0
+  },
+  {
+    "domanda": "Quando ha senso usare <div> e <span> e perché vengono definiti tag 'non semantici'?",
+    "risposte": [
+      "<div> e <span> sono deprecati in HTML5 e andrebbero sostituiti con tag semantici. Vengono ancora usati solo per compatibilità con Internet Explorer e browser molto vecchi.",
+      "<div> è un contenitore block-level per raggruppare elementi e creare sezioni. <span> è un contenitore inline per stilizzare parti di testo. Sono 'non semantici' perché non descrivono il significato del contenuto, ma solo la sua struttura o stile.",
+      "<div> si usa quando non si sa cosa mettere e si ha bisogno di un contenitore generico, <span> quando <div> sembra esagerato. Sono 'non semantici' perché nemmeno loro sanno bene cosa vogliono fare nella vita."
+    ],
+    "corretta": 1
+  },
+  {
+    "domanda": "Che cosa sono i tag semantici di HTML5 e quali vantaggi portano rispetto all'uso di soli <div>?",
+    "risposte": [
+      "I tag semantici di HTML5 sono tag con nomi più lunghi di <div> inventati per far sembrare il codice più intelligente. In realtà fanno esattamente la stessa cosa, ma il programmatore si sente superiore.",
+      "I tag semantici come <header> e <footer> applicano automaticamente degli stili grafici predefiniti senza CSS. Questo è il loro principale vantaggio rispetto ai <div>.",
+      "I tag semantici di HTML5 (<header>, <nav>, <main>, <article>, <section>, <footer>) descrivono il significato del contenuto che racchiudono. Rispetto ai soli <div>, migliorano la leggibilità del codice, aiutano i motori di ricerca e migliorano l'accessibilità per lettori di schermo."
+    ],
+    "corretta": 2
+  },
+  {
+    "domanda": "Che cosa sono gli attributi HTML e qual è la loro sintassi generale (nome=\"valore\")?",
+    "risposte": [
+      "Gli attributi forniscono informazioni aggiuntive su un elemento HTML. Si scrivono all'interno del tag di apertura con la sintassi nome=\"valore\" (es: <img src=\"foto.jpg\" alt=\"Una foto\">). Un elemento può avere più attributi separati da spazi.",
+      "Gli attributi sono le caratteristiche personali dei tag, come nel profilo di un social network. Sintassi: nome=\"valore\", ad esempio <div umore=\"stanco\" caffè=\"necessario\">. Il browser li legge con grande rispetto.",
+      "Gli attributi si scrivono nel tag di chiusura con la sintassi </tag attributo=\"valore\">. Ogni tag può avere al massimo un attributo per non appesantire il rendering della pagina."
+    ],
+    "corretta": 0
+  },
+  {
+    "domanda": "A cosa serve l'attributo class e in quali casi tipici viene usato (CSS e JavaScript)?",
+    "risposte": [
+      "L'attributo class funziona solo in CSS e non in JavaScript. Per selezionare elementi in JavaScript bisogna usare esclusivamente l'attributo id.",
+      "L'attributo class assegna un nome a uno o più elementi HTML. In CSS si usa per applicare stili con il selettore .nomeclasse. In JavaScript si usa per selezionare elementi con document.querySelectorAll('.nomeclasse'). Più elementi possono condividere la stessa classe.",
+      "L'attributo class serve per far sentire i tag HTML importanti, come se frequentassero una scuola esclusiva. In CSS si usa con il punto davanti (.vip) per trattarli in modo speciale rispetto agli altri tag comuni."
+    ],
+    "corretta": 1
+  },
+  {
+    "domanda": "Come si crea un link con <a> e href e qual è la differenza concettuale tra <a> e <button>?",
+    "risposte": [
+      "Un link si crea con <link href=\"URL\">testo</link>. La differenza tra <a> e <button> è solo visiva: <button> ha un bordo, <a> appare sottolineato, ma entrambi possono fare esattamente le stesse cose.",
+      "Un link si crea con <a href=\"URL-speranza\">Clicca qui</a>. La differenza è che <a> ti porta da qualche parte, mentre <button> fa finta di fare qualcosa ma poi non succede nulla a meno di non aggiungere JavaScript.",
+      "Un link si crea con <a href=\"URL\">testo cliccabile</a>. <a> serve per navigare verso un'altra pagina o risorsa. <button> serve per attivare un'azione nella pagina corrente. Hanno significati semantici diversi, anche se visivamente possono sembrare simili."
+    ],
+    "corretta": 2
+  },
+  {
+    "domanda": "Come si costruisce una tabella HTML (table, thead, tbody, tfoot, tr, th, td) e qual è la 'regola d'oro' sul loro utilizzo?",
+    "risposte": [
+      "Una tabella HTML si costruisce con <table>, <thead> per l'intestazione, <tbody> per i dati, <tr> per le righe, <th> per le celle intestazione e <td> per le celle dati. La regola d'oro: usare le tabelle solo per dati tabulari, mai per costruire il layout grafico della pagina.",
+      "Una tabella si costruisce con <row> per le righe e <cell> per le celle dentro <table>. Il tag <tbody> è opzionale perché il browser lo aggiunge automaticamente, quindi non è necessario scriverlo nel codice.",
+      "Una tabella si costruisce con <table> e poi si aggiungono righe finché il cliente non chiede 'ma perché non usi Excel?'. La regola d'oro è: se hai dubbi, fai la tabella lo stesso, tanto il browser sistema tutto da solo."
+    ],
+    "corretta": 0
+  }
+]
