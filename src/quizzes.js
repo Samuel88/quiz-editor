@@ -52,6 +52,15 @@ export const quizzes = [
     icon: '🔀',
     color: '#f97316',
     topics: ['Commit', 'Branch', 'Merge', 'Remote']
+  },
+  {
+    id: 'javascript',
+    title: 'Quiz React useState',
+    subtitle: 'Metti alla prova le tue conoscenze sugli stati in React',
+    file: '/questions/react-usestate.json',
+    icon: '⚛️',
+    color: '#06b6d4',
+    topics: ['useState', 'Re-render', 'Immutabilità', 'Array', 'Oggetti']
   }
 ]
 
