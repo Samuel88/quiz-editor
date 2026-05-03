@@ -52,6 +52,15 @@ export const quizzes = [
     icon: '🔀',
     color: '#f97316',
     topics: ['Commit', 'Branch', 'Merge', 'Remote']
+  },
+  {
+    id: 'javascript',
+    title: 'Quiz JavaScript Basics',
+    subtitle: 'Metti alla prova le tue conoscenze sui fondamenti di JavaScript',
+    file: '/questions/javascript.json',
+    icon: '⚡',
+    color: '#eab308',
+    topics: ['Variabili', 'Funzioni', 'Array', 'DOM', 'Operatori', 'Callback']
   }
 ]
 
