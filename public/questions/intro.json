@@ -6,7 +6,8 @@
       "Uno sviluppatore che gestisce la logica del server e i database",
       "Chi sceglie i colori del caffè aziendale"
     ],
-    "corretta": 0
+    "corretta": 0,
+    "spiegazione": "Il Frontend Developer lavora su tutto ciò che l'utente vede e con cui interagisce: layout, animazioni, pulsanti, form. Gli strumenti principali sono HTML (struttura), CSS (stile) e JavaScript (comportamento). Spesso usa framework come React, Vue o Angular."
   },
   {
     "domanda": "Chi è un Backend Developer?",
@@ -15,7 +16,8 @@
       "Uno sviluppatore che si occupa della logica nascosta dietro un sito web (server, database)",
       "Chi lavora sempre con le cuffie e risponde solo agli errori del server"
     ],
-    "corretta": 1
+    "corretta": 1,
+    "spiegazione": "Il Backend Developer gestisce la logica lato server: autenticazione degli utenti, salvataggio dei dati nel database, elaborazione delle richieste e invio delle risposte al frontend. Usa linguaggi come Node.js, Python, Java o PHP e database come PostgreSQL o MongoDB."
   },
   {
     "domanda": "Che cos'è un server?",
@@ -24,7 +26,8 @@
       "Il cameriere digitale che porta i dati al tavolo",
       "Un computer sempre acceso, raggiungibile via rete, con un programma per rispondere alle richieste degli utenti"
     ],
-    "corretta": 2
+    "corretta": 2,
+    "spiegazione": "Un server è un computer (o più spesso un programma su un computer) che resta in ascolto di richieste in arrivo dalla rete e risponde con dati — ad esempio le pagine HTML di un sito. Il termine indica sia il <em>software</em> (es. Apache, Nginx) che l'<em>hardware</em> che lo ospita."
   },
   {
     "domanda": "Il tuo pc può essere un server?",
@@ -33,7 +36,8 @@
       "No, solo macchine con hardware certificato possono essere server",
       "Solo se lo lasci acceso tutta la notte e non ci giochi"
     ],
-    "corretta": 0
+    "corretta": 0,
+    "spiegazione": "Sì, basta installare un software server (come Node.js, Apache o Nginx). Durante lo sviluppo si usa proprio il proprio PC come server locale (es. <code>localhost:3000</code>). La differenza con un server professionale è la disponibilità 24/7, la potenza e la connessione internet stabile."
   },
   {
     "domanda": "Che cos'è il \"cloud\"?",
@@ -42,7 +46,8 @@
       "Un insieme di computer sempre accesi, fisicamente presenti in data center nel mondo, accessibili via internet",
       "Una nuvola magica dove i tuoi dati fluttuano liberi nell'aria"
     ],
-    "corretta": 1
+    "corretta": 1,
+    "spiegazione": "Il cloud è fisicamente reale: esistono enormi data center di Amazon (AWS), Google (GCP) e Microsoft (Azure) sparsi per il mondo. Il vantaggio è che paghi solo le risorse che usi e puoi scalare in pochi secondi, senza comprare hardware fisico."
   },
   {
     "domanda": "Che cos'è un indirizzo IP?",
@@ -51,7 +56,8 @@
       "Il nome scelto dall'utente per identificare il proprio computer sulla rete",
       "Un numero univoco che identifica ogni dispositivo in rete — è più facile ricordare 'google.com' che il suo IP '142.250.180.46'"
     ],
-    "corretta": 2
+    "corretta": 2,
+    "spiegazione": "Un indirizzo IP (es. <code>192.168.1.1</code> in IPv4 o <code>2001:db8::1</code> in IPv6) identifica in modo univoco un dispositivo su una rete, come un indirizzo postale. Ogni richiesta internet contiene l'IP del mittente e del destinatario per sapere dove inviare i dati."
   },
   {
     "domanda": "Che cos'è un server DNS?",
@@ -60,7 +66,8 @@
       "Un server che salva copie dei siti web per farli caricare più velocemente",
       "La rubrica telefonica di internet: lui sa il numero, tu ricordi solo il nome"
     ],
-    "corretta": 0
+    "corretta": 0,
+    "spiegazione": "DNS (Domain Name System) funziona come una rubrica: quando digiti <code>google.com</code>, il tuo browser chiede a un server DNS l'indirizzo IP corrispondente (es. <code>142.250.180.46</code>) e poi si connette a quell'IP. Senza DNS dovresti ricordare l'IP di ogni sito."
   },
   {
     "domanda": "Come fa una VPN a nascondere il tuo traffico?",
@@ -69,6 +76,7 @@
       "Instrada il tuo traffico attraverso uno o più server intermedi, così il destinatario vede l'IP del server VPN e non il tuo",
       "Mette un cappello invisibile sui tuoi dati così nessuno li vede passare"
     ],
-    "corretta": 1
+    "corretta": 1,
+    "spiegazione": "Con una VPN il tuo dispositivo crea un <em>tunnel cifrato</em> verso un server VPN. Tutto il traffico esce da quel server: i siti vedono l'IP del server VPN, non il tuo. Questo nasconde la tua posizione geografica e protegge i dati su reti Wi-Fi pubbliche non sicure."
   }
 ]

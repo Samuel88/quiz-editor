@@ -1,92 +1,102 @@
 [
-    {
-        "domanda": "Cosa significa la proprietà 'display: flex' in CSS?",
-        "risposte": [
-            "Crea un contenitore flex che dispone i suoi figli secondo le regole di Flexbox",
-            "Rende gli elementi trasparenti e flessibili",
-            "Aggiunge un bordo dinamico al contenitore"
-        ],
-        "corretta": 0
-    },
-    {
-        "domanda": "Qual è il valore di default di flex-direction?",
-        "risposte": [
-            "row",
-            "column",
-            "row-reverse"
-        ],
-        "corretta": 0
-    },
-    {
-        "domanda": "Quale proprietà serve per centrare gli elementi lungo l'asse principale?",
-        "risposte": [
-            "align-items",
-            "justify-content",
-            "align-content"
-        ],
-        "corretta": 1
-    },
-    {
-        "domanda": "Quale proprietà permette agli elementi di andare a capo su più righe?",
-        "risposte": [
-            "flex-wrap",
-            "flex-grow",
-            "flex-direction"
-        ],
-        "corretta": 0
-    },
-    {
-        "domanda": "La shorthand 'flex: 1' corrisponde a quale combinazione?",
-        "risposte": [
-            "flex-grow: 1; flex-shrink: 1; flex-basis: 0%;",
-            "flex-grow: 0; flex-shrink: 1; flex-basis: auto;",
-            "flex-grow: 1; flex-shrink: 0; flex-basis: 100%;"
-        ],
-        "corretta": 0
-    },
-    {
-        "domanda": "Quando si usa align-content invece di align-items?",
-        "risposte": [
-            "Quando ci sono più righe/colonne (flex-wrap attivo)",
-            "Per allineare singoli elementi",
-            "Solo con flex-direction: column"
-        ],
-        "corretta": 0
-    },
-    {
-        "domanda": "Quale proprietà cambia l'ordine visivo di un elemento senza modificare l'HTML?",
-        "risposte": [
-            "order",
-            "flex-basis",
-            "z-index"
-        ],
-        "corretta": 0
-    },
-    {
-        "domanda": "Come si centra completamente un elemento in un contenitore flex?",
-        "risposte": [
-            "justify-content: center; align-items: center;",
-            "align-content: center; flex-wrap: wrap;",
-            "flex-direction: column; order: 1;"
-        ],
-        "corretta": 0
-    },
-    {
-        "domanda": "Cosa indica flex-basis: 200px?",
-        "risposte": [
-            "La dimensione iniziale dell'elemento prima della distribuzione dello spazio",
-            "La dimensione minima che l'elemento può assumere",
-            "La distanza dall'elemento precedente"
-        ],
-        "corretta": 0
-    },
-    {
-        "domanda": "Quale valore di justify-content distribuisce lo spazio equamente tra gli elementi?",
-        "risposte": [
-            "space-between",
-            "space-around",
-            "space-evenly"
-        ],
-        "corretta": 2
-    }
+  {
+    "domanda": "Cosa significa la proprietà 'display: flex' in CSS?",
+    "risposte": [
+      "Crea un contenitore flex che dispone i suoi figli secondo le regole di Flexbox",
+      "Rende gli elementi trasparenti e flessibili",
+      "Aggiunge un bordo dinamico al contenitore"
+    ],
+    "corretta": 0,
+    "spiegazione": "Applicando <code>display: flex</code> a un elemento lo si rende un <em>flex container</em>: i suoi figli diretti diventano automaticamente <em>flex item</em> e vengono disposti in riga (per default) secondo le regole di Flexbox, senza dover usare float o position."
+  },
+  {
+    "domanda": "Qual è il valore di default di flex-direction?",
+    "risposte": [
+      "row",
+      "column",
+      "row-reverse"
+    ],
+    "corretta": 0,
+    "spiegazione": "Il valore predefinito è <code>row</code>: gli elementi flex vengono disposti in orizzontale, da sinistra a destra. Per disporli in verticale si usa <code>flex-direction: column</code>."
+  },
+  {
+    "domanda": "Quale proprietà serve per centrare gli elementi lungo l'asse principale?",
+    "risposte": [
+      "align-items",
+      "justify-content",
+      "align-content"
+    ],
+    "corretta": 1,
+    "spiegazione": "<code>justify-content</code> agisce sull'<em>asse principale</em> (orizzontale con <code>row</code>, verticale con <code>column</code>). Per centrare: <code>justify-content: center</code>. <code>align-items</code> invece agisce sull'asse trasversale."
+  },
+  {
+    "domanda": "Quale proprietà permette agli elementi di andare a capo su più righe?",
+    "risposte": [
+      "flex-wrap",
+      "flex-grow",
+      "flex-direction"
+    ],
+    "corretta": 0,
+    "spiegazione": "Per default i flex item cercano di stare tutti su una riga. Con <code>flex-wrap: wrap</code> si permette loro di andare a capo quando non c'è più spazio, creando più righe (o colonne con <code>flex-direction: column</code>)."
+  },
+  {
+    "domanda": "La shorthand 'flex: 1' corrisponde a quale combinazione?",
+    "risposte": [
+      "flex-grow: 1; flex-shrink: 1; flex-basis: 0%;",
+      "flex-grow: 0; flex-shrink: 1; flex-basis: auto;",
+      "flex-grow: 1; flex-shrink: 0; flex-basis: 100%;"
+    ],
+    "corretta": 0,
+    "spiegazione": "<code>flex: 1</code> è una shorthand che imposta <code>flex-grow: 1</code> (può crescere), <code>flex-shrink: 1</code> (può ridursi) e <code>flex-basis: 0%</code> (parte da zero). Assegnare <code>flex: 1</code> a tutti i figli li fa occupare lo spazio in parti uguali."
+  },
+  {
+    "domanda": "Quando si usa align-content invece di align-items?",
+    "risposte": [
+      "Quando ci sono più righe/colonne (flex-wrap attivo)",
+      "Per allineare singoli elementi",
+      "Solo con flex-direction: column"
+    ],
+    "corretta": 0,
+    "spiegazione": "<code>align-items</code> allinea gli elementi <em>dentro</em> ogni riga. <code>align-content</code> invece distribuisce lo spazio <em>tra le righe stesse</em>, quindi ha effetto solo quando <code>flex-wrap: wrap</code> crea righe multiple."
+  },
+  {
+    "domanda": "Quale proprietà cambia l'ordine visivo di un elemento senza modificare l'HTML?",
+    "risposte": [
+      "order",
+      "flex-basis",
+      "z-index"
+    ],
+    "corretta": 0,
+    "spiegazione": "La proprietà <code>order</code> accetta un numero intero (default: 0). Gli elementi vengono visualizzati in ordine crescente di <code>order</code>, indipendentemente dalla loro posizione nel DOM. Esempio: <code>order: -1</code> sposta un elemento all'inizio."
+  },
+  {
+    "domanda": "Come si centra completamente un elemento in un contenitore flex?",
+    "risposte": [
+      "justify-content: center; align-items: center;",
+      "align-content: center; flex-wrap: wrap;",
+      "flex-direction: column; order: 1;"
+    ],
+    "corretta": 0,
+    "spiegazione": "Per centrare sia orizzontalmente che verticalmente servono entrambe le proprietà: <code>justify-content: center</code> centra sull'asse principale e <code>align-items: center</code> sull'asse trasversale. È uno dei pattern più usati con Flexbox."
+  },
+  {
+    "domanda": "Cosa indica flex-basis: 200px?",
+    "risposte": [
+      "La dimensione iniziale dell'elemento prima della distribuzione dello spazio",
+      "La dimensione minima che l'elemento può assumere",
+      "La distanza dall'elemento precedente"
+    ],
+    "corretta": 0,
+    "spiegazione": "<code>flex-basis</code> definisce la dimensione di partenza di un flex item sull'asse principale, <em>prima</em> che <code>flex-grow</code> e <code>flex-shrink</code> distribuiscano lo spazio libero o riducano. Con <code>flex-basis: 200px</code> l'elemento parte da 200px e poi cresce/si riduce in base allo spazio disponibile."
+  },
+  {
+    "domanda": "Quale valore di justify-content distribuisce lo spazio equamente tra gli elementi?",
+    "risposte": [
+      "space-between",
+      "space-around",
+      "space-evenly"
+    ],
+    "corretta": 2,
+    "spiegazione": "<code>space-evenly</code> mette esattamente lo stesso spazio tra tutti gli elementi <em>e</em> ai bordi. <code>space-between</code> non mette spazio ai bordi. <code>space-around</code> mette metà spazio ai bordi rispetto all'interno, risultando in spazi visivamente diseguali agli estremi."
+  }
 ]
