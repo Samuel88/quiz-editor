@@ -2,54 +2,54 @@
   {
     "domanda": "Che cos'è `useState` in React?",
     "risposte": [
-      "Un hook che permette a un componente di memorizzare un valore che, quando cambia, causa il re-render del componente",
       "Un modo per salvare dati in localStorage automaticamente",
+      "Un hook che permette a un componente di memorizzare un valore che, quando cambia, causa il re-render del componente",
       "Una funzione che esegue codice ogni volta che il componente viene montato"
     ],
-    "corretta": 0
+    "corretta": 1
   },
   {
     "domanda": "Quando viene aggiornata una variabile di stato?",
     "risposte": [
-      "Non immediatamente: React pianifica l'aggiornamento e lo applica al prossimo re-render",
+      "Solo quando l'utente interagisce con la pagina",
       "Subito, nel momento in cui chiami la funzione setter",
-      "Solo quando l'utente interagisce con la pagina"
+      "Non immediatamente: React pianifica l'aggiornamento e lo applica al prossimo re-render"
     ],
-    "corretta": 0
+    "corretta": 2
   },
   {
     "domanda": "Cosa provoca l'aggiornamento di uno stato in React?",
     "risposte": [
-      "Il re-render del componente: React riesegue la funzione del componente con il nuovo valore",
       "Il salvataggio automatico dei dati nel database",
+      "Il re-render del componente: React riesegue la funzione del componente con il nuovo valore",
       "La ricarica completa della pagina nel browser"
     ],
-    "corretta": 0
+    "corretta": 1
   },
   {
     "domanda": "Che cos'è un re-render in React?",
     "risposte": [
       "La riesecuzione della funzione del componente per aggiornare l'interfaccia con i nuovi valori di stato",
-      "Il ricaricamento dell'intera applicazione dal server",
-      "L'aggiornamento del CSS della pagina"
+      "L'aggiornamento del CSS della pagina",
+      "Il ricaricamento dell'intera applicazione dal server"
     ],
     "corretta": 0
   },
   {
     "domanda": "Qual è la differenza tra `array.push('pikachu')` e `[...array, 'pikachu']` in JavaScript?",
     "risposte": [
-      "`push` modifica l'array originale (mutazione), mentre lo spread operator crea un nuovo array lasciando intatto l'originale",
+      "Lo spread operator modifica l'array originale, `push` crea uno nuovo",
       "Non c'è differenza, producono lo stesso risultato",
-      "Lo spread operator modifica l'array originale, `push` crea uno nuovo"
+      "`push` modifica l'array originale (mutazione), mentre lo spread operator crea un nuovo array lasciando intatto l'originale"
     ],
-    "corretta": 0
+    "corretta": 2
   },
   {
     "domanda": "Qual è la differenza tra `obj.speed = 10` e `{ ...obj, speed: 10 }` in JavaScript?",
     "risposte": [
       "`obj.speed = 10` modifica l'oggetto esistente (mutazione), mentre lo spread crea un nuovo oggetto con la proprietà aggiornata",
-      "Sono equivalenti, entrambi creano un nuovo oggetto",
-      "`{ ...obj, speed: 10 }` modifica l'oggetto originale sovrascrivendo la proprietà"
+      "`{ ...obj, speed: 10 }` modifica l'oggetto originale sovrascrivendo la proprietà",
+      "Sono equivalenti, entrambi creano un nuovo oggetto"
     ],
     "corretta": 0
   },
@@ -65,20 +65,20 @@
   {
     "domanda": "Hai questo stato: `const [pokemon, setPokemon] = useState(['bulbasaur', 'charmander'])`. Come aggiungi `'squirtle'` correttamente?",
     "risposte": [
-      "`setPokemon([...pokemon, 'squirtle'])`",
       "`pokemon.push('squirtle')`",
-      "`setPokemon(pokemon.push('squirtle'))`"
+      "`setPokemon(pokemon.push('squirtle'))`",
+      "`setPokemon([...pokemon, 'squirtle'])`"
     ],
-    "corretta": 0
+    "corretta": 2
   },
   {
     "domanda": "Hai questo stato: `const [player, setPlayer] = useState({ name: 'Ash', level: 1 })`. Come aggiorni correttamente solo `level` a `2`?",
     "risposte": [
+      "`setPlayer({ level: 2 })`",
       "`setPlayer({ ...player, level: 2 })`",
-      "`player.level = 2`",
-      "`setPlayer({ level: 2 })`"
+      "`player.level = 2`"
     ],
-    "corretta": 0
+    "corretta": 1
   },
   {
     "domanda": "Cosa succede se chiami `setCount(count + 1)` tre volte di fila nello stesso evento?",
