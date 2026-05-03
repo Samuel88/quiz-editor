@@ -6,7 +6,8 @@
       "Un hook che permette a un componente di memorizzare un valore che, quando cambia, causa il re-render del componente",
       "Una funzione che esegue codice ogni volta che il componente viene montato"
     ],
-    "corretta": 1
+    "corretta": 1,
+    "spiegazione": "<code>useState</code> è un hook di React che aggiunge uno stato locale a un componente funzionale. Esempio: <code>const [count, setCount] = useState(0)</code> crea una variabile <code>count</code> con valore iniziale 0 e una funzione <code>setCount</code> per aggiornarla. Ogni volta che lo stato cambia, React ri-renderizza il componente."
   },
   {
     "domanda": "Quando viene aggiornata una variabile di stato?",
@@ -15,7 +16,8 @@
       "Subito, nel momento in cui chiami la funzione setter",
       "Non immediatamente: React pianifica l'aggiornamento e lo applica al prossimo re-render"
     ],
-    "corretta": 2
+    "corretta": 2,
+    "spiegazione": "Chiamare <code>setCount(5)</code> non modifica <code>count</code> subito: React mette l'aggiornamento in coda (<em>batching</em>) e lo applica al prossimo ciclo di rendering. Nella stessa funzione, <code>count</code> ha ancora il vecchio valore. Il nuovo valore è disponibile solo al re-render successivo."
   },
   {
     "domanda": "Cosa provoca l'aggiornamento di uno stato in React?",
@@ -24,7 +26,8 @@
       "Il re-render del componente: React riesegue la funzione del componente con il nuovo valore",
       "La ricarica completa della pagina nel browser"
     ],
-    "corretta": 1
+    "corretta": 1,
+    "spiegazione": "Quando chiami la funzione setter di <code>useState</code>, React schedula un re-render: la funzione del componente viene rieseguita dall'inizio, questa volta con il nuovo valore di stato. Solo la parte del DOM che è cambiata viene effettivamente aggiornata nel browser (grazie al Virtual DOM)."
   },
   {
     "domanda": "Che cos'è un re-render in React?",
@@ -33,7 +36,8 @@
       "L'aggiornamento del CSS della pagina",
       "Il ricaricamento dell'intera applicazione dal server"
     ],
-    "corretta": 0
+    "corretta": 0,
+    "spiegazione": "Quando React fa un re-render, chiama di nuovo la funzione del componente. Il risultato (JSX) viene confrontato con il DOM precedente tramite il <em>diffing</em> del Virtual DOM: solo le differenze effettive vengono applicate al DOM reale, rendendo il processo molto efficiente."
   },
   {
     "domanda": "Qual è la differenza tra `array.push('pikachu')` e `[...array, 'pikachu']` in JavaScript?",
@@ -42,7 +46,8 @@
       "Non c'è differenza, producono lo stesso risultato",
       "`push` modifica l'array originale (mutazione), mentre lo spread operator crea un nuovo array lasciando intatto l'originale"
     ],
-    "corretta": 2
+    "corretta": 2,
+    "spiegazione": "React rileva i cambiamenti di stato confrontando i riferimenti. Con <code>push</code> l'array è lo stesso oggetto in memoria: React non vede alcun cambiamento e non re-renderizza. Con <code>[...array, 'pikachu']</code> si crea un <em>nuovo</em> array: React lo riconosce come un nuovo valore e aggiorna il componente."
   },
   {
     "domanda": "Qual è la differenza tra `obj.speed = 10` e `{ ...obj, speed: 10 }` in JavaScript?",
@@ -51,7 +56,8 @@
       "`{ ...obj, speed: 10 }` modifica l'oggetto originale sovrascrivendo la proprietà",
       "Sono equivalenti, entrambi creano un nuovo oggetto"
     ],
-    "corretta": 0
+    "corretta": 0,
+    "spiegazione": "<code>obj.speed = 10</code> muta l'oggetto originale: il riferimento in memoria è lo stesso, quindi <code>setPlayer(obj)</code> non causerebbe un re-render. <code>{ ...obj, speed: 10 }</code> crea un oggetto completamente nuovo con tutte le proprietà copiate e <code>speed</code> sovrascritta: React lo riconosce come un cambiamento."
   },
   {
     "domanda": "Quale tra questi aggiorna correttamente una variabile di stato?\n`const [count, setCount] = useState(0)`",
@@ -60,7 +66,8 @@
       "`count = count + 1`",
       "`useState(count + 1)`"
     ],
-    "corretta": 0
+    "corretta": 0,
+    "spiegazione": "L'unico modo per aggiornare lo stato è la funzione setter restituita da <code>useState</code>. <code>count = count + 1</code> è una mutazione diretta: React non ne è a conoscenza e non re-renderizza. <code>useState(count + 1)</code> creerebbe uno stato completamente nuovo, il che non ha senso."
   },
   {
     "domanda": "Hai questo stato: `const [pokemon, setPokemon] = useState(['bulbasaur', 'charmander'])`. Come aggiungi `'squirtle'` correttamente?",
@@ -69,7 +76,8 @@
       "`setPokemon(pokemon.push('squirtle'))`",
       "`setPokemon([...pokemon, 'squirtle'])`"
     ],
-    "corretta": 2
+    "corretta": 2,
+    "spiegazione": "<code>[...pokemon, 'squirtle']</code> crea un nuovo array con tutti gli elementi esistenti più <code>'squirtle'</code> in fondo. <code>pokemon.push()</code> muta l'array originale (e restituisce la nuova lunghezza, non l'array). <code>setPokemon(pokemon.push(...))</code> passerebbe un numero invece di un array."
   },
   {
     "domanda": "Hai questo stato: `const [player, setPlayer] = useState({ name: 'Ash', level: 1 })`. Come aggiorni correttamente solo `level` a `2`?",
@@ -78,7 +86,8 @@
       "`setPlayer({ ...player, level: 2 })`",
       "`player.level = 2`"
     ],
-    "corretta": 1
+    "corretta": 1,
+    "spiegazione": "<code>{ ...player, level: 2 }</code> copia tutte le proprietà di <code>player</code> (incluso <code>name: 'Ash'</code>) e poi sovrascrive solo <code>level</code> con il nuovo valore. <code>setPlayer({ level: 2 })</code> eliminerebbe la proprietà <code>name</code>. <code>player.level = 2</code> è una mutazione diretta che React non rileva."
   },
   {
     "domanda": "Cosa succede se chiami `setCount(count + 1)` tre volte di fila nello stesso evento?",
@@ -87,6 +96,7 @@
       "Lo stato viene incrementato di 3",
       "React lancia un errore perché non si può chiamare il setter più volte"
     ],
-    "corretta": 0
+    "corretta": 0,
+    "spiegazione": "Poiché <code>count</code> non cambia durante la stessa esecuzione, tutte e tre le chiamate calcolano lo stesso valore (<code>0 + 1 = 1</code>). Per incrementare davvero di 3, bisogna usare la forma funzionale: <code>setCount(prev => prev + 1)</code> tre volte, che usa ogni volta il valore aggiornato."
   }
 ]
