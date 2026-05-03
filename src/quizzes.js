@@ -55,12 +55,12 @@ export const quizzes = [
   },
   {
     id: 'javascript',
-    title: 'Quiz JavaScript Basics',
-    subtitle: 'Metti alla prova le tue conoscenze sui fondamenti di JavaScript',
+    title: 'Quiz React useState',
+    subtitle: 'Metti alla prova le tue conoscenze sugli stati in React',
     file: '/questions/javascript.json',
-    icon: '⚡',
-    color: '#eab308',
-    topics: ['Variabili', 'Funzioni', 'Array', 'DOM', 'Operatori', 'Callback']
+    icon: '⚛️',
+    color: '#06b6d4',
+    topics: ['useState', 'Re-render', 'Immutabilità', 'Array', 'Oggetti']
   }
 ]
 

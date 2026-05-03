@@ -1,91 +1,91 @@
 [
   {
-    "domanda": "Qual è la differenza tra 'let' e 'const' in JavaScript?",
+    "domanda": "Che cos'è `useState` in React?",
     "risposte": [
-      "'let' permette di riassegnare la variabile, 'const' no",
-      "'const' permette di riassegnare la variabile, 'let' no",
-      "Non c'è nessuna differenza, sono sinonimi"
+      "Un hook che permette a un componente di memorizzare un valore che, quando cambia, causa il re-render del componente",
+      "Un modo per salvare dati in localStorage automaticamente",
+      "Una funzione che esegue codice ogni volta che il componente viene montato"
     ],
     "corretta": 0
   },
   {
-    "domanda": "Cosa restituisce 'typeof null' in JavaScript?",
+    "domanda": "Quando viene aggiornata una variabile di stato?",
     "risposte": [
-      "'object'",
-      "'null'",
-      "'undefined'"
+      "Non immediatamente: React pianifica l'aggiornamento e lo applica al prossimo re-render",
+      "Subito, nel momento in cui chiami la funzione setter",
+      "Solo quando l'utente interagisce con la pagina"
     ],
     "corretta": 0
   },
   {
-    "domanda": "Quale metodo si usa per aggiungere un elemento alla fine di un array?",
+    "domanda": "Cosa provoca l'aggiornamento di uno stato in React?",
     "risposte": [
-      "push()",
-      "pop()",
-      "shift()"
+      "Il re-render del componente: React riesegue la funzione del componente con il nuovo valore",
+      "Il salvataggio automatico dei dati nel database",
+      "La ricarica completa della pagina nel browser"
     ],
     "corretta": 0
   },
   {
-    "domanda": "Cosa fa l'operatore '===' in JavaScript?",
+    "domanda": "Che cos'è un re-render in React?",
     "risposte": [
-      "Confronta valore e tipo senza conversione automatica",
-      "Confronta solo il valore, convertendo automaticamente il tipo",
-      "Assegna un valore a una variabile"
+      "La riesecuzione della funzione del componente per aggiornare l'interfaccia con i nuovi valori di stato",
+      "Il ricaricamento dell'intera applicazione dal server",
+      "L'aggiornamento del CSS della pagina"
     ],
     "corretta": 0
   },
   {
-    "domanda": "Come si dichiara una funzione freccia (arrow function) in JavaScript?",
+    "domanda": "Qual è la differenza tra `array.push('pikachu')` e `[...array, 'pikachu']` in JavaScript?",
     "risposte": [
-      "const nomeFunzione = () => { }",
-      "function nomeFunzione => { }",
-      "arrow nomeFunzione() { }"
+      "`push` modifica l'array originale (mutazione), mentre lo spread operator crea un nuovo array lasciando intatto l'originale",
+      "Non c'è differenza, producono lo stesso risultato",
+      "Lo spread operator modifica l'array originale, `push` crea uno nuovo"
     ],
     "corretta": 0
   },
   {
-    "domanda": "Cosa restituisce 'console.log(0.1 + 0.2 === 0.3)' in JavaScript?",
+    "domanda": "Qual è la differenza tra `obj.speed = 10` e `{ ...obj, speed: 10 }` in JavaScript?",
     "risposte": [
-      "false, a causa dell'imprecisione dei numeri in virgola mobile",
-      "true, perché 0.1 + 0.2 fa esattamente 0.3",
-      "undefined, perché non si possono sommare decimali"
+      "`obj.speed = 10` modifica l'oggetto esistente (mutazione), mentre lo spread crea un nuovo oggetto con la proprietà aggiornata",
+      "Sono equivalenti, entrambi creano un nuovo oggetto",
+      "`{ ...obj, speed: 10 }` modifica l'oggetto originale sovrascrivendo la proprietà"
     ],
     "corretta": 0
   },
   {
-    "domanda": "Quale metodo degli array crea un nuovo array con i risultati di una funzione applicata a ogni elemento?",
+    "domanda": "Quale tra questi aggiorna correttamente una variabile di stato?\n`const [count, setCount] = useState(0)`",
     "risposte": [
-      "map()",
-      "filter()",
-      "reduce()"
+      "`setCount(count + 1)`",
+      "`count = count + 1`",
+      "`useState(count + 1)`"
     ],
     "corretta": 0
   },
   {
-    "domanda": "Cos'è il 'DOM' in JavaScript?",
+    "domanda": "Hai questo stato: `const [pokemon, setPokemon] = useState(['bulbasaur', 'charmander'])`. Come aggiungi `'squirtle'` correttamente?",
     "risposte": [
-      "La rappresentazione ad oggetti della struttura HTML di una pagina, manipolabile via JavaScript",
-      "Un database integrato nel browser",
-      "Un framework per costruire interfacce utente"
+      "`setPokemon([...pokemon, 'squirtle'])`",
+      "`pokemon.push('squirtle')`",
+      "`setPokemon(pokemon.push('squirtle'))`"
     ],
     "corretta": 0
   },
   {
-    "domanda": "Cosa si intende per 'callback' in JavaScript?",
+    "domanda": "Hai questo stato: `const [player, setPlayer] = useState({ name: 'Ash', level: 1 })`. Come aggiorni correttamente solo `level` a `2`?",
     "risposte": [
-      "Una funzione passata come argomento a un'altra funzione, da eseguire in un secondo momento",
-      "Una chiamata HTTP verso un server esterno",
-      "Un metodo per tornare alla pagina precedente nel browser"
+      "`setPlayer({ ...player, level: 2 })`",
+      "`player.level = 2`",
+      "`setPlayer({ level: 2 })`"
     ],
     "corretta": 0
   },
   {
-    "domanda": "Quale parola chiave si usa per gestire le eccezioni in JavaScript?",
+    "domanda": "Cosa succede se chiami `setCount(count + 1)` tre volte di fila nello stesso evento?",
     "risposte": [
-      "try / catch",
-      "error / handle",
-      "check / fix"
+      "Lo stato viene incrementato di 1 sola volta, perché React usa il valore di `count` al momento dell'evento per tutti e tre i calcoli",
+      "Lo stato viene incrementato di 3",
+      "React lancia un errore perché non si può chiamare il setter più volte"
     ],
     "corretta": 0
   }
