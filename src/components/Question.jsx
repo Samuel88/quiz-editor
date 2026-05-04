@@ -1,9 +1,22 @@
+import Markdown from 'react-markdown'
 import '../styles/Question.css'
+
+const Inline = ({ children }) => (
+  <Markdown disallowedElements={['p']} unwrapDisallowed>{children}</Markdown>
+)
 
 const Question = ({ question, onAnswerSelect, selectedAnswer, showFeedback, isCorrect }) => {
   return (
     <div className="question-container">
-      <h2 className="question-text">{question.domanda}</h2>
+      <div className="question-text">
+        <Markdown>{question.domanda}</Markdown>
+      </div>
+
+      {question.snippet && (
+        <div className="question-snippet">
+          <Markdown>{question.snippet}</Markdown>
+        </div>
+      )}
 
       <div className="answers">
         {question.risposte.map((risposta, index) => {
@@ -24,7 +37,9 @@ const Question = ({ question, onAnswerSelect, selectedAnswer, showFeedback, isCo
               <span className="answer-letter">
                 {String.fromCharCode(65 + index)}
               </span>
-              <span className="answer-text">{risposta}</span>
+              <span className="answer-text">
+                <Inline>{risposta}</Inline>
+              </span>
               {showCorrect && (
                 <span className="answer-icon">✓</span>
               )}
@@ -38,16 +53,14 @@ const Question = ({ question, onAnswerSelect, selectedAnswer, showFeedback, isCo
 
       {showFeedback && (
         <div className={`feedback ${isCorrect ? 'correct-feedback' : 'wrong-feedback'}`}>
-          {isCorrect ? (
-            <>
-              <span className="feedback-icon">🎉</span>
-              <span>Risposta corretta!</span>
-            </>
-          ) : (
-            <>
-              <span className="feedback-icon">💡</span>
-              <span>Risposta errata. La risposta corretta è: {question.risposte[question.corretta]}</span>
-            </>
+          <div className="feedback-header">
+            <span className="feedback-icon">{isCorrect ? '🎉' : '💡'}</span>
+            <span>{isCorrect ? 'Risposta corretta!' : 'Risposta errata.'}</span>
+          </div>
+          {question.spiegazione && (
+            <div className="feedback-spiegazione">
+              <Markdown>{question.spiegazione}</Markdown>
+            </div>
           )}
         </div>
       )}
