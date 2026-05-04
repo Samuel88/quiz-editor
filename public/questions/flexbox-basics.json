@@ -7,7 +7,7 @@
       "A tutti gli elementi della pagina"
     ],
     "corretta": 0,
-    "spiegazione": "<code>display: flex</code> si applica al <em>genitore</em>, che diventa il flex container. Sono i <em>figli</em> che vengono automaticamente trattati come flex item e disposti secondo le regole di Flexbox, senza aggiungere nulla a loro."
+    "spiegazione": "`display: flex` si applica al *genitore*, che diventa il flex container. Sono i *figli* che vengono automaticamente trattati come flex item e disposti secondo le regole di Flexbox, senza aggiungere nulla a loro."
   },
   {
     "domanda": "Quali elementi diventano automaticamente flex-item quando il genitore ha 'display: flex'?",
@@ -17,7 +17,7 @@
       "Solo gli elementi con una classe specifica"
     ],
     "corretta": 1,
-    "spiegazione": "Solo i <strong>figli diretti</strong> del flex container diventano flex item. I nipoti e i discendenti più profondi non sono influenzati, a meno che non siano loro stessi flex container (Flexbox annidato)."
+    "spiegazione": "Solo i **figli diretti** del flex container diventano flex item. I nipoti e i discendenti più profondi non sono influenzati, a meno che non siano loro stessi flex container (Flexbox annidato)."
   },
   {
     "domanda": "Cos'è il Main Axis in Flexbox?",
@@ -27,7 +27,7 @@
       "L'asse verticale del contenitore"
     ],
     "corretta": 1,
-    "spiegazione": "Il <em>Main Axis</em> è l'asse su cui si dispongono i flex item: orizzontale con <code>flex-direction: row</code>, verticale con <code>flex-direction: column</code>. L'asse perpendicolare si chiama <em>Cross Axis</em>."
+    "spiegazione": "Il *Main Axis* è l'asse su cui si dispongono i flex item: orizzontale con `flex-direction: row`, verticale con `flex-direction: column`. L'asse perpendicolare si chiama *Cross Axis*."
   },
   {
     "domanda": "Cosa succede al Main Axis quando si cambia flex-direction da 'row' a 'column'?",
@@ -37,7 +37,7 @@
       "Il Main Axis viene eliminato"
     ],
     "corretta": 0,
-    "spiegazione": "Con <code>flex-direction: column</code> il Main Axis ruota di 90°: gli elementi si dispongono dall'alto verso il basso. Di conseguenza anche <code>justify-content</code> (che agisce sul Main Axis) sposta gli elementi verticalmente, e <code>align-items</code> li allinea orizzontalmente."
+    "spiegazione": "Con `flex-direction: column` il Main Axis ruota di 90°: gli elementi si dispongono dall'alto verso il basso. Di conseguenza anche `justify-content` (che agisce sul Main Axis) sposta gli elementi verticalmente, e `align-items` li allinea orizzontalmente."
   },
   {
     "domanda": "Quale proprietà allinea gli elementi lungo il Cross Axis?",
@@ -47,7 +47,7 @@
       "align-items"
     ],
     "corretta": 2,
-    "spiegazione": "<code>align-items</code> agisce sul <em>Cross Axis</em> (l'asse perpendicolare al Main Axis). Con <code>flex-direction: row</code> allinea gli elementi verticalmente; con <code>flex-direction: column</code> li allinea orizzontalmente."
+    "spiegazione": "`align-items` agisce sul *Cross Axis* (l'asse perpendicolare al Main Axis). Con `flex-direction: row` allinea gli elementi verticalmente; con `flex-direction: column` li allinea orizzontalmente."
   },
   {
     "domanda": "Qual è il valore di default di flex-wrap?",
@@ -57,7 +57,7 @@
       "wrap-reverse"
     ],
     "corretta": 1,
-    "spiegazione": "Il default è <code>nowrap</code>: tutti i flex item cercano di stare su una sola riga, restringendosi se necessario. Con <code>flex-wrap: wrap</code> possono andare a capo quando lo spazio finisce."
+    "spiegazione": "Il default è `nowrap`: tutti i flex item cercano di stare su una sola riga, restringendosi se necessario. Con `flex-wrap: wrap` possono andare a capo quando lo spazio finisce."
   },
   {
     "domanda": "Cosa fa 'justify-content: space-between'?",
@@ -67,7 +67,7 @@
       "Centra tutti gli elementi"
     ],
     "corretta": 1,
-    "spiegazione": "<code>space-between</code> divide lo spazio libero <em>tra</em> gli elementi: il primo tocca il bordo sinistro, l'ultimo il bordo destro, e lo spazio rimante viene distribuito equamente tra gli elementi interni. Utile per navbar e layout a griglia."
+    "spiegazione": "`space-between` divide lo spazio libero *tra* gli elementi: il primo tocca il bordo sinistro, l'ultimo il bordo destro, e lo spazio rimante viene distribuito equamente tra gli elementi interni. Utile per navbar e layout a griglia."
   },
   {
     "domanda": "Quale valore di align-items allunga gli elementi per riempire il contenitore sul Cross Axis?",
@@ -77,7 +77,7 @@
       "stretch"
     ],
     "corretta": 2,
-    "spiegazione": "<code>stretch</code> è il valore di default di <code>align-items</code>: gli elementi vengono allungati per occupare tutta l'altezza (o larghezza) del contenitore sul Cross Axis, a meno che non abbiano già un'altezza esplicita impostata."
+    "spiegazione": "`stretch` è il valore di default di `align-items`: gli elementi vengono allungati per occupare tutta l'altezza (o larghezza) del contenitore sul Cross Axis, a meno che non abbiano già un'altezza esplicita impostata."
   },
   {
     "domanda": "In quale anno sono state introdotte le specifiche di Flexbox?",
@@ -87,7 +87,7 @@
       "2020"
     ],
     "corretta": 1,
-    "spiegazione": "La specifica ufficiale del W3C per Flexbox è diventata una <em>Candidate Recommendation</em> nel 2015. La prima bozza risale al 2009, ma la sintassi moderna e stabile che usiamo oggi si è consolidata intorno al 2015."
+    "spiegazione": "La specifica ufficiale del W3C per Flexbox è diventata una *Candidate Recommendation* nel 2015. La prima bozza risale al 2009, ma la sintassi moderna e stabile che usiamo oggi si è consolidata intorno al 2015."
   },
   {
     "domanda": "Con 'flex-direction: column', cosa fa 'justify-content: flex-end'?",
@@ -97,7 +97,7 @@
       "Allinea gli elementi in basso"
     ],
     "corretta": 2,
-    "spiegazione": "Con <code>flex-direction: column</code> il Main Axis è verticale. <code>justify-content: flex-end</code> spinge gli elementi verso la fine del Main Axis, che in questo caso è il <em>basso</em> del contenitore."
+    "spiegazione": "Con `flex-direction: column` il Main Axis è verticale. `justify-content: flex-end` spinge gli elementi verso la fine del Main Axis, che in questo caso è il *basso* del contenitore."
   },
   {
     "domanda": "Quale valore di align-items allinea gli elementi alla baseline del testo?",
@@ -107,7 +107,7 @@
       "flex-start"
     ],
     "corretta": 0,
-    "spiegazione": "<code>align-items: baseline</code> allinea gli elementi in modo che le loro linee di base del testo coincidano. È utile quando si hanno elementi con font di dimensioni diverse e si vuole che il testo sembri su una riga comune."
+    "spiegazione": "`align-items: baseline` allinea gli elementi in modo che le loro linee di base del testo coincidano. È utile quando si hanno elementi con font di dimensioni diverse e si vuole che il testo sembri su una riga comune."
   },
   {
     "domanda": "Quale percentuale di browser supporta Flexbox attualmente?",

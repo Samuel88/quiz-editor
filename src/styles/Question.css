@@ -15,6 +15,40 @@
   border-left: 4px solid var(--primary-color);
 }
 
+.question-text p {
+  margin: 0;
+}
+
+.question-text code {
+  font-family: 'Fira Code', 'Cascadia Code', monospace;
+  font-size: 0.9em;
+  background: var(--bg-tertiary);
+  padding: 0.1em 0.4em;
+  border-radius: 4px;
+}
+
+.question-snippet {
+  margin-bottom: var(--spacing-xl);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 1px solid var(--border-color);
+}
+
+.question-snippet pre {
+  margin: 0;
+  padding: var(--spacing-lg);
+  background: #1e1e2e;
+  overflow-x: auto;
+}
+
+.question-snippet code {
+  font-family: 'Fira Code', 'Cascadia Code', 'Courier New', monospace;
+  font-size: 0.95rem;
+  color: #cdd6f4;
+  background: transparent;
+  line-height: 1.6;
+}
+
 .answers {
   display: flex;
   flex-direction: column;
@@ -83,6 +117,14 @@
   line-height: 1.6;
 }
 
+.answer-text code {
+  font-family: 'Fira Code', 'Cascadia Code', monospace;
+  font-size: 0.85em;
+  background: var(--bg-tertiary);
+  padding: 0.1em 0.4em;
+  border-radius: 4px;
+}
+
 .answer-icon {
   font-size: 1.5rem;
   margin-left: auto;
@@ -138,15 +180,47 @@
   padding: var(--spacing-lg);
   border-radius: var(--radius-lg);
   display: flex;
-  align-items: center;
+  flex-direction: column;
   gap: var(--spacing-md);
   font-size: 1rem;
-  font-weight: 600;
   animation: slideIn 0.3s ease-out;
+}
+
+.feedback-header {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  font-weight: 600;
 }
 
 .feedback-icon {
   font-size: 1.5rem;
+}
+
+.feedback-spiegazione {
+  font-size: 0.95rem;
+  font-weight: 400;
+  line-height: 1.7;
+  color: var(--text-primary);
+  border-top: 1px solid currentColor;
+  padding-top: var(--spacing-md);
+  opacity: 0.9;
+}
+
+.feedback-spiegazione p {
+  margin: 0 0 0.5em 0;
+}
+
+.feedback-spiegazione p:last-child {
+  margin-bottom: 0;
+}
+
+.feedback-spiegazione code {
+  font-family: 'Fira Code', 'Cascadia Code', monospace;
+  font-size: 0.85em;
+  background: rgba(0, 0, 0, 0.15);
+  padding: 0.1em 0.4em;
+  border-radius: 4px;
 }
 
 .correct-feedback {

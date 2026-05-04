@@ -1,5 +1,10 @@
 import { useState, useEffect } from 'react'
+import Markdown from 'react-markdown'
 import '../styles/Results.css'
+
+const Inline = ({ children }) => (
+  <Markdown disallowedElements={['p']} unwrapDisallowed>{children}</Markdown>
+)
 
 const Results = ({ score, total, onRestart, userAnswers, onChangeQuiz }) => {
   const [highScores, setHighScores] = useState([])
@@ -56,14 +61,16 @@ const Results = ({ score, total, onRestart, userAnswers, onChangeQuiz }) => {
                   {answer.isCorrect ? '✓ Corretta' : '✗ Errata'}
                 </span>
               </div>
-              <p className="review-question">{answer.questionText}</p>
+              <div className="review-question">
+                <Inline>{answer.questionText}</Inline>
+              </div>
               <div className="review-answers">
                 <div className="review-answer your-answer">
-                  <strong>La tua risposta:</strong> {answer.selectedText}
+                  <strong>La tua risposta:</strong> <Inline>{answer.selectedText}</Inline>
                 </div>
                 {!answer.isCorrect && (
                   <div className="review-answer correct-answer">
-                    <strong>Risposta corretta:</strong> {answer.correctText}
+                    <strong>Risposta corretta:</strong> <Inline>{answer.correctText}</Inline>
                   </div>
                 )}
               </div>
