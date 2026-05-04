@@ -203,6 +203,31 @@
   font-size: 0.85rem;
 }
 
+.review-spiegazione {
+  margin-top: var(--spacing-md);
+  padding-top: var(--spacing-md);
+  border-top: 1px solid var(--border-color);
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  line-height: 1.7;
+}
+
+.review-spiegazione p {
+  margin: 0 0 0.5em 0;
+}
+
+.review-spiegazione p:last-child {
+  margin-bottom: 0;
+}
+
+.review-spiegazione code {
+  font-family: 'Fira Code', 'Cascadia Code', monospace;
+  font-size: 0.85em;
+  background: var(--bg-tertiary);
+  padding: 0.1em 0.4em;
+  border-radius: 4px;
+}
+
 /* High Scores */
 .high-scores {
   margin-bottom: var(--spacing-2xl);

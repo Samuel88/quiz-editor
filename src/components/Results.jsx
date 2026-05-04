@@ -74,6 +74,11 @@ const Results = ({ score, total, onRestart, userAnswers, onChangeQuiz }) => {
                   </div>
                 )}
               </div>
+              {answer.spiegazione && (
+                <div className="review-spiegazione">
+                  <Markdown>{answer.spiegazione}</Markdown>
+                </div>
+              )}
             </div>
           ))}
         </div>
