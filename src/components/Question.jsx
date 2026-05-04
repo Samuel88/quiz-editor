@@ -1,4 +1,4 @@
-import Markdown from 'react-markdown'
+import { MarkdownHooks as Markdown } from 'react-markdown'
 import '../styles/Question.css'
 
 const Inline = ({ children }) => (

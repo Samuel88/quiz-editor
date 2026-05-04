@@ -93,6 +93,7 @@ function App() {
       selectedText: selectedAnswer !== null ? questions[currentQuestion].risposte[selectedAnswer] : 'Tempo scaduto',
       correct: questions[currentQuestion].corretta,
       correctText: questions[currentQuestion].risposte[questions[currentQuestion].corretta],
+      spiegazione: questions[currentQuestion].spiegazione,
       isCorrect: correct
     }
 

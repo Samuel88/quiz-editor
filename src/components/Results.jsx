@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import Markdown from 'react-markdown'
+import { MarkdownHooks as Markdown } from 'react-markdown'
 import '../styles/Results.css'
 
 const Inline = ({ children }) => (
@@ -74,6 +74,11 @@ const Results = ({ score, total, onRestart, userAnswers, onChangeQuiz }) => {
                   </div>
                 )}
               </div>
+              {answer.spiegazione && (
+                <div className="review-spiegazione">
+                  <Markdown>{answer.spiegazione}</Markdown>
+                </div>
+              )}
             </div>
           ))}
         </div>
