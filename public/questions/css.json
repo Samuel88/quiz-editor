@@ -12,12 +12,12 @@
   {
     "domanda": "Dove si inserisce il collegamento al file CSS in una pagina HTML?",
     "risposte": [
-      "Nel tag &lt;head&gt;",
-      "All'inizio del &lt;body&gt;",
-      "Nel tag &lt;footer&gt;"
+      "Nel tag `<head>`",
+      "All'inizio del `<body>`",
+      "Nel tag `<footer>`"
     ],
     "corretta": 0,
-    "spiegazione": "Il tag <code>&lt;link rel=\"stylesheet\" href=\"stile.css\"&gt;</code> va sempre nel <code>&lt;head&gt;</code>. Questo permette al browser di caricare gli stili <em>prima</em> di mostrare il contenuto, evitando un flash di pagina non stilizzata (FOUC)."
+    "spiegazione": "Il tag `<link rel=\"stylesheet\" href=\"stile.css\">` va sempre nel `<head>`. Questo permette al browser di caricare gli stili *prima* di mostrare il contenuto, evitando un flash di pagina non stilizzata (FOUC)."
   },
   {
     "domanda": "Quale differenza c'è tra gli attributi 'class' e 'id' in CSS?",
@@ -27,7 +27,7 @@
       "Non esiste alcuna differenza"
     ],
     "corretta": 0,
-    "spiegazione": "Un <code>id</code> deve essere unico nella pagina (es. <code>#intestazione</code>), mentre una <code>class</code> può essere applicata a quanti elementi si vuole (es. <code>.card</code> su più div). In CSS si selezionano con <code>#id</code> e <code>.classe</code>."
+    "spiegazione": "Un `id` deve essere unico nella pagina (es. `#intestazione`), mentre una `class` può essere applicata a quanti elementi si vuole (es. `.card` su più div). In CSS si selezionano con `#id` e `.classe`."
   },
   {
     "domanda": "Quale tra questi è un selettore CSS per selezionare tutti gli elementi di una classe?",
@@ -37,7 +37,7 @@
       "p"
     ],
     "corretta": 1,
-    "spiegazione": "Il punto davanti al nome è il selettore di classe: <code>.introduzione { color: red; }</code> applica lo stile a ogni elemento con <code>class=\"introduzione\"</code>. Il cancelletto seleziona un id (<code>#titolo</code>), il nome nudo seleziona un tag (<code>p</code>)."
+    "spiegazione": "Il punto davanti al nome è il selettore di classe: `.introduzione { color: red; }` applica lo stile a ogni elemento con `class=\"introduzione\"`. Il cancelletto seleziona un id (`#titolo`), il nome nudo seleziona un tag (`p`)."
   },
   {
     "domanda": "Cosa fa la proprietà 'margin' in CSS?",
@@ -47,7 +47,7 @@
       "Cambia il tipo di font"
     ],
     "corretta": 1,
-    "spiegazione": "<code>margin</code> è lo spazio <em>fuori</em> dal bordo dell'elemento, che lo separa dagli altri elementi. È diverso da <code>padding</code>, che è invece lo spazio <em>dentro</em> il bordo. Esempio: <code>margin: 16px</code> aggiunge 16px di spazio su tutti e quattro i lati."
+    "spiegazione": "`margin` è lo spazio *fuori* dal bordo dell'elemento, che lo separa dagli altri elementi. È diverso da `padding`, che è invece lo spazio *dentro* il bordo. Esempio: `margin: 16px` aggiunge 16px di spazio su tutti e quattro i lati."
   },
   {
     "domanda": "Qual è la differenza tra elementi block e inline in HTML?",
@@ -57,7 +57,7 @@
       "Non esiste differenza"
     ],
     "corretta": 0,
-    "spiegazione": "Un elemento <strong>block</strong> (come <code>&lt;div&gt;</code>, <code>&lt;p&gt;</code>) occupa tutta la riga e spinge il successivo su una nuova riga. Un elemento <strong>inline</strong> (come <code>&lt;span&gt;</code>, <code>&lt;a&gt;</code>) si affianca al testo circostante senza andare a capo."
+    "spiegazione": "Un elemento **block** (come `<div>`, `<p>`) occupa tutta la riga e spinge il successivo su una nuova riga. Un elemento **inline** (come `<span>`, `<a>`) si affianca al testo circostante senza andare a capo."
   },
   {
     "domanda": "Quale proprietà CSS si usa per cambiare il colore del testo?",
@@ -67,7 +67,7 @@
       "border"
     ],
     "corretta": 1,
-    "spiegazione": "<code>color</code> imposta il colore del testo. <code>background-color</code> invece cambia il colore dello sfondo dell'elemento. Esempio: <code>p { color: #333333; }</code> rende il testo di tutti i paragrafi grigio scuro."
+    "spiegazione": "`color` imposta il colore del testo. `background-color` invece cambia il colore dello sfondo dell'elemento. Esempio: `p { color: #333333; }` rende il testo di tutti i paragrafi grigio scuro."
   },
   {
     "domanda": "Quale proprietà CSS serve ad aggiungere uno sfondo colorato a un elemento?",
@@ -77,7 +77,7 @@
       "padding"
     ],
     "corretta": 1,
-    "spiegazione": "<code>background-color</code> applica un colore di sfondo all'elemento. Accetta valori in vari formati: <code>background-color: red</code>, <code>background-color: #ff0000</code>, <code>background-color: rgb(255, 0, 0)</code> producono tutti lo stesso risultato."
+    "spiegazione": "`background-color` applica un colore di sfondo all'elemento. Accetta valori in vari formati: `background-color: red`, `background-color: #ff0000`, `background-color: rgb(255, 0, 0)` producono tutti lo stesso risultato."
   },
   {
     "domanda": "Cosa rappresenta la proprietà 'padding' in CSS?",
@@ -87,7 +87,7 @@
       "Il colore dello sfondo dell'elemento"
     ],
     "corretta": 0,
-    "spiegazione": "<code>padding</code> è lo spazio <em>interno</em> tra il contenuto e il bordo dell'elemento. Se un bottone ha <code>padding: 8px 16px</code>, il testo avrà 8px di respiro sopra e sotto, e 16px a destra e sinistra. Lo sfondo colorato si estende anche nel padding."
+    "spiegazione": "`padding` è lo spazio *interno* tra il contenuto e il bordo dell'elemento. Se un bottone ha `padding: 8px 16px`, il testo avrà 8px di respiro sopra e sotto, e 16px a destra e sinistra. Lo sfondo colorato si estende anche nel padding."
   },
   {
     "domanda": "Quale unità di misura CSS è relativa alla dimensione del font corrente?",
@@ -97,6 +97,6 @@
       "em"
     ],
     "corretta": 2,
-    "spiegazione": "<code>em</code> è relativo al <code>font-size</code> dell'elemento stesso (o del genitore se usato su <code>font-size</code>). Se il font è 16px, <code>1.5em</code> equivale a 24px. Utile per creare layout che si scalano proporzionalmente al testo."
+    "spiegazione": "`em` è relativo al `font-size` dell'elemento stesso (o del genitore se usato su `font-size`). Se il font è 16px, `1.5em` equivale a 24px. Utile per creare layout che si scalano proporzionalmente al testo."
   }
 ]
