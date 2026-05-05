@@ -54,6 +54,15 @@ export const quizzes = [
     topics: ['Commit', 'Branch', 'Merge', 'Remote']
   },
   {
+    id: 'js-map-filter',
+    title: 'Quiz JS map & filter',
+    subtitle: 'Metti alla prova le tue conoscenze su map e filter in JS Vanilla',
+    file: '/questions/js-map-filter.json',
+    icon: '🔁',
+    color: '#f59e0b',
+    topics: ['map', 'filter', 'Array', 'Callback', 'Immutabilità']
+  },
+  {
     id: 'javascript',
     title: 'Quiz React useState',
     subtitle: 'Metti alla prova le tue conoscenze sugli stati in React',

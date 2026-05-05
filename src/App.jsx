@@ -1,12 +1,13 @@
 import { useState, useEffect } from 'react'
-
-const QUESTION_TIMEOUT = 60
 import Question from './components/Question'
 import Results from './components/Results'
 import ProgressBar from './components/ProgressBar'
 import QuizSelector from './components/QuizSelector'
 import { quizMap } from './quizzes'
 import './styles/App.css'
+
+const QUESTION_TIMEOUT = 60
+const getQuestionTimeout = (question) => question?.tempo ?? QUESTION_TIMEOUT
 
 function App() {
   const [selectedQuiz, setSelectedQuiz] = useState(null) // null = mostra selector
@@ -43,6 +44,12 @@ function App() {
 
     loadQuestions()
   }, [selectedQuiz])
+
+  // Resetta il timer alla durata della domanda corrente ad ogni cambio di domanda
+  useEffect(() => {
+    if (questions.length === 0) return
+    setTimeLeft(getQuestionTimeout(questions[currentQuestion]))
+  }, [currentQuestion, questions])
 
   // Timer per domanda
   useEffect(() => {
@@ -104,7 +111,6 @@ function App() {
       setCurrentQuestion(currentQuestion + 1)
       setSelectedAnswer(null)
       setShowFeedback(false)
-      setTimeLeft(QUESTION_TIMEOUT) // Reset timer
     } else {
       setShowResult(true)
       saveScore(score + (correct ? 1 : 0), questions.length)
@@ -120,7 +126,6 @@ function App() {
     setSelectedAnswer(null)
     setShowResult(false)
     setUserAnswers([])
-    setTimeLeft(QUESTION_TIMEOUT)
     setShowFeedback(false)
   }
 
@@ -133,7 +138,6 @@ function App() {
     setSelectedAnswer(null)
     setShowResult(false)
     setUserAnswers([])
-    setTimeLeft(QUESTION_TIMEOUT)
     setShowFeedback(false)
   }
 
@@ -147,7 +151,6 @@ function App() {
     setSelectedAnswer(null)
     setShowResult(false)
     setUserAnswers([])
-    setTimeLeft(QUESTION_TIMEOUT)
     setShowFeedback(false)
   }
 
@@ -213,6 +216,7 @@ function App() {
             current={currentQuestion}
             total={questions.length}
             timeLeft={timeLeft}
+            totalTime={getQuestionTimeout(questions[currentQuestion])}
           />
 
           <Question

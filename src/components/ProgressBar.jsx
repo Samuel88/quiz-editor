@@ -1,6 +1,6 @@
 import '../styles/ProgressBar.css'
 
-const ProgressBar = ({ current, total, timeLeft }) => {
+const ProgressBar = ({ current, total, timeLeft, totalTime }) => {
   const progress = ((current + 1) / total) * 100
 
   return (
@@ -10,7 +10,7 @@ const ProgressBar = ({ current, total, timeLeft }) => {
           Domanda {current + 1} di {total}
         </span>
         <span className={`timer ${timeLeft <= 10 ? 'timer-warning' : ''}`}>
-          ⏱️ {timeLeft}s
+          ⏱️ {timeLeft}s{totalTime != null ? ` / ${totalTime}s` : ''}
         </span>
       </div>
 
