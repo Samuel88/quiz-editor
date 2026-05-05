@@ -1,0 +1,106 @@
+[
+  {
+    "domanda": "Cos'è `Array.prototype.map`?",
+    "risposte": [
+      "Un metodo che filtra gli elementi di un array rimuovendo quelli indesiderati",
+      "Un metodo che trasforma ogni elemento di un array e restituisce un nuovo array della stessa lunghezza",
+      "Un metodo che somma tutti gli elementi di un array in un unico valore"
+    ],
+    "corretta": 1,
+    "spiegazione": "`map` itera su ogni elemento dell'array, gli applica la callback e raccoglie i risultati in un **nuovo array**. La lunghezza dell'array risultante è sempre identica a quella dell'originale. Esempio: `[1, 2, 3].map(x => x * 2)` restituisce `[2, 4, 6]`. L'array originale non viene mai modificato."
+  },
+  {
+    "domanda": "Cosa restituisce `.filter()`?",
+    "risposte": [
+      "Il primo elemento che soddisfa la condizione, oppure `undefined`",
+      "Modifica l'array originale rimuovendo gli elementi che non soddisfano la condizione",
+      "Un nuovo array contenente solo gli elementi per cui la callback restituisce `true`"
+    ],
+    "corretta": 2,
+    "spiegazione": "`filter` esamina ogni elemento e lo include nel risultato solo se la callback restituisce un valore truthy. Il risultato è sempre un **nuovo array** — l'originale rimane intatto. Se nessun elemento supera il filtro, restituisce un array vuoto `[]`, mai `null` o `undefined`."
+  },
+  {
+    "domanda": "Qual è il risultato di questa espressione?",
+    "snippet": "```js\n[1, 2, 3].map(x => x * 2)\n```",
+    "risposte": [
+      "`[2, 4, 6]` in un nuovo array, l'originale rimane `[1, 2, 3]`",
+      "`[1, 4, 9]`",
+      "Modifica `[1, 2, 3]` direttamente in `[2, 4, 6]`"
+    ],
+    "corretta": 0,
+    "spiegazione": "`map` non tocca l'array originale: crea e restituisce un nuovo array in cui ogni elemento è il risultato della callback. `x => x * 2` moltiplica ogni valore per 2, quindi `[1, 2, 3]` diventa `[2, 4, 6]`. L'array originale è ancora `[1, 2, 3]`."
+  },
+  {
+    "domanda": "`map` e `filter` mutano l'array originale?",
+    "risposte": [
+      "Sì, entrambi modificano direttamente l'array su cui vengono chiamati",
+      "Solo `filter` muta l'originale, `map` crea sempre un nuovo array",
+      "No, entrambi restituiscono un nuovo array lasciando intatto l'originale"
+    ],
+    "corretta": 2,
+    "spiegazione": "Sia `map` che `filter` sono metodi **non mutanti**: leggono l'array originale senza modificarlo e restituiscono sempre un nuovo array. Questo li rende sicuri da usare in contesti dove l'immutabilità è importante, come la gestione dello stato in React."
+  },
+  {
+    "domanda": "Qual è il risultato di questa espressione?",
+    "snippet": "```js\n[1, 2, 3, 4, 5].filter(n => n > 3)\n```",
+    "risposte": [
+      "`[4]`",
+      "`[4, 5]`",
+      "`[1, 2, 3]`"
+    ],
+    "corretta": 1,
+    "spiegazione": "La callback `n => n > 3` restituisce `true` solo per i valori strettamente maggiori di 3. Nell'array `[1, 2, 3, 4, 5]`, solo `4` e `5` soddisfano la condizione, quindi il risultato è `[4, 5]`. Il valore `3` non è incluso perché `3 > 3` è `false`."
+  },
+  {
+    "domanda": "Quali argomenti riceve la callback passata a `map`?",
+    "risposte": [
+      "Solo l'elemento corrente",
+      "L'elemento corrente, il suo indice e l'array originale",
+      "L'elemento corrente e il risultato accumulato fino a quel momento"
+    ],
+    "corretta": 1,
+    "spiegazione": "La callback di `map` (e anche di `filter`) riceve tre argomenti: `(elemento, indice, arrayOriginale)`. Spesso se ne usa solo il primo, ma gli altri sono disponibili. Esempio: `arr.map((el, i) => i + ': ' + el)` prefissa ogni elemento con il suo indice."
+  },
+  {
+    "domanda": "Come si estrae un array di nomi da un array di oggetti?",
+    "snippet": "```js\nconst users = [{ name: 'Alice' }, { name: 'Bob' }]\n```",
+    "risposte": [
+      "`users.filter(u => u.name)`",
+      "`users.map(u => u.name)`",
+      "`users.find(u => u.name)`"
+    ],
+    "corretta": 1,
+    "spiegazione": "`map` è il metodo adatto per **trasformare** ogni elemento: `users.map(u => u.name)` restituisce `['Alice', 'Bob']`. `filter` serve per selezionare elementi, non trasformarli. `find` restituisce solo il primo elemento trovato, non un array."
+  },
+  {
+    "domanda": "Come si raddoppiano solo i numeri pari dell'array `[1, 2, 3, 4]`?",
+    "risposte": [
+      "`[1,2,3,4].map(n => n % 2 === 0).filter(n => n * 2)`",
+      "`[1,2,3,4].filter(n => n % 2 === 0).map(n => n * 2)`",
+      "`[1,2,3,4].filter(n => n * 2)`"
+    ],
+    "corretta": 1,
+    "spiegazione": "Prima si usa `filter` per tenere solo i pari (`[2, 4]`), poi `map` per raddoppiarli (`[4, 8]`). L'ordine conta: invertirlo significherebbe raddoppiare tutto e poi filtrare i truthy, ottenendo un risultato scorretto. `filter(n => n * 2)` non filtra i pari: filtra i valori non-zero (tutti, in questo caso)."
+  },
+  {
+    "domanda": "Cosa succede se la callback passata a `map` non ha un `return` esplicito?",
+    "snippet": "```js\n[1, 2, 3].map(x => { x * 2 })\n```",
+    "risposte": [
+      "Viene lanciato un errore a runtime",
+      "Gli elementi senza valore vengono saltati e l'array risultante è più corto",
+      "Il nuovo array conterrà `undefined` per ogni elemento"
+    ],
+    "corretta": 2,
+    "spiegazione": "Una funzione con corpo a blocchi `{ }` senza `return` restituisce implicitamente `undefined`. Poiché `map` raccoglie il valore di ritorno della callback per ogni elemento, il risultato sarà `[undefined, undefined, undefined]`. Per usare le parentesi graffe serve il `return` esplicito: `x => { return x * 2 }`. La forma arrow senza graffe `x => x * 2` funziona correttamente perché il `return` è implicito."
+  },
+  {
+    "domanda": "Qual è la differenza tra `.filter(Boolean)` e `.filter(x => x !== null)`?",
+    "risposte": [
+      "Sono esattamente equivalenti in tutti i casi",
+      "`.filter(Boolean)` rimuove tutti i valori falsy (`0`, `''`, `null`, `undefined`, `false`, `NaN`), mentre `.filter(x => x !== null)` rimuove solo `null`",
+      "`.filter(Boolean)` lancia un errore se l'array contiene numeri o stringhe vuote"
+    ],
+    "corretta": 1,
+    "spiegazione": "`Boolean` usato come callback converte ogni elemento: i valori **falsy** (`0`, `''`, `null`, `undefined`, `false`, `NaN`) diventano `false` e vengono esclusi. `.filter(x => x !== null)` usa invece un confronto stretto: rimuove solo `null`, lasciando passare `undefined`, `0`, `''` ecc. Scegliere l'uno o l'altro dipende da quanti valori falsy si vogliono eliminare."
+  }
+]
