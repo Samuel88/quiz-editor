@@ -27,6 +27,7 @@ Ogni file in questa cartella è un array JSON di domande per il quiz editor.
 | `corretta`  | number   | ✅ | Indice (0-based) della risposta corretta nell'array `risposte`. |
 | `spiegazione` | string | ✅ | Spiegazione della risposta corretta. Supporta markdown (backtick, **grassetto**, *corsivo*, liste). |
 | `snippet`   | string   | ❌ | Blocco di codice opzionale mostrato sopra le risposte. Usare la sintassi fenced ` ```lang\n...\n``` `. |
+| `tempo`     | number   | ❌ | Secondi a disposizione per rispondere a questa domanda. Se assente, si usa il default globale (60s). Utile per domande con snippet di codice complessi (più tempo) o domande di pura memoria (meno tempo). |
 
 ## Regole di qualità
 

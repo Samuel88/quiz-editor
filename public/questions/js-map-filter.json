@@ -1,6 +1,7 @@
 [
   {
     "domanda": "Cos'è `Array.prototype.map`?",
+    "tempo": 30,
     "risposte": [
       "Un metodo che filtra gli elementi di un array rimuovendo quelli indesiderati",
       "Un metodo che trasforma ogni elemento di un array e restituisce un nuovo array della stessa lunghezza",
