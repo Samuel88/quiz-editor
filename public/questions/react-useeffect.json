@@ -2,33 +2,36 @@
   {
     "domanda": "Cos'è `useEffect` e a cosa serve?",
     "risposte": [
+      "Un componente speciale che wrappa le chiamate API e le mette in cache finché l'utente non ricarica la pagina",
       "Un hook che sostituisce `useState` quando i dati arrivano da un server esterno",
-      "Un hook che permette di eseguire codice in risposta ai cambiamenti del ciclo di vita del componente, dopo il commit al DOM — usato per gestire i *side effects*",
-      "Un componente speciale che wrappa le chiamate API e le mette in cache finché l'utente non ricarica la pagina"
+      "Un hook che aggiorna lo stato del componente in modo asincrono, come `setState` ma con supporto nativo per le Promise",
+      "Un hook che permette di eseguire codice in risposta ai cambiamenti del ciclo di vita del componente, dopo il commit al DOM — usato per gestire i *side effects*"
     ],
-    "corretta": 1,
+    "corretta": 3,
     "spiegazione": "`useEffect` è un hook di React che serve a gestire i **side effects**: operazioni che interagiscono con qualcosa fuori dal componente React, come fetch di dati, timer, sottoscrizioni ad eventi e manipolazione del DOM. Si esegue dopo che React ha aggiornato il DOM (post-commit), non durante il render."
   },
   {
     "domanda": "Con l'array delle dipendenze vuoto `[]`, quando viene eseguito `useEffect`?",
     "snippet": "```jsx\nuseEffect(() => {\n  console.log('setup');\n  return () => console.log('cleanup');\n}, []);\n```",
     "risposte": [
-      "La setup function si esegue **solo al mount**; la cleanup si esegue **solo all'unmount**",
       "L'effetto si esegue ad ogni render del componente, ogni volta che React riesegue la funzione",
-      "Si esegue una volta al mount e poi ogni lunedì mattina alle 9:00, per ricordarti di fare code review"
+      "Si esegue una volta al mount e poi ogni lunedì mattina alle 9:00, per ricordarti di fare code review",
+      "La setup function si esegue **solo al mount**; la cleanup si esegue **solo all'unmount**",
+      "La setup function si esegue ad ogni render perché `[]` è un nuovo array ad ogni chiamata — React confronta i riferimenti, non i contenuti"
     ],
-    "corretta": 0,
+    "corretta": 2,
     "spiegazione": "`[]` significa \"nessuna dipendenza\": l'effetto non dipende da alcun valore che cambia. Quindi la **setup function** gira una sola volta al mount del componente. La **cleanup function** (il `return`) gira una sola volta all'unmount. È il pattern classico per aprire connessioni, aggiungere event listener o avviare timer che devono durare tutta la vita del componente."
   },
   {
     "domanda": "Con l'array `[roomId]`, quando viene rieseguito `useEffect`?",
     "snippet": "```jsx\nuseEffect(() => {\n  console.log('setup: connect room', roomId);\n  return () => console.log('cleanup: disconnect room', roomId);\n}, [roomId]);\n```",
     "risposte": [
-      "Solo all'unmount del componente, per fare il cleanup finale della connessione",
+      "Ogni volta che il valore di `roomId` cambia: viene eseguita prima la cleanup con il valore vecchio, poi la setup con il valore nuovo",
+      "L'effetto si riesegue ad ogni render del componente, ma la cleanup viene saltata se il valore di `roomId` non è effettivamente cambiato",
       "Ad ogni render del componente, indipendentemente da cosa è cambiato",
-      "Ogni volta che il valore di `roomId` cambia: viene eseguita prima la cleanup con il valore vecchio, poi la setup con il valore nuovo"
+      "Solo all'unmount del componente, per fare il cleanup finale della connessione"
     ],
-    "corretta": 2,
+    "corretta": 0,
     "spiegazione": "L'array delle dipendenze dice a React *quando* rieseguire l'effetto. Con `[roomId]`, React confronta il valore corrente di `roomId` con quello del render precedente. Se è cambiato: (1) esegue la **cleanup** con i valori vecchi, (2) esegue la **setup** con i valori nuovi. Se `roomId` non cambia, l'effetto non viene toccato."
   },
   {
@@ -36,41 +39,45 @@
     "snippet": "```jsx\nuseEffect(() => {\n  console.log('effetto eseguito');\n});\n```",
     "risposte": [
       "L'effetto si esegue solo al mount, come con `[]` — React lo ottimizza automaticamente",
+      "L'effetto si esegue solo al mount, come con `[]` — React rileva automaticamente gli effetti privi di dipendenze esterne",
       "L'effetto si esegue dopo **ogni** render del componente — va quasi sempre evitato",
       "React lancia un warning e chiede educatamente di aggiungere l'array delle dipendenze entro 30 giorni"
     ],
-    "corretta": 1,
+    "corretta": 2,
     "spiegazione": "Senza array, `useEffect` si riesegue dopo **ogni singolo render**. In quasi tutti i casi questo è un bug: se l'effetto aggiorna dello stato, causa un loop infinito (stato → render → effetto → stato…). Va usato solo in rarissimi casi in cui si vuole davvero reagire a ogni render, che nella pratica sono prossimi allo zero."
   },
   {
     "domanda": "In quali momenti viene eseguita la **cleanup function** (la funzione restituita da `useEffect`)?",
     "risposte": [
+      "Solo prima di ogni nuovo setup quando le dipendenze cambiano — non viene mai eseguita all'unmount del componente",
       "Solo quando si chiama manualmente `clearEffect()` prima della prossima invocazione di `useEffect`",
       "Solo all'unmount del componente — mai in altri momenti",
       "Prima di ogni nuovo setup (quando le dipendenze cambiano) **e** all'unmount finale del componente"
     ],
-    "corretta": 2,
+    "corretta": 3,
     "spiegazione": "La cleanup si esegue in due occasioni: (1) **prima di ogni nuovo setup** — quando le dipendenze cambiano, React pulisce l'effetto precedente prima di avviarne uno nuovo; (2) **all'unmount** del componente, come pulizia finale. Questo garantisce che non rimangano risorse attive (connessioni, timer, listener) dopo che il componente è sparito."
   },
   {
     "domanda": "Con quali valori (vecchi o nuovi) opera la cleanup function quando le dipendenze cambiano?",
     "snippet": "```jsx\nuseEffect(() => {\n  console.log('connect:', roomId); // roomId = \"travel\"\n  return () => {\n    console.log('disconnect:', roomId); // quale roomId?\n  };\n}, [roomId]);\n```",
     "risposte": [
+      "La cleanup calcola la media aritmetica tra valori vecchi e nuovi per trovare un compromesso diplomatico",
       "La cleanup usa sempre i valori **vecchi** — quelli in uso quando è stato avviato il setup che sta pulendo",
       "La cleanup usa i valori **nuovi**, gli stessi che verranno usati nel setup successivo",
-      "La cleanup calcola la media aritmetica tra valori vecchi e nuovi per trovare un compromesso diplomatico"
+      "La cleanup usa i valori nuovi — quelli disponibili nel setup successivo — per garantire coerenza tra le due fasi"
     ],
-    "corretta": 0,
+    "corretta": 1,
     "spiegazione": "Ogni cleanup fa riferimento alla chiusura (*closure*) del render in cui è stato creato il suo setup. Se il setup è partito con `roomId = \"general\"`, la cleanup che lo smonta userà anch'essa `roomId = \"general\"`. Questo è essenziale: per disconnettersi da \"general\" bisogna sapere *da quale room* disconnettersi, non quella nuova."
   },
   {
     "domanda": "Quando le dipendenze cambiano, in quale ordine React esegue cleanup e setup?",
     "risposte": [
-      "Setup con i nuovi valori → poi cleanup con i vecchi valori",
       "Prima **cleanup** (con i valori vecchi) → poi **setup** (con i valori nuovi)",
-      "Entrambi in parallelo su thread separati, poi React riconcilia i risultati con un algoritmo proprietario"
+      "Entrambi in parallelo su thread separati, poi React riconcilia i risultati con un algoritmo proprietario",
+      "Setup con i nuovi valori → poi cleanup con i vecchi valori",
+      "Entrambi si eseguono in modo asincrono e React non garantisce un ordine preciso — dipende dal carico del thread principale"
     ],
-    "corretta": 1,
+    "corretta": 0,
     "spiegazione": "L'ordine è sempre: **cleanup prima, setup dopo**. Ha senso logicamente: bisogna \"spegnere\" la vecchia connessione prima di avviarne una nuova. Se fosse il contrario, ci sarebbero due connessioni attive contemporaneamente per un momento, causando comportamenti imprevedibili."
   },
   {
@@ -78,6 +85,7 @@
     "risposte": [
       "Un'operazione che interagisce con qualcosa **fuori** dal componente React, come fetch, timer, sottoscrizioni o manipolazione del DOM",
       "Un bug causato da un `useState` mal gestito che porta a re-render infiniti",
+      "Un errore causato da uno stato che viene modificato direttamente durante la fase di render, fuori da un `useEffect`",
       "L'effetto collaterale sul tuo benessere fisico dopo 12 ore consecutive di debug su React"
     ],
     "corretta": 0,
@@ -87,39 +95,43 @@
     "domanda": "Nel componente `PageTitle`, perché la cleanup function ripristina `document.title`?",
     "snippet": "```jsx\nuseEffect(() => {\n  const originalTitle = document.title;\n  document.title = `MyApp - ${pageNames[page]}`;\n  return () => {\n    document.title = originalTitle;\n  };\n}, [page]);\n```",
     "risposte": [
-      "Per ottimizzare le performance: il browser accumula i titoli in memoria e va svuotato periodicamente",
+      "Per ripristinare il titolo originale quando il componente viene smontato, così non rimane il titolo personalizzato dopo che `PageTitle` non esiste più nel DOM",
       "Perché `document.title` è read-only dopo la prima scrittura e va ripristinato prima di poterlo riscrivere",
-      "Per ripristinare il titolo originale quando il componente viene smontato, così non rimane il titolo personalizzato dopo che `PageTitle` non esiste più nel DOM"
+      "Per ottimizzare le performance: il browser accumula i titoli in memoria e va svuotato periodicamente",
+      "Per ottimizzare le performance: il browser accumula i cambiamenti al titolo in un buffer interno che va svuotato periodicamente"
     ],
-    "corretta": 2,
+    "corretta": 0,
     "spiegazione": "Senza cleanup, se `PageTitle` viene smontato (es. l'utente naviga altrove), il titolo della scheda resterebbe bloccato sull'ultimo valore impostato dall'effetto. La cleanup ripristina `originalTitle` all'unmount. È il principio generale: **ogni effetto dovrebbe annullare le proprie modifiche** quando non è più necessario."
   },
   {
     "domanda": "Cosa si intende per *memory leak* nel contesto di `useEffect`?",
     "risposte": [
-      "Quando si definiscono troppi `useEffect` nello stesso componente e React esaurisce la memoria disponibile",
       "Quando un effetto lascia risorse attive (timer, subscription, connessioni) dopo che il componente è stato smontato, perché manca la cleanup function",
+      "Quando due `useEffect` nello stesso componente accedono alla stessa variabile di stato causando aggiornamenti sovrapposti e race condition",
+      "Quando si definiscono troppi `useEffect` nello stesso componente e React esaurisce la memoria disponibile",
       "Quando si usa una variabile con un nome di oltre 30 caratteri all'interno di `useEffect`, causando uno stack overflow"
     ],
-    "corretta": 1,
+    "corretta": 0,
     "spiegazione": "Un memory leak in `useEffect` avviene quando l'effetto avvia qualcosa (un `setInterval`, una WebSocket, un event listener) ma non lo ferma all'unmount. La risorsa rimane attiva in memoria e può ancora richiamare `setState` su un componente che non esiste più, causando l'errore `Can't perform a React state update on an unmounted component`."
   },
   {
     "domanda": "Qual è la differenza di timing tra `useEffect` e `useLayoutEffect`?",
     "risposte": [
-      "`useEffect` si esegue generalmente **dopo** il paint del browser; `useLayoutEffect` si esegue **sincrono durante il commit**, prima che il browser aggiorni lo schermo",
       "`useLayoutEffect` funziona solo nei componenti di layout (es. header, footer); `useEffect` funziona in tutti i componenti",
+      "`useEffect` si esegue generalmente **dopo** il paint del browser; `useLayoutEffect` si esegue **sincrono durante il commit**, prima che il browser aggiorni lo schermo",
+      "`useLayoutEffect` si esegue prima del mount del componente; `useEffect` si esegue dopo il mount ma prima del primo paint del browser",
       "Sono identici nel timing, ma `useLayoutEffect` ha un timeout interno di 200ms per non bloccare l'utente — un tocco di eleganza architettonica"
     ],
-    "corretta": 0,
+    "corretta": 1,
     "spiegazione": "La sequenza è: **Render → Commit (DOM update + `useLayoutEffect`) → Paint (UI visibile all'utente) → `useEffect`**. `useLayoutEffect` blocca il paint e viene usato solo quando si deve misurare o modificare il DOM prima che l'utente lo veda. `useEffect` è non bloccante e va preferito per quasi tutto il resto."
   },
   {
     "domanda": "Perché **non** si dovrebbe mettere un fetch di dati direttamente nel corpo del componente, senza `useEffect`?",
     "risposte": [
-      "Perché React vieta le operazioni asincrone nel corpo del componente e lancia un errore a compile time",
+      "Perché `fetch` è asincrono e React non supporta `async/await` direttamente nelle funzioni dei componenti funzionali",
       "Per ragioni di bundle size: il corpo del componente gira sul main thread, mentre `useEffect` usa automaticamente un Web Worker dedicato",
-      "Perché il corpo del componente si esegue ad ogni render: senza `useEffect`, il fetch verrebbe rilanciato ogni volta che cambia qualsiasi stato, causando loop e richieste HTTP infinite"
+      "Perché il corpo del componente si esegue ad ogni render: senza `useEffect`, il fetch verrebbe rilanciato ogni volta che cambia qualsiasi stato, causando loop e richieste HTTP infinite",
+      "Perché React vieta le operazioni asincrone nel corpo del componente e lancia un errore a compile time"
     ],
     "corretta": 2,
     "spiegazione": "Il corpo di un componente funzionale è una funzione pura che React può chiamare più volte (anche in Strict Mode la chiama doppia per trovare bug). Mettere un fetch direttamente nel corpo significa che parte a ogni render. Se il fetch aggiorna uno stato, causa un nuovo render, che causa un nuovo fetch… loop infinito. `useEffect` isola il side effect e lo controlla tramite le dipendenze."
@@ -128,42 +140,46 @@
     "domanda": "Nel componente `Dialog` (Esempio 1), cosa succede esattamente al **primo click** sul bottone Toggle?",
     "snippet": "```jsx\n// Dialog.jsx\nuseEffect(() => {\n  console.log('Dialog useEffect: setup');\n  return () => {\n    console.log('Dialog useEffect: cleanup');\n  };\n}, []);\n```",
     "risposte": [
-      "React esegue prima la cleanup (per sicurezza), poi aggiunge `Dialog` al DOM, poi il setup",
+      "React esegue il `useEffect` **prima** ancora di aggiungere `Dialog` al DOM, così la UI è già pronta quando appare",
+      "React esegue la setup function durante la fase di Render, prima ancora che il componente sia aggiunto al DOM",
       "React aggiunge `Dialog` al DOM (mount), poi — dopo il commit — esegue la setup function del `useEffect`",
-      "React esegue il `useEffect` **prima** ancora di aggiungere `Dialog` al DOM, così la UI è già pronta quando appare"
+      "React esegue prima la cleanup (per sicurezza), poi aggiunge `Dialog` al DOM, poi il setup"
     ],
-    "corretta": 1,
+    "corretta": 2,
     "spiegazione": "L'ordine al mount è: (1) React aggiunge il componente al DOM (**commit**), (2) il browser aggiorna lo schermo (**paint**), (3) React esegue la **setup function** di `useEffect`. Non c'è cleanup al mount — la cleanup esiste solo per \"annullare\" un setup precedente, e al primo mount non ce n'è stato uno."
   },
   {
     "domanda": "Nel componente `DialogWithDeps` (Esempio 2), `roomId` cambia da `\"general\"` a `\"travel\"`. Cosa appare in console e in quale ordine?",
     "snippet": "```jsx\nuseEffect(() => {\n  console.log('🔌 setup: connect room', roomId);\n  return () => {\n    console.log('❌ cleanup: disconnect room', roomId);\n  };\n}, [roomId]);\n```",
     "risposte": [
+      "Solo `\"🔌 setup: connect room travel\"` — la cleanup non si esegue se il componente rimane montato",
       "Prima `\"❌ cleanup: disconnect room general\"`, poi `\"🔌 setup: connect room travel\"`",
-      "Prima `\"🔌 setup: connect room travel\"`, poi `\"❌ cleanup: disconnect room general\"`",
-      "Solo `\"🔌 setup: connect room travel\"` — la cleanup non si esegue se il componente rimane montato"
+      "Prima `\"🔌 setup: connect room travel\"`, poi `\"❌ cleanup: disconnect room general\"` — React ottimizza eseguendo il setup prima per ridurre il downtime",
+      "Prima `\"🔌 setup: connect room travel\"`, poi `\"❌ cleanup: disconnect room general\"`"
     ],
-    "corretta": 0,
+    "corretta": 1,
     "spiegazione": "Al cambio di dipendenza, l'ordine è sempre **cleanup → setup**: prima React \"pulisce\" il vecchio effetto (disconnect da general), poi avvia il nuovo (connect a travel). La cleanup usa i valori vecchi (`general`) perché è legata alla closure del render precedente. Solo dopo scatta il setup con i valori nuovi (`travel`)."
   },
   {
     "domanda": "Nelle **tre fasi di vita** di React (Trigger → Render → Commit), in quale fase si esegue `useEffect`?",
     "risposte": [
       "Durante la fase di **Render**, mentre React costruisce il Virtual DOM",
-      "Durante la fase di **Commit**, contemporaneamente a `useLayoutEffect`, prima del paint",
-      "**Dopo** la fase di Commit e, in generale, dopo il paint del browser — è la fase più tardiva del ciclo"
+      "**Dopo** la fase di Commit e, in generale, dopo il paint del browser — è la fase più tardiva del ciclo",
+      "Durante la fase di **Commit**, contemporaneamente a `useLayoutEffect` ma in un microtask separato con priorità più bassa",
+      "Durante la fase di **Commit**, contemporaneamente a `useLayoutEffect`, prima del paint"
     ],
-    "corretta": 2,
+    "corretta": 1,
     "spiegazione": "La sequenza completa è: **Trigger** (stato cambia) → **Render** (React ricalcola il Virtual DOM) → **Commit** (DOM reale aggiornato, `useLayoutEffect` eseguito) → **Paint** (browser mostra la UI) → **`useEffect`**. `useEffect` è volutamente posticipato per non bloccare il browser nell'aggiornare la schermata."
   },
   {
     "domanda": "React 18 introduce un'eccezione al timing di `useEffect` per gli **eventi discreti**. Di cosa si tratta?",
     "risposte": [
       "Con React 18, `useEffect` è stato deprecato per gli eventi utente — va usato `useEventEffect` al suo posto",
+      "React 18 esegue `useEffect` sempre in modalità *lazy*: aspetta 500ms dopo il paint prima di partire, per non disturbare l'interazione utente",
       "Per eventi discreti (click, keydown), React 18 esegue `useEffect` **prima** del paint, per evitare che l'utente veda la UI in uno stato visivamente inconsistente per un singolo frame",
-      "React 18 esegue `useEffect` sempre in modalità *lazy*: aspetta 500ms dopo il paint prima di partire, per non disturbare l'interazione utente"
+      "React 18 esegue `useEffect` in modo sincrono per tutti gli eventi utente, non solo per quelli discreti, eliminando la latenza percepita"
     ],
-    "corretta": 1,
+    "corretta": 2,
     "spiegazione": "Un **evento discreto** è un'azione puntuale dell'utente (click, keydown) in contrapposizione a eventi continui (scroll, resize). Se un click apre un menu e `useEffect` ne calcola la posizione, eseguirlo *dopo* il paint farebbe vedere per un frame il menu posizionato male. Anticipandolo al pre-paint, la UI è già corretta quando l'utente la vede. Nella pratica, questo cambia poco: conta solo se l'effetto modifica aspetti visivi legati a un click."
   }
 ]

@@ -2,71 +2,78 @@
   {
     "domanda": "Cosa significa la proprietà 'display: flex' in CSS?",
     "risposte": [
-      "Crea un contenitore flex che dispone i suoi figli secondo le regole di Flexbox",
       "Rende gli elementi trasparenti e flessibili",
-      "Aggiunge un bordo dinamico al contenitore"
+      "Aggiunge un bordo dinamico al contenitore",
+      "Attiva una modalità responsiva che ridimensiona automaticamente gli elementi in base alla risoluzione dello schermo",
+      "Crea un contenitore flex che dispone i suoi figli secondo le regole di Flexbox"
     ],
-    "corretta": 0,
+    "corretta": 3,
     "spiegazione": "Applicando `display: flex` a un elemento lo si rende un *flex container*: i suoi figli diretti diventano automaticamente *flex item* e vengono disposti in riga (per default) secondo le regole di Flexbox, senza dover usare float o position."
   },
   {
     "domanda": "Qual è il valore di default di flex-direction?",
     "risposte": [
+      "column-reverse — gli elementi si dispongono dal basso verso l'alto, come una pila di pancakes capovolta",
       "row",
-      "column",
-      "row-reverse"
+      "row-reverse",
+      "column"
     ],
-    "corretta": 0,
+    "corretta": 1,
     "spiegazione": "Il valore predefinito è `row`: gli elementi flex vengono disposti in orizzontale, da sinistra a destra. Per disporli in verticale si usa `flex-direction: column`."
   },
   {
     "domanda": "Quale proprietà serve per centrare gli elementi lungo l'asse principale?",
     "risposte": [
       "align-items",
+      "center-content — la shorthand CSS4 che sostituisce justify-content e align-items con un'unica dichiarazione",
       "justify-content",
       "align-content"
     ],
-    "corretta": 1,
+    "corretta": 2,
     "spiegazione": "`justify-content` agisce sull'*asse principale* (orizzontale con `row`, verticale con `column`). Per centrare: `justify-content: center`. `align-items` invece agisce sull'asse trasversale."
   },
   {
     "domanda": "Quale proprietà permette agli elementi di andare a capo su più righe?",
     "risposte": [
+      "flex-direction",
       "flex-wrap",
-      "flex-grow",
-      "flex-direction"
+      "flex-flow: wrap — è la forma contratta che specifica sia la direzione che il comportamento di avvolgimento",
+      "flex-grow"
     ],
-    "corretta": 0,
+    "corretta": 1,
     "spiegazione": "Per default i flex item cercano di stare tutti su una riga. Con `flex-wrap: wrap` si permette loro di andare a capo quando non c'è più spazio, creando più righe (o colonne con `flex-direction: column`)."
   },
   {
     "domanda": "La shorthand 'flex: 1' corrisponde a quale combinazione?",
     "risposte": [
+      "flex-grow: 0; flex-shrink: 1; flex-basis: auto — l'elemento mantiene la sua dimensione naturale e non cresce mai",
       "flex-grow: 1; flex-shrink: 1; flex-basis: 0%;",
-      "flex-grow: 0; flex-shrink: 1; flex-basis: auto;",
-      "flex-grow: 1; flex-shrink: 0; flex-basis: 100%;"
+      "flex-grow: 1; flex-shrink: 0; flex-basis: 100%;",
+      "flex-grow: 0; flex-shrink: 1; flex-basis: auto;"
     ],
-    "corretta": 0,
+    "corretta": 1,
     "spiegazione": "`flex: 1` è una shorthand che imposta `flex-grow: 1` (può crescere), `flex-shrink: 1` (può ridursi) e `flex-basis: 0%` (parte da zero). Assegnare `flex: 1` a tutti i figli li fa occupare lo spazio in parti uguali."
   },
   {
     "domanda": "Quando si usa align-content invece di align-items?",
     "risposte": [
-      "Quando ci sono più righe/colonne (flex-wrap attivo)",
       "Per allineare singoli elementi",
+      "Quando ci sono più righe/colonne (flex-wrap attivo)",
+      "align-content funziona su tutti i browser moderni, align-items solo su Chrome e Firefox dalla versione 80 in poi",
       "Solo con flex-direction: column"
     ],
-    "corretta": 0,
+    "corretta": 1,
     "spiegazione": "`align-items` allinea gli elementi *dentro* ogni riga. `align-content` invece distribuisce lo spazio *tra le righe stesse*, quindi ha effetto solo quando `flex-wrap: wrap` crea righe multiple."
   },
   {
     "domanda": "Quale proprietà cambia l'ordine visivo di un elemento senza modificare l'HTML?",
     "risposte": [
-      "order",
+      "flex-rank — la proprietà rinominata in Flexbox Level 2; `order` è il vecchio nome deprecato nel 2020",
       "flex-basis",
+      "order",
       "z-index"
     ],
-    "corretta": 0,
+    "corretta": 2,
     "spiegazione": "La proprietà `order` accetta un numero intero (default: 0). Gli elementi vengono visualizzati in ordine crescente di `order`, indipendentemente dalla loro posizione nel DOM. Esempio: `order: -1` sposta un elemento all'inizio."
   },
   {
@@ -74,6 +81,7 @@
     "risposte": [
       "justify-content: center; align-items: center;",
       "align-content: center; flex-wrap: wrap;",
+      "place-content: center — la shorthand moderna che fa il lavoro di entrambe con un singolo valore",
       "flex-direction: column; order: 1;"
     ],
     "corretta": 0,
@@ -83,8 +91,9 @@
     "domanda": "Cosa indica flex-basis: 200px?",
     "risposte": [
       "La dimensione iniziale dell'elemento prima della distribuzione dello spazio",
+      "La distanza dall'elemento precedente",
       "La dimensione minima che l'elemento può assumere",
-      "La distanza dall'elemento precedente"
+      "La dimensione massima che l'elemento può raggiungere dopo che flex-grow ha distribuito lo spazio disponibile"
     ],
     "corretta": 0,
     "spiegazione": "`flex-basis` definisce la dimensione di partenza di un flex item sull'asse principale, *prima* che `flex-grow` e `flex-shrink` distribuiscano lo spazio libero o riducano. Con `flex-basis: 200px` l'elemento parte da 200px e poi cresce/si riduce in base allo spazio disponibile."
@@ -93,10 +102,11 @@
     "domanda": "Quale valore di justify-content distribuisce lo spazio equamente tra gli elementi?",
     "risposte": [
       "space-between",
+      "space-evenly",
       "space-around",
-      "space-evenly"
+      "space-equal — il valore che sostituisce space-evenly in CSS4 con una distribuzione ancora più uniforme e approvata dal W3C"
     ],
-    "corretta": 2,
+    "corretta": 1,
     "spiegazione": "`space-evenly` mette esattamente lo stesso spazio tra tutti gli elementi *e* ai bordi. `space-between` non mette spazio ai bordi. `space-around` mette metà spazio ai bordi rispetto all'interno, risultando in spazi visivamente diseguali agli estremi."
   }
 ]

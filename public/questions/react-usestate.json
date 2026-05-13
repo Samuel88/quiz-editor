@@ -2,19 +2,21 @@
   {
     "domanda": "Che cos'è `useState` in React?",
     "risposte": [
-      "Un modo per salvare dati in localStorage automaticamente",
       "Un hook che permette a un componente di memorizzare un valore che, quando cambia, causa il re-render del componente",
-      "Una funzione che esegue codice ogni volta che il componente viene montato"
+      "Un modo per salvare dati in localStorage automaticamente",
+      "Una funzione che esegue codice ogni volta che il componente viene montato",
+      "Un modo per condividere lo stato tra più componenti senza dover usare Context API o Redux"
     ],
-    "corretta": 1,
+    "corretta": 0,
     "spiegazione": "`useState` è un hook di React che aggiunge uno stato locale a un componente funzionale. Esempio: `const [count, setCount] = useState(0)` crea una variabile `count` con valore iniziale 0 e una funzione `setCount` per aggiornarla. Ogni volta che lo stato cambia, React ri-renderizza il componente."
   },
   {
     "domanda": "Quando viene aggiornata una variabile di stato?",
     "risposte": [
-      "Solo quando l'utente interagisce con la pagina",
       "Subito, nel momento in cui chiami la funzione setter",
-      "Non immediatamente: React pianifica l'aggiornamento e lo applica al prossimo re-render"
+      "Immediatamente e in modo sincrono, come una normale assegnazione di variabile — React ottimizza il re-render separatamente con il batching",
+      "Non immediatamente: React pianifica l'aggiornamento e lo applica al prossimo re-render",
+      "Solo quando l'utente interagisce con la pagina"
     ],
     "corretta": 2,
     "spiegazione": "Chiamare `setCount(5)` non modifica `count` subito: React mette l'aggiornamento in coda (*batching*) e lo applica al prossimo ciclo di rendering. Nella stessa funzione, `count` ha ancora il vecchio valore. Il nuovo valore è disponibile solo al re-render successivo."
@@ -22,9 +24,10 @@
   {
     "domanda": "Cosa provoca l'aggiornamento di uno stato in React?",
     "risposte": [
-      "Il salvataggio automatico dei dati nel database",
+      "La ricarica completa della pagina nel browser",
       "Il re-render del componente: React riesegue la funzione del componente con il nuovo valore",
-      "La ricarica completa della pagina nel browser"
+      "Il salvataggio automatico del valore nel localStorage, così viene recuperato al prossimo caricamento della pagina",
+      "Il salvataggio automatico dei dati nel database"
     ],
     "corretta": 1,
     "spiegazione": "Quando chiami la funzione setter di `useState`, React schedula un re-render: la funzione del componente viene rieseguita dall'inizio, questa volta con il nuovo valore di stato. Solo la parte del DOM che è cambiata viene effettivamente aggiornata nel browser (grazie al Virtual DOM)."
@@ -32,11 +35,12 @@
   {
     "domanda": "Che cos'è un re-render in React?",
     "risposte": [
+      "La ricreazione completa del componente da zero, con reinizializzazione di tutti gli hook come se fosse il primo mount",
       "La riesecuzione della funzione del componente per aggiornare l'interfaccia con i nuovi valori di stato",
-      "L'aggiornamento del CSS della pagina",
-      "Il ricaricamento dell'intera applicazione dal server"
+      "Il ricaricamento dell'intera applicazione dal server",
+      "L'aggiornamento del CSS della pagina"
     ],
-    "corretta": 0,
+    "corretta": 1,
     "spiegazione": "Quando React fa un re-render, chiama di nuovo la funzione del componente. Il risultato (JSX) viene confrontato con il DOM precedente tramite il *diffing* del Virtual DOM: solo le differenze effettive vengono applicate al DOM reale, rendendo il processo molto efficiente."
   },
   {
@@ -44,7 +48,8 @@
     "risposte": [
       "Lo spread operator modifica l'array originale, `push` crea uno nuovo",
       "Non c'è differenza, producono lo stesso risultato",
-      "`push` modifica l'array originale (mutazione), mentre lo spread operator crea un nuovo array lasciando intatto l'originale"
+      "`push` modifica l'array originale (mutazione), mentre lo spread operator crea un nuovo array lasciando intatto l'originale",
+      "Non c'è differenza: entrambi producono lo stesso array in memoria — JavaScript gestisce internamente la copia degli elementi"
     ],
     "corretta": 2,
     "spiegazione": "React rileva i cambiamenti di stato confrontando i riferimenti. Con `push` l'array è lo stesso oggetto in memoria: React non vede alcun cambiamento e non re-renderizza. Con `[...array, 'pikachu']` si crea un *nuovo* array: React lo riconosce come un nuovo valore e aggiorna il componente."
@@ -52,41 +57,45 @@
   {
     "domanda": "Qual è la differenza tra `obj.speed = 10` e `{ ...obj, speed: 10 }` in JavaScript?",
     "risposte": [
-      "`obj.speed = 10` modifica l'oggetto esistente (mutazione), mentre lo spread crea un nuovo oggetto con la proprietà aggiornata",
+      "Sono equivalenti, entrambi creano un nuovo oggetto",
       "`{ ...obj, speed: 10 }` modifica l'oggetto originale sovrascrivendo la proprietà",
-      "Sono equivalenti, entrambi creano un nuovo oggetto"
+      "`obj.speed = 10` modifica l'oggetto esistente (mutazione), mentre lo spread crea un nuovo oggetto con la proprietà aggiornata",
+      "Entrambi creano un nuovo oggetto — `{ ...obj, speed: 10 }` è più verboso ma non ha nessun vantaggio pratico rispetto alla mutazione diretta"
     ],
-    "corretta": 0,
+    "corretta": 2,
     "spiegazione": "`obj.speed = 10` muta l'oggetto originale: il riferimento in memoria è lo stesso, quindi `setPlayer(obj)` non causerebbe un re-render. `{ ...obj, speed: 10 }` crea un oggetto completamente nuovo con tutte le proprietà copiate e `speed` sovrascritta: React lo riconosce come un cambiamento."
   },
   {
     "domanda": "Quale tra questi aggiorna correttamente una variabile di stato?",
     "risposte": [
+      "`useState(count + 1)`",
+      "`count++` — l'operatore di incremento è il modo più conciso per aggiornare uno stato numerico in React",
       "`setCount(count + 1)`",
-      "`count = count + 1`",
-      "`useState(count + 1)`"
+      "`count = count + 1`"
     ],
-    "corretta": 0,
+    "corretta": 2,
     "snippet": "```js\nconst [count, setCount] = useState(0)\n```",
     "spiegazione": "L'unico modo per aggiornare lo stato è la funzione setter restituita da `useState`. `count = count + 1` è una mutazione diretta: React non ne è a conoscenza e non re-renderizza. `useState(count + 1)` creerebbe uno stato completamente nuovo, il che non ha senso."
   },
   {
     "domanda": "Hai questo stato. Come aggiungi `'squirtle'` correttamente?",
     "risposte": [
-      "`pokemon.push('squirtle')`",
       "`setPokemon(pokemon.push('squirtle'))`",
-      "`setPokemon([...pokemon, 'squirtle'])`"
+      "`setPokemon([...pokemon, 'squirtle'])`",
+      "`pokemon.push('squirtle')`",
+      "`setPokemon(pokemon.concat('squirtle'))` — concat è il metodo standard consigliato da React per aggiungere elementi agli array di stato"
     ],
-    "corretta": 2,
+    "corretta": 1,
     "snippet": "```js\nconst [pokemon, setPokemon] = useState(['bulbasaur', 'charmander'])\n```",
     "spiegazione": "`[...pokemon, 'squirtle']` crea un nuovo array con tutti gli elementi esistenti più `'squirtle'` in fondo. `pokemon.push()` muta l'array originale (e restituisce la nuova lunghezza, non l'array). `setPokemon(pokemon.push(...))` passerebbe un numero invece di un array."
   },
   {
     "domanda": "Hai questo stato. Come aggiorni correttamente solo `level` a `2`?",
     "risposte": [
-      "`setPlayer({ level: 2 })`",
+      "`player.level = 2`",
       "`setPlayer({ ...player, level: 2 })`",
-      "`player.level = 2`"
+      "`setPlayer(Object.assign(player, { level: 2 }))` — Object.assign aggiorna la singola proprietà mantenendo il riferimento all'oggetto originale",
+      "`setPlayer({ level: 2 })`"
     ],
     "corretta": 1,
     "snippet": "```js\nconst [player, setPlayer] = useState({ name: 'Ash', level: 1 })\n```",
@@ -95,11 +104,12 @@
   {
     "domanda": "Cosa succede se chiami `setCount(count + 1)` tre volte di fila nello stesso evento?",
     "risposte": [
+      "React lancia un errore perché non si può chiamare il setter più volte",
+      "Lo stato viene incrementato di 3 — React ha ottimizzato i setter per rilevare automaticamente le chiamate consecutive nella stessa funzione",
       "Lo stato viene incrementato di 1 sola volta, perché React usa il valore di `count` al momento dell'evento per tutti e tre i calcoli",
-      "Lo stato viene incrementato di 3",
-      "React lancia un errore perché non si può chiamare il setter più volte"
+      "Lo stato viene incrementato di 3"
     ],
-    "corretta": 0,
+    "corretta": 2,
     "spiegazione": "Poiché `count` non cambia durante la stessa esecuzione, tutte e tre le chiamate calcolano lo stesso valore (`0 + 1 = 1`). Per incrementare davvero di 3, bisogna usare la forma funzionale: `setCount(prev => prev + 1)` tre volte, che usa ogni volta il valore aggiornato."
   }
 ]
