@@ -1,0 +1,184 @@
+[
+  {
+    "domanda": "Quali sono i principali limiti della navigazione simulata con `useState` rispetto a React Router?",
+    "risposte": [
+      "L'URL non cambia, il tasto back/forward non funziona, al refresh si torna all'inizio e non c'è supporto per il deep-linking",
+      "`useState` è deprecato dal 2024 quindi non dovrebbe mai essere usato, nemmeno per gestire un contatore",
+      "Non supporta TypeScript e non funziona con Vite"
+    ],
+    "corretta": 0,
+    "spiegazione": "Con `useState` la navigazione è solo visiva: l'URL rimane invariato, il browser non sa che la \"pagina\" è cambiata, quindi back/forward non funzionano e al refresh si riparte sempre dallo stato iniziale. React Router risolve tutti questi problemi sincronizzando l'URL con la HTML5 History API."
+  },
+  {
+    "domanda": "Cosa fa `<BrowserRouter>` nell'applicazione?",
+    "risposte": [
+      "Converte automaticamente tutti i `<a href>` in link che ricaricano la pagina",
+      "Fornisce il contesto di routing tramite HTML5 History API, abilitando la navigazione senza ricaricare la pagina",
+      "Ottimizza i bundle CSS generando classi BEM in automatico — gratis, senza configurazione"
+    ],
+    "corretta": 1,
+    "spiegazione": "`BrowserRouter` è il provider del contesto di routing: usa `pushState` e `popState` della HTML5 History API per aggiornare l'URL senza inviare richieste al server. Deve avvolgere tutto il codice che usa il router."
+  },
+  {
+    "domanda": "Come si comporta `<Routes>` quando più Route potrebbero corrispondere all'URL corrente?",
+    "risposte": [
+      "Renderizza tutte le Route corrispondenti in parallelo, una sotto l'altra",
+      "Renderizza sempre l'ultima Route nell'array perché \"last write wins\"",
+      "Confronta l'URL con le Route figlie dall'alto verso il basso e renderizza solo la **prima** che corrisponde"
+    ],
+    "corretta": 2,
+    "spiegazione": "`Routes` scorre le Route figlie in ordine e renderizza la prima il cui `path` corrisponde all'URL corrente. Una sola Route viene attiva alla volta. Per questo il catch-all `path=\"*\"` va messo sempre per **ultimo**: altrimenti catturerebbe tutto prima delle rotte specifiche."
+  },
+  {
+    "domanda": "A cosa serve `path=\"*\"` e dove va posizionato?",
+    "risposte": [
+      "Cattura qualsiasi URL non abbinato dalle Route precedenti; va messo sempre per **ultimo** nell'elenco di Route",
+      "Corrisponde solo ai path che contengono il carattere `*` letterale nel browser",
+      "È la rotta VIP: si attiva solo se l'utente ha i permessi di amministratore"
+    ],
+    "corretta": 0,
+    "spiegazione": "`path=\"*\"` è il **catch-all**: corrisponde a qualsiasi URL che non ha trovato corrispondenza nelle Route precedenti. Viene usato tipicamente per la pagina 404. Va posizionato per **ultimo** perché `Routes` seleziona la prima Route che corrisponde — se fosse all'inizio catturerebbe tutto."
+  },
+  {
+    "domanda": "Qual è la differenza tra `<Link>` e `<NavLink>`?",
+    "risposte": [
+      "`Link` è per i link verso siti esterni, `NavLink` è solo per la navigazione interna all'app",
+      "Entrambi aggiornano l'URL senza ricaricare la pagina, ma `NavLink` aggiunge automaticamente la classe CSS `active` quando il link corrisponde all'URL corrente",
+      "`Link` è la versione moderna e ha rimpiazzato `NavLink`, che è ormai deprecato dalla v6"
+    ],
+    "corretta": 1,
+    "spiegazione": "Sia `Link` che `NavLink` navigano senza ricaricare la pagina. La differenza è che `NavLink` sa quando è \"attivo\" e aggiunge la classe `active` al link corrispondente all'URL corrente — perfetto per evidenziare la voce di menu selezionata. `Link` è più leggero e adatto quando non serve lo stile attivo."
+  },
+  {
+    "domanda": "A cosa serve la prop `end` su `<NavLink to=\"/\">`?",
+    "risposte": [
+      "Disabilita il link dopo il primo click, come un coupon monouso — usalo con saggezza",
+      "Aggiunge un'animazione di dissolvenza al termine della navigazione",
+      "Impedisce che il link `\"/\"` rimanga `active` anche quando si visitano path come `\"/contacts\"` che iniziano tutti con `\"/\"`"
+    ],
+    "corretta": 2,
+    "spiegazione": "Senza `end`, il link `to=\"/\"` resterebbe `active` su qualsiasi URL perché tutti i path iniziano con `\"/\"`. La prop `end` impone un match **esatto**: il link diventa `active` solo se l'URL corrente è esattamente `\"/\"`, non per `\"/contacts\"` o `\"/users/42\"`."
+  },
+  {
+    "domanda": "Cosa fa una `<Route path=\"sezione\">` che ha Route figlie ma **nessun** `element`?",
+    "risposte": [
+      "Renderizza un `<div>` vuoto e sospende le Route figlie finché non arriva uno stato dal server",
+      "Raggruppa le Route figlie sotto il prefisso URL `\"/sezione\"` senza renderizzare nulla di proprio",
+      "È un errore di sintassi: ogni Route deve avere sia `path` che `element`, altrimenti il router si rompe"
+    ],
+    "corretta": 1,
+    "spiegazione": "Una Route con solo `path` e senza `element` serve esclusivamente a **raggruppare** i path: aggiunge un prefisso URL condiviso a tutte le figlie, ma non produce alcun HTML. È diversa dalla layout route (Esempio 4) che ha `element` ma non `path`."
+  },
+  {
+    "domanda": "Dato questo codice, qual è il path finale della Route figlia?",
+    "snippet": "```jsx\n<Route path=\"sezione\">\n  <Route path=\"contacts\" element={<Contacts />} />\n</Route>\n```",
+    "risposte": [
+      "`/sezione/contacts`",
+      "`/contacts`",
+      "`/sezione+contacts` — React Router usa `+` per concatenare i path, non `/`"
+    ],
+    "corretta": 0,
+    "spiegazione": "I path nelle rotte annidate si **concatenano**: il path finale è quello del padre più il path della figlia, separati da `\"/\"`. Quindi `\"sezione\"` + `\"contacts\"` = `\"/sezione/contacts\"`. Il path della figlia è relativo al padre, non assoluto."
+  },
+  {
+    "domanda": "A cosa serve `<Outlet />` in un componente layout?",
+    "risposte": [
+      "Un hook che restituisce il componente della rotta corrente come stringa per il debug",
+      "Un componente che pre-carica in cache tutte le Route figlie per velocizzare la navigazione",
+      "Un segnaposto: React Router lo sostituisce con il componente della rotta figlia attiva al momento del rendering"
+    ],
+    "corretta": 2,
+    "spiegazione": "`<Outlet />` è il punto di iniezione del layout: React Router rimpiazza questo tag con il componente della rotta figlia che corrisponde all'URL corrente. Senza `<Outlet />`, le rotte figlie non vengono mai visualizzate, anche se definite correttamente."
+  },
+  {
+    "domanda": "Una Route ha `element={<MioLayout />}` ma **nessun** `path`. Cosa significa?",
+    "risposte": [
+      "È una **layout route**: corrisponde a qualsiasi URL e avvolge le Route figlie nel layout, senza aggiungere prefissi URL",
+      "Genera un errore a runtime perché ogni Route deve avere obbligatoriamente un `path`",
+      "Attiva la modalità God del router: tutte le Route figlie diventano pubbliche e bypassano qualsiasi guard di autenticazione"
+    ],
+    "corretta": 0,
+    "spiegazione": "Una Route senza `path` è una **layout route**: corrisponde a qualsiasi URL (non filtra per path) e il suo unico scopo è avvolgere le Route figlie nell'HTML del layout tramite `<Outlet />`. Non aggiunge prefissi URL, a differenza di una Route con solo `path`."
+  },
+  {
+    "domanda": "Si vuole che anche la pagina 404 mostri navbar e footer del layout. Dove va messa la Route `path=\"*\"`?",
+    "risposte": [
+      "Fuori dalla layout route, così ha precedenza su tutte le altre rotte e appare sempre",
+      "Dentro la layout route, così anche la pagina 404 viene avvolta da navbar e footer",
+      "In un file separato chiamato `404.jsx` nella cartella `public/` — React la rileva in automatico"
+    ],
+    "corretta": 1,
+    "spiegazione": "Se il catch-all `path=\"*\"` è **dentro** la layout route, anche il componente 404 viene renderizzato dentro `<Outlet />`, quindi ha navbar e footer. Se fosse **fuori**, la pagina 404 uscirebbe completamente dal layout e non avrebbe gli elementi comuni."
+  },
+  {
+    "domanda": "Cosa significa mettere `index` su una Route figlia?",
+    "risposte": [
+      "`index` assegna la massima priorità alla rotta: sovrascrive qualsiasi altra Route in caso di conflitto",
+      "`index` è una scorciatoia per scrivere `path=\"index\"` — corrisponde all'URL letterale `/index`",
+      "`index` indica la rotta \"default\" del padre: corrisponde esattamente all'URL del padre ed è equivalente a `path=\"\"`, ma più esplicito sull'intenzione"
+    ],
+    "corretta": 2,
+    "spiegazione": "La prop `index` sostituisce `path=\"\"` ed è semanticamente più chiara: dice esplicitamente che questa è la rotta predefinita mostrata quando l'URL corrisponde esattamente al padre. Ad esempio, all'interno di una layout route senza path, `<Route index Component={Home} />` corrisponde a `\"/\"`."
+  },
+  {
+    "domanda": "Come si definisce un segmento dinamico (parametro) nel `path` di una Route?",
+    "snippet": "```jsx\n// Obiettivo: catturare l'ID utente dall'URL /users/42\n```",
+    "risposte": [
+      "`path=\"users/:userId\"` — il prefisso `:` indica un segmento dinamico che cattura qualsiasi valore in quella posizione",
+      "`path=\"users/{userId}\"` — la sintassi con `{}` è quella standard di React Router per i parametri",
+      "`path=\"users/[userId]\"` — le parentesi quadre identificano i segmenti dinamici, come in Next.js"
+    ],
+    "corretta": 0,
+    "spiegazione": "In React Router i segmenti dinamici si definiscono con il prefisso `:`. Quindi `path=\"users/:userId\"` cattura qualsiasi valore dopo `/users/` e lo rende disponibile come `userId` tramite `useParams()`. Le sintassi `{}` e `[]` appartengono ad altri framework (Express, Next.js) e non funzionano qui."
+  },
+  {
+    "domanda": "Quale hook si usa per leggere i parametri dinamici dell'URL in un componente?",
+    "risposte": [
+      "`useQuery()` — l'hook standard di React per leggere i parametri dall'URL",
+      "`useParams()` — restituisce un oggetto con i segmenti dinamici come coppie chiave-valore",
+      "`useSearchParams()` — l'hook che legge tutti i valori dinamici, inclusi quelli della route"
+    ],
+    "corretta": 1,
+    "spiegazione": "`useParams()` restituisce un oggetto con i segmenti dinamici definiti nel `path` della Route corrispondente. Per `path=\"users/:userId\"` e URL `/users/42`, `useParams()` restituisce `{ userId: \"42\" }`. `useSearchParams()` legge invece la query string (`?foo=bar`), non i segmenti del path."
+  },
+  {
+    "domanda": "Qual è la differenza tra `element={<Comp />}` e `Component={Comp}` su una Route?",
+    "risposte": [
+      "Sono identiche in ogni scenario: React Router le tratta esattamente allo stesso modo",
+      "`Component={Comp}` è la vecchia sintassi deprecata dalla v6; `element={<Comp />}` è quella moderna e va sempre preferita",
+      "`element={<Comp />}` va usato quando si devono passare props al componente; `Component={Comp}` va usato quando non si passano props, evitando la creazione di un nuovo elemento JSX ad ogni render"
+    ],
+    "corretta": 2,
+    "spiegazione": "Entrambe funzionano, ma con una differenza pratica: `element={<Comp />}` crea un nuovo elemento JSX ad ogni render del componente padre, mentre `Component={Comp}` delega la creazione dell'elemento a React Router internamente. Si preferisce `Component` quando non servono props, ed `element` quando si devono passare."
+  },
+  {
+    "domanda": "A cosa serve l'hook `useNavigate()`?",
+    "risposte": [
+      "Restituisce una funzione per navigare programmaticamente verso un'altra rotta, ad esempio dopo il submit di un form",
+      "Invia automaticamente una notifica push all'utente ogni volta che cambia rotta — ottimo per spam",
+      "Restituisce l'oggetto `history` nativo del browser per manipolare direttamente lo stack di navigazione"
+    ],
+    "corretta": 0,
+    "spiegazione": "`useNavigate()` restituisce una funzione `navigate` che permette di spostarsi su un'altra rotta via codice. Esempio tipico: `const navigate = useNavigate()` e poi `navigate('/dashboard')` dopo un login riuscito. È l'alternativa programmatica a `<Link>` e `<NavLink>` per i casi in cui la navigazione è guidata dalla logica, non da un click dell'utente."
+  },
+  {
+    "domanda": "Cosa restituisce l'hook `useLocation()`?",
+    "risposte": [
+      "La posizione GPS dell'utente tramite la Geolocation API del browser — perfetto per sapere se il tuo utente è in spiaggia",
+      "L'oggetto `location` corrente, con `pathname`, `search`, `hash` e `state` dell'URL attivo",
+      "Solo il `pathname` corrente come stringa, equivalente a `window.location.pathname`"
+    ],
+    "corretta": 1,
+    "spiegazione": "`useLocation()` restituisce l'oggetto `location` completo: `pathname` (il path corrente), `search` (la query string `?foo=bar`), `hash` (il frammento `#sezione`) e `state` (dati passati programmaticamente con `navigate`). È utile quando si deve reagire ai cambiamenti di URL senza usare le Route."
+  },
+  {
+    "domanda": "A partire dalla versione 7, come si chiama il pacchetto da installare per usare React Router?",
+    "risposte": [
+      "`react-router-dom` — il pacchetto principale che include tutti i componenti per il browser",
+      "`@react-router/browser` — il nuovo scope ufficiale introdotto con la versione 7",
+      "`react-router` — dalla v7 il pacchetto è stato unificato: non esiste più la distinzione con `react-router-dom`"
+    ],
+    "corretta": 2,
+    "spiegazione": "Fino alla v6 esistevano due pacchetti distinti: `react-router` (core) e `react-router-dom` (componenti browser). Dalla **v7** sono stati unificati in un unico pacchetto chiamato `react-router`. Il comando di installazione è quindi `pnpm add react-router`."
+  }
+]

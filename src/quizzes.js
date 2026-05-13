@@ -70,6 +70,24 @@ export const quizzes = [
     icon: '⚛️',
     color: '#06b6d4',
     topics: ['useState', 'Re-render', 'Immutabilità', 'Array', 'Oggetti']
+  },
+  {
+    id: 'react-useeffect',
+    title: 'Quiz React useEffect',
+    subtitle: 'Metti alla prova le tue conoscenze sul ciclo di vita e i side effects in React',
+    file: '/questions/react-useeffect.json',
+    icon: '⚡',
+    color: '#7c3aed',
+    topics: ['Mount/Unmount', 'Dipendenze', 'Cleanup', 'Side Effects', 'Timing', 'Memory Leak']
+  },
+  {
+    id: 'react-router',
+    title: 'Quiz React Router',
+    subtitle: 'Metti alla prova le tue conoscenze su React Router',
+    file: '/questions/react-router.json',
+    icon: '🧭',
+    color: '#e11d48',
+    topics: ['BrowserRouter', 'Routes', 'NavLink', 'Outlet', 'useParams', 'useNavigate']
   }
 ]
 
