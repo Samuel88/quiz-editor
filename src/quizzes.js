@@ -70,6 +70,15 @@ export const quizzes = [
     icon: '⚛️',
     color: '#06b6d4',
     topics: ['useState', 'Re-render', 'Immutabilità', 'Array', 'Oggetti']
+  },
+  {
+    id: 'react-router',
+    title: 'Quiz React Router',
+    subtitle: 'Metti alla prova le tue conoscenze su React Router',
+    file: '/questions/react-router.json',
+    icon: '🧭',
+    color: '#e11d48',
+    topics: ['BrowserRouter', 'Routes', 'NavLink', 'Outlet', 'useParams', 'useNavigate']
   }
 ]
 
