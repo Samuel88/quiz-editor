@@ -1,0 +1,194 @@
+[
+  {
+    "domanda": "Cos'è la History API del browser?",
+    "risposte": [
+      "Un registro cifrato di tutti i siti visitati, accessibile solo con permessi di amministratore",
+      "Un'API di React che estende `BrowserRouter` per gestire la cronologia delle route",
+      "Un'API **nativa del browser** (non di React) che permette di modificare l'URL e navigare nello stack della cronologia senza ricaricare la pagina",
+      "L'elenco dei cookie e della cache, navigabile tramite `window.history.cache`"
+    ],
+    "corretta": 2,
+    "spiegazione": "La History API è nativa del browser e offre metodi come `pushState` e `replaceState` per modificare l'URL senza inviare richieste al server. `BrowserRouter` di React Router la usa internamente per abilitare la navigazione client-side nelle SPA."
+  },
+  {
+    "domanda": "Qual è la differenza tra `window.location.href = '/about'` e `history.pushState({}, '', '/about')`?",
+    "risposte": [
+      "`window.location.href` provoca un **ricaricamento completo** della pagina; `history.pushState` cambia l'URL senza ricaricare, aggiungendo una voce allo stack della history",
+      "Non c'è differenza: entrambi cambiano l'URL e React aggiorna i componenti in entrambi i casi",
+      "`history.pushState` funziona solo in sviluppo; in produzione bisogna usare `window.location.href`",
+      "`window.location.href` è deprecato da HTML5 e va sempre sostituito con `history.pushState`"
+    ],
+    "corretta": 0,
+    "spiegazione": "Assegnare `window.location.href` forza il browser a fare una nuova richiesta HTTP al server, con ricaricamento completo della pagina. `history.pushState` è silenzioso: cambia solo la barra degli indirizzi e aggiunge la voce alla cronologia senza alcuna richiesta al server — esattamente quello che serve in una SPA."
+  },
+  {
+    "domanda": "Qual è la differenza tra `history.pushState` e `history.replaceState`?",
+    "risposte": [
+      "Sono identici — `replaceState` è un alias deprecato di `pushState` rimasto per compatibilità con IE11",
+      "`pushState` funziona solo in avanti nella history, `replaceState` solo all'indietro",
+      "`replaceState` è più veloce perché non aggiorna la barra degli indirizzi",
+      "`pushState` **aggiunge** una nuova voce allo stack; `replaceState` **sostituisce** la voce corrente senza aggiungerne una nuova"
+    ],
+    "corretta": 3,
+    "spiegazione": "Con `pushState` l'utente può premere \"Indietro\" per tornare all'URL precedente, perché la voce è stata aggiunta allo stack. Con `replaceState` la voce corrente viene sovrascritta: l'utente non potrà tornare a quell'URL. Utile ad esempio dopo un redirect post-login dove non vogliamo che l'utente torni alla pagina di login."
+  },
+  {
+    "domanda": "Quale evento nativo del browser scatta quando l'utente preme i tasti Avanti/Indietro?",
+    "risposte": [
+      "`popstate` — `BrowserRouter` lo ascolta per aggiornare i componenti React quando la history cambia",
+      "`navigate` — l'evento HTML5 che copre tutti i tipi di navigazione, inclusi i tasti del browser",
+      "`historychange` — l'evento standard per monitorare i cambiamenti nella cronologia",
+      "`locationupdate` — emesso da `window.location` ogni volta che l'URL cambia"
+    ],
+    "corretta": 0,
+    "spiegazione": "L'evento `popstate` viene emesso su `window` quando l'utente usa i tasti Avanti/Indietro o quando si chiama `history.go()`. `BrowserRouter` registra un listener su `popstate` al mount per sapere quando aggiornare i componenti React in risposta alla navigazione dell'utente."
+  },
+  {
+    "domanda": "Qual è la differenza principale tra `<Link>` e `<NavLink>` in React Router?",
+    "risposte": [
+      "`Link` è per link verso siti esterni, `NavLink` solo per la navigazione interna all'app",
+      "`NavLink` è la versione deprecata di `Link` dalla v6 — andrebbe sempre usato `Link` per performance",
+      "`NavLink` ricarica la pagina come un normale `<a href>`, `Link` invece usa la History API",
+      "Entrambi navigano senza ricaricare la pagina, ma `NavLink` riceve su `className` e `style` una **callback** con `{ isActive, isPending }` per applicare stili al link attivo"
+    ],
+    "corretta": 3,
+    "spiegazione": "Sia `Link` che `NavLink` generano un `<a>` che naviga senza ricaricamento. La differenza è che `NavLink` conosce il proprio stato: la sua prop `className` (e `style`) può ricevere una callback `({ isActive }) => ...` che React Router chiama ad ogni render per applicare stili diversi quando il link è attivo."
+  },
+  {
+    "domanda": "Cosa riceve la callback passata a `className` di un `<NavLink>`?",
+    "snippet": "```jsx\n<NavLink className={({ isActive }) => isActive ? 'active' : ''}>\n  Home\n</NavLink>\n```",
+    "risposte": [
+      "Un oggetto con almeno `isActive` (link attivo?) e `isPending` (navigazione in corso?)",
+      "Solo la stringa dell'URL corrente, da confrontare manualmente con il path del link",
+      "L'evento click del mouse, così si può prevenire il comportamento di default manualmente",
+      "Nulla — la callback viene chiamata senza argomenti e `isActive` va letto da `useLocation`"
+    ],
+    "corretta": 0,
+    "spiegazione": "React Router chiama la callback con un oggetto che include: `isActive` (true se l'URL corrente corrisponde al link) e `isPending` (true durante la navigazione verso quella route, utile con lazy loading). Nella maggior parte dei casi si usa solo `isActive` per aggiungere classi al link selezionato nella navbar."
+  },
+  {
+    "domanda": "A cosa serve `useNavigate()` e in quale situazione è preferibile a `<Link>`?",
+    "risposte": [
+      "Serve a pre-caricare i dati della rotta destinazione prima del click — una sorta di prefetch automatico",
+      "Sostituisce completamente `<Link>`: è più performante perché non renderizza alcun elemento HTML aggiuntivo",
+      "Restituisce l'oggetto `history` nativo del browser, identico a `window.history` ma wrappato da React Router",
+      "Restituisce una funzione per navigare in modo **imperativo** — utile quando la navigazione deve avvenire dopo un'azione (submit form, fetch completata, validazione)"
+    ],
+    "corretta": 3,
+    "spiegazione": "`useNavigate()` restituisce una funzione `navigate` da chiamare nel codice: `navigate('/dashboard')` dopo un login, `navigate(-1)` per tornare indietro. `Link` è dichiarativo e vive nel JSX, mentre `useNavigate` è imperativo e si usa negli event handler o negli effect — quando la navigazione dipende dalla logica dell'app, non da un click diretto."
+  },
+  {
+    "domanda": "Cosa fa `navigate(-1)` in React Router?",
+    "risposte": [
+      "Lancia un `RangeError`: i valori negativi non sono supportati da `useNavigate`",
+      "Torna alla pagina precedente nella history del browser — equivale a premere il tasto \"Indietro\"",
+      "Naviga verso la route all'indice -1 nell'array di `<Routes>` — cioè l'ultima route in ordine inverso",
+      "Ricarica la pagina corrente come `location.reload()` ma con un ritardo di un frame"
+    ],
+    "corretta": 1,
+    "spiegazione": "`navigate()` accetta sia path string (`'/about'`) che valori numerici relativi alla history. `navigate(-1)` equivale a `history.go(-1)`: torna di uno step nella cronologia del browser. `navigate(1)` va avanti, `navigate(-2)` torna di due pagine. È l'equivalente programmatico del tasto \"Indietro\" del browser."
+  },
+  {
+    "domanda": "Qual è la differenza tra il componente `<Navigate>` e l'hook `useNavigate()`?",
+    "risposte": [
+      "Sono identici: `<Navigate>` è la versione JSX di `useNavigate()`, generata automaticamente da React Router",
+      "`<Navigate>` esegue un redirect **dichiarativo** nel JSX quando viene renderizzato; `useNavigate()` restituisce una funzione per navigare in modo **imperativo** nel codice",
+      "`<Navigate>` funziona solo dentro `<Routes>`, `useNavigate()` funziona ovunque nell'app inclusi file `.js`",
+      "`useNavigate()` è la versione moderna: `<Navigate>` è deprecato dalla v6 e verrà rimosso nella v8"
+    ],
+    "corretta": 1,
+    "spiegazione": "`<Navigate to='/login' />` è un componente: quando viene renderizzato esegue il redirect — adatto per redirect condizionali nel JSX (es. utente non autenticato). `useNavigate()` è un hook che restituisce una funzione da chiamare nel codice, negli event handler e negli effect, dove non si restituisce JSX ma si esegue logica."
+  },
+  {
+    "domanda": "In questo `PrivateRoute`, cosa succede quando `isLogged` è `false`?",
+    "snippet": "```jsx\nfunction PrivateRoute({ isLogged = false, children }) {\n  if (isLogged === false) {\n    return <Navigate to='/' />\n  }\n  return children;\n}\n```",
+    "risposte": [
+      "Il componente non renderizza nulla e l'utente rimane sulla route corrente",
+      "React Router ignora il `<Navigate>` se non è direttamente dentro `<Routes>`",
+      "React renderizza `<Navigate to='/' />`, che esegue un redirect dichiarativo verso la home",
+      "Viene lanciata un'eccezione perché `children` non può essere usato come valore di ritorno diretto in React"
+    ],
+    "corretta": 2,
+    "spiegazione": "Quando `isLogged` è `false`, la funzione restituisce `<Navigate to='/' />`. React Router lo interpreta come un redirect dichiarativo: appena il componente viene renderizzato, l'URL cambia verso `'/'` e viene visualizzato il componente corrispondente. Se `isLogged` è `true`, vengono renderizzati i `children` — cioè il componente protetto."
+  },
+  {
+    "domanda": "Cos'è un CSS Module e quale problema risolve?",
+    "risposte": [
+      "Un file `.module.css` le cui classi vengono trasformate a build time in nomi univoci (es. `.title` → `Comp_title__x3kf`), rendendo gli stili **scoped** al componente e prevenendo collisioni con classi globali",
+      "Un plugin di Vite che minifica e unifica tutti i CSS in un unico bundle ottimizzato per la produzione",
+      "Un file CSS caricato in modo asincrono per non bloccare il rendering — migliora il Largest Contentful Paint",
+      "Una specifica W3C che permette di importare CSS dentro altri CSS con `@import module`, senza conflitti"
+    ],
+    "corretta": 0,
+    "spiegazione": "Vite trasforma ogni classe di un file `.module.css` in un nome univoco a build time. Questo garantisce che lo stile sia scoped: due componenti possono avere una classe `.title` senza conflitti. Si importa come oggetto (`import styles from './Comp.module.css'`) e si usa con `className={styles.title}`."
+  },
+  {
+    "domanda": "Come si combina una classe CSS Module con una classe Bootstrap globale?",
+    "snippet": "```jsx\nimport styles from './MainLayout.module.css';\n// Obiettivo: 'nav-link' (Bootstrap) + styles.activeLink (Module)\n```",
+    "risposte": [
+      "`className={styles.merge('nav-link', 'activeLink')}` — il metodo `merge` è fornito dall'oggetto `styles`",
+      "Non è possibile combinare CSS Module e classi globali sullo stesso elemento",
+      "Template literal: `` className={`nav-link ${styles.activeLink}`} `` — mescola la classe globale con quella scoped",
+      "`className={styles['nav-link activeLink']}` — la notazione a parentesi quadre supporta classi multiple"
+    ],
+    "corretta": 2,
+    "spiegazione": "Il template literal è il modo standard: `` `nav-link ${styles.activeLink}` `` produce una stringa con entrambe le classi. `nav-link` è la classe globale di Bootstrap; `styles.activeLink` è la classe scoped del CSS Module (trasformata a build time in qualcosa come `MainLayout_activeLink__xK2p`). Le due classi coesistono senza problemi."
+  },
+  {
+    "domanda": "Perché React vieta di chiamare un hook dentro un `if` o un ciclo `for`?",
+    "risposte": [
+      "È una convenzione stilistica consigliata, non un divieto tecnico — React gestisce correttamente gli hook condizionali",
+      "Gli hook nei condizionali causano un warning ESLint ma funzionano correttamente a runtime",
+      "Per ragioni di performance: gli hook nei condizionali causano un re-render aggiuntivo ad ogni cambio di condizione",
+      "React traccia gli hook per **posizione nell'ordine di chiamata**: se un hook viene saltato in un render, la lista interna si sfasa e i valori vengono associati agli hook sbagliati"
+    ],
+    "corretta": 3,
+    "spiegazione": "React non usa nomi o ID per associare lo stato agli hook: usa l'**ordine di chiamata**. Se al primo render chiami `useState`, `useEffect`, `useState` e al secondo render salti il primo per via di un `if`, il secondo `useState` diventa ora il primo — React gli associa lo stato sbagliato. Regola: tutti gli hook sempre, nello stesso ordine; sposta la condizione *dentro* l'hook."
+  },
+  {
+    "domanda": "Come si corregge questo codice che viola le Rules of Hooks?",
+    "snippet": "```jsx\n// Sbagliato ❌\nif (productId) {\n  useEffect(() => {\n    fetchProduct(productId);\n  }, [productId]);\n}\n```",
+    "risposte": [
+      "Spostare il `if` **dentro** la callback di `useEffect`, chiamando l'hook sempre e in modo incondizionato",
+      "Avvolgere tutto il componente in un `try/catch` per intercettare l'eccezione che React lancia",
+      "Usare `useEffectConditional` — la variante di `useEffect` progettata per essere chiamata dentro condizioni",
+      "Aggiungere `// eslint-disable-next-line` per sopprimere il warning e procedere"
+    ],
+    "corretta": 0,
+    "spiegazione": "La correzione è spostare la condizione *dentro* l'hook: `useEffect(() => { if (!productId) return; fetchProduct(productId); }, [productId])`. L'hook viene chiamato ad ogni render, ma la logica si esegue solo quando `productId` è definito. Regola: hook sempre al primo livello, condizioni dentro."
+  },
+  {
+    "domanda": "Cosa restituisce `useLocation()` e quando è utile?",
+    "risposte": [
+      "La posizione GPS dell'utente tramite la Geolocation API — React Router lo integra per il geo-routing automatico",
+      "Solo il `pathname` corrente come stringa, equivalente a `window.location.pathname` ma reactive",
+      "L'oggetto `location` con `pathname`, `search`, `hash` e `state` dell'URL corrente — utile per leggere la query string o reagire ai cambi di URL senza usare le Route",
+      "Un array con la cronologia completa di tutti gli URL visitati nella sessione corrente"
+    ],
+    "corretta": 2,
+    "spiegazione": "`useLocation()` restituisce l'oggetto `location` con: `pathname` (es. `/products/5`), `search` (la query string `?categoria=tech`), `hash` (il frammento `#sezione`), `state` (dati passati con `navigate`). Si ri-renderizza ad ogni cambio di URL, utile per analytics, breadcrumb dinamici o effetti legati alla navigazione."
+  },
+  {
+    "domanda": "Come si legge il parametro `categoria` dall'URL `/products?categoria=electronics`?",
+    "risposte": [
+      "`const categoria = useParams().categoria` — `useParams` gestisce sia i segmenti dinamici che i query parameter",
+      "`const [searchParams] = useSearchParams(); const categoria = searchParams.get('categoria')` — `useSearchParams` è l'hook dedicato ai query parameter",
+      "`const categoria = useLocation().search.categoria` — `search` è un oggetto con tutti i parametri già parsati",
+      "`const categoria = new URL(window.location.href).searchParams.get('categoria')` — l'unico modo corretto in React Router v7"
+    ],
+    "corretta": 1,
+    "spiegazione": "`useSearchParams()` funziona come `useState` ma sincronizzato con la query string del browser: restituisce `[searchParams, setSearchParams]`. `searchParams.get('categoria')` legge il valore; `setSearchParams({ categoria: 'books' })` lo aggiorna modificando anche l'URL. `useParams` gestisce solo i segmenti dinamici del path (`:id`), non i query parameter."
+  },
+  {
+    "domanda": "A cosa serve la prop `end` su `<NavLink to='/products'>`?",
+    "snippet": "```\nSenza end:\n  /products     → active ✓\n  /products/5   → active ✗ (ancora attivo)\n\nCon end:\n  /products     → active ✓\n  /products/5   → non active ✓\n```",
+    "risposte": [
+      "Impone un match **esatto**: il link è `active` solo se l'URL corrisponde esattamente al `to`, non anche ai sotto-path",
+      "Disabilita il link dopo il primo click — come un coupon monouso, usalo con saggezza",
+      "Indica che questo è l'ultimo `NavLink` nella navbar, usato da React Router per ottimizzare il rendering",
+      "Aggiunge un'icona di freccia alla fine del link per indicare visivamente che porta a una lista"
+    ],
+    "corretta": 0,
+    "spiegazione": "Di default `NavLink` usa matching parziale: `to='/products'` è `active` anche su `/products/5` perché l'URL inizia con `/products`. Con `end`, il match diventa esatto: `active` solo se l'URL è esattamente `/products`. Utile nelle navbar con route annidate per evitare che il link padre rimanga sempre evidenziato anche nelle pagine figlie."
+  }
+]

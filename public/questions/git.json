@@ -4,6 +4,7 @@
     "risposte": [
       "Un sistema di versionamento distribuito del codice sorgente",
       "Un editor di testo avanzato",
+      "Un servizio cloud sviluppato da Linus Torvalds che salva automaticamente il codice ogni 5 minuti, come iCloud ma per i programmatori",
       "Una piattaforma per pubblicare siti web statici"
     ],
     "corretta": 0,
@@ -12,79 +13,87 @@
   {
     "domanda": "Che cos'è l'area di staging in Git?",
     "risposte": [
-      "L'area dove si preparano le modifiche prima di effettuare il commit",
+      "La sezione di GitHub dove vengono pubblicati i branch prima di essere uniti al main tramite pull request",
+      "Uno spazio su GitHub per gestire le issue",
       "La cartella temporanea dei file eliminati",
-      "Uno spazio su GitHub per gestire le issue"
+      "L'area dove si preparano le modifiche prima di effettuare il commit"
     ],
-    "corretta": 0,
+    "corretta": 3,
     "spiegazione": "Lo staging area (o *index*) è una zona intermedia tra la working directory e il repository. Con `git add file.js` si sposta un file nello staging. Solo le modifiche in staging entrano nel commit successivo, permettendo di scegliere esattamente cosa includere in ogni snapshot."
   },
   {
     "domanda": "Cosa rappresenta un commit in Git?",
     "risposte": [
+      "Una fotografia dello stato del progetto in un determinato momento",
       "Un file temporaneo creato da GitHub",
       "Una richiesta di aiuto agli altri collaboratori",
-      "Una fotografia dello stato del progetto in un determinato momento"
+      "Un'email automatica inviata agli altri sviluppatori con la lista delle modifiche apportate al codice"
     ],
-    "corretta": 2,
+    "corretta": 0,
     "spiegazione": "Un commit è uno *snapshot* immutabile di tutti i file del progetto in quel momento, con un messaggio descrittivo, un autore e un timestamp. Ogni commit ha un hash SHA-1 univoco (es. `a3f5c2d`) che lo identifica. La storia dei commit forma una catena che permette di navigare nel tempo."
   },
   {
     "domanda": "Qual è la differenza principale tra Git e GitHub?",
     "risposte": [
       "Git funziona solo online, GitHub funziona anche offline",
+      "GitHub è la versione con interfaccia grafica di Git — il codice sorgente è lo stesso, cambia solo il modo di interagirci",
       "Git è uno strumento locale per il versionamento, GitHub è una piattaforma online per collaborare sui repository Git",
       "Git serve solo per i documenti di testo, GitHub solo per le immagini"
     ],
-    "corretta": 1,
+    "corretta": 2,
     "spiegazione": "Git è il software installato sul tuo computer che gestisce la cronologia locale. GitHub è una piattaforma web che ospita repository Git remoti e aggiunge funzionalità di collaborazione (pull request, issue, code review). Esistono alternative a GitHub come GitLab e Bitbucket."
   },
   {
     "domanda": "A cosa serve il comando 'git init'?",
     "risposte": [
-      "Aggiunge file all'area di staging",
+      "Collega la cartella locale al repository remoto su GitHub e scarica l'intera cronologia del progetto",
       "Invia le modifiche al repository remoto",
+      "Aggiunge file all'area di staging",
       "Crea un nuovo repository Git nella cartella di lavoro"
     ],
-    "corretta": 2,
+    "corretta": 3,
     "spiegazione": "`git init` inizializza un nuovo repository Git nella cartella corrente, creando una directory nascosta `.git/` che contiene tutta la storia e la configurazione. Va eseguito una sola volta per progetto. Dopo, i comandi `git add` e `git commit` diventano disponibili."
   },
   {
     "domanda": "Quale comando si usa per aggiungere file all'area di staging?",
     "risposte": [
       "git branch",
-      "git add",
-      "git push"
+      "git track — il comando moderno introdotto in Git 2.35 che sostituisce git add con una sintassi più intuitiva",
+      "git push",
+      "git add"
     ],
-    "corretta": 1,
+    "corretta": 3,
     "spiegazione": "`git add nomefile.js` aggiunge un file specifico allo staging. `git add .` aggiunge tutte le modifiche nella cartella corrente. Solo le modifiche in staging entreranno nel prossimo `git commit`. `git status` mostra cosa è in staging e cosa no."
   },
   {
     "domanda": "Cosa fa il comando 'git commit'?",
     "risposte": [
       "Sincronizza il repository locale con quello remoto",
+      "Invia le modifiche direttamente al repository remoto senza dover eseguire git push come secondo passaggio",
       "Salva in modo permanente le modifiche presenti nell'area di staging",
       "Crea una copia del repository"
     ],
-    "corretta": 1,
+    "corretta": 2,
     "spiegazione": "`git commit -m \"messaggio\"` crea un nuovo snapshot con le modifiche presenti nello staging area. Il commit viene salvato *localmente*: per condividerlo con altri bisogna poi fare `git push`. Un buon messaggio di commit descrive il *perché* della modifica, non il *cosa*."
   },
   {
     "domanda": "Cosa fa il comando 'git push'?",
     "risposte": [
+      "Scarica le modifiche dal repository remoto e le unisce automaticamente al branch corrente",
+      "Scarica e integra le modifiche dal repository remoto",
       "Elimina il repository remoto",
-      "Invia i cambiamenti al repository remoto",
-      "Scarica e integra le modifiche dal repository remoto"
+      "Invia i cambiamenti al repository remoto"
     ],
-    "corretta": 1,
+    "corretta": 3,
     "spiegazione": "`git push origin main` invia i commit locali al repository remoto (es. su GitHub). È l'operazione che rende le modifiche visibili agli altri collaboratori. Se il repository remoto ha commit che non hai in locale, Git richiederà prima un `git pull`."
   },
   {
     "domanda": "Cosa fa il comando 'git pull'?",
     "risposte": [
       "Scarica e integra le modifiche dal repository remoto",
+      "Visualizza lo stato dei file modificati",
       "Elimina il repository locale",
-      "Visualizza lo stato dei file modificati"
+      "Crea un nuovo branch locale che traccia il branch remoto e scarica le ultime modifiche in una sola operazione"
     ],
     "corretta": 0,
     "spiegazione": "`git pull` è equivalente a `git fetch` + `git merge`: scarica i nuovi commit dal repository remoto e li integra nel branch locale corrente. Va eseguito prima di iniziare a lavorare per essere aggiornati con le modifiche degli altri sviluppatori."
@@ -92,11 +101,12 @@
   {
     "domanda": "Quale differenza descrive la funzione di 'git revert' e 'git reset'?",
     "risposte": [
+      "Revert annulla un commit lasciando intatta la cronologia, Reset riporta il progetto a uno stato precedente modificando la cronologia locale",
       "Entrambi cancellano tutte le modifiche dal repository remoto",
-      "Revert elimina definitivamente file dal repository locale",
-      "Revert annulla un commit lasciando intatta la cronologia, Reset riporta il progetto a uno stato precedente modificando la cronologia locale"
+      "Reset crea un nuovo commit di annullamento lasciando intatta la cronologia; Revert rimuove definitivamente i commit dalla storia locale",
+      "Revert elimina definitivamente file dal repository locale"
     ],
-    "corretta": 2,
+    "corretta": 0,
     "spiegazione": "`git revert abc123` crea un *nuovo* commit che annulla le modifiche di quello specificato: la cronologia rimane intatta, sicuro da usare su branch condivisi. `git reset --hard abc123` invece riscrive la storia locale eliminando i commit successivi: pericoloso su branch già pushati perché crea conflitti per gli altri."
   }
 ]

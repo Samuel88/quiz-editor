@@ -6,7 +6,7 @@ import QuizSelector from './components/QuizSelector'
 import { quizMap } from './quizzes'
 import './styles/App.css'
 
-const QUESTION_TIMEOUT = 60
+const QUESTION_TIMEOUT = 120
 const getQuestionTimeout = (question) => question?.tempo ?? QUESTION_TIMEOUT
 
 function App() {
