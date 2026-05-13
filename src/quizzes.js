@@ -88,6 +88,15 @@ export const quizzes = [
     icon: '🧭',
     color: '#e11d48',
     topics: ['BrowserRouter', 'Routes', 'NavLink', 'Outlet', 'useParams', 'useNavigate']
+  },
+  {
+    id: 'react-router-2',
+    title: 'Quiz React Router – Parte 2',
+    subtitle: 'History API, navigazione imperativa, rotte private e CSS Modules',
+    file: '/questions/react-router-2.json',
+    icon: '🗺️',
+    color: '#db2777',
+    topics: ['History API', 'useNavigate', 'Navigate', 'PrivateRoute', 'CSS Modules', 'Rules of Hooks', 'useLocation', 'useSearchParams', 'NavLink end']
   }
 ]
 
