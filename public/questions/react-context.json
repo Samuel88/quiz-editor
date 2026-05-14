@@ -1,0 +1,136 @@
+[
+  {
+    "domanda": "Qual è il problema principale che la Context API di React risolve?",
+    "risposte": [
+      "Il prop drilling: passare dati attraverso molti livelli di componenti intermedi che non ne hanno bisogno",
+      "La gestione degli effetti collaterali (side effects) nei componenti funzionali",
+      "Il rendering condizionale di componenti in base allo stato dell'applicazione"
+    ],
+    "corretta": 0,
+    "spiegazione": "Il **prop drilling** è il problema per cui lo stesso dato (es. tema, utente loggato, carrello) deve essere passato come prop attraverso molti livelli di componenti intermedi che non lo usano direttamente. La Context API crea un 'canale' che permette ai componenti di leggere i dati senza riceverli via props."
+  },
+  {
+    "domanda": "Cosa fa `createContext(null)` e perché si passa `null` come valore iniziale?",
+    "risposte": [
+      "Crea il contesto con `null` come valore predefinito; se un componente usa il contesto senza un Provider a monte, ottiene `null`, che il custom hook intercetta come errore di configurazione",
+      "Crea il contesto vuoto; `null` indica che il Provider non è ancora stato montato e React lo inizializzerà automaticamente al primo render",
+      "Crea il contesto e imposta il tema di default a `null`; il Provider sovrascriverà questo valore con il tema corretto"
+    ],
+    "corretta": 0,
+    "spiegazione": "`createContext(null)` 'scava il canale'. Il valore `null` è il valore di fallback restituito da `useContext` quando nessun Provider è presente a monte dell'albero. Usare `null` (invece di un oggetto vuoto) permette al custom hook di rilevare l'assenza del Provider con un controllo `if (context === null)` e lanciare un errore descrittivo."
+  },
+  {
+    "domanda": "Dove deve essere posizionato il Provider nell'albero dei componenti?",
+    "risposte": [
+      "In qualsiasi componente figlio che ha bisogno dei dati",
+      "A monte (più in alto nell'albero) di tutti i componenti che vogliono leggere i dati dal contesto",
+      "Sempre e solo nel componente radice `main.jsx`, mai in `App.jsx`"
+    ],
+    "corretta": 1,
+    "spiegazione": "Il Provider deve stare **a monte** di tutti i componenti consumatori. Se spostato più in basso nell'albero, solo i suoi discendenti potranno leggere il contesto — i componenti al di fuori vedrebbero il valore di fallback (es. `null`). Per questo in genere si posiziona il Provider in cima all'albero, in `App.jsx`."
+  },
+  {
+    "domanda": "Qual è il ruolo del custom hook (es. `useTheme`) rispetto all'uso diretto di `useContext`?",
+    "snippet": "```js\nfunction useTheme() {\n  const context = useContext(ThemeContext);\n  if (context === null) {\n    throw new Error('ThemeProvider non trovato a monte.');\n  }\n  return context;\n}\n```",
+    "risposte": [
+      "È solo un alias sintattico: non aggiunge funzionalità rispetto a chiamare `useContext` direttamente",
+      "Aggiunge un controllo di sicurezza che lancia un errore chiaro se il Provider manca, rendendo i bug di configurazione immediatamente leggibili",
+      "Permette di usare il contesto nei componenti classe, che non supportano `useContext` direttamente"
+    ],
+    "corretta": 1,
+    "spiegazione": "Il custom hook è un 'pescatore specializzato': chiama `useContext`, verifica che il valore non sia `null` (cioè che il Provider sia presente a monte) e lancia un errore esplicativo in caso contrario. Senza questo controllo, i componenti riceverebbero `null` silenziosamente, producendo bug difficili da diagnosticare."
+  },
+  {
+    "domanda": "Un componente può consumare più Context contemporaneamente?",
+    "risposte": [
+      "No, ogni componente può essere associato a un solo contesto per evitare conflitti",
+      "Sì, ma solo se i context condividono lo stesso Provider radice",
+      "Sì, basta chiamare più custom hook (o più `useContext`) nello stesso componente"
+    ],
+    "corretta": 2,
+    "spiegazione": "Un componente può chiamare quanti hook vuole. Ad esempio `Header` usa sia `useTheme()` (per `appName`) sia `useProducts()` (per `cartProducts`), consumando due canali separati nello stesso render. Ogni chiamata a `useContext` è indipendente."
+  },
+  {
+    "domanda": "Cosa viene passato nella prop `value` del Provider?",
+    "snippet": "```jsx\nconst value = { theme, toggleTheme, appName, setAppName };\nreturn (\n  <ThemeContext value={value}>\n    {children}\n  </ThemeContext>\n);\n```",
+    "risposte": [
+      "Solo variabili di stato: le funzioni devono essere passate separatamente tramite props",
+      "Qualsiasi valore JavaScript: stati, funzioni, costanti — tutto ciò che i componenti a valle devono leggere o usare",
+      "Un riferimento al componente Provider, che React usa per aggiornare automaticamente i consumatori"
+    ],
+    "corretta": 1,
+    "spiegazione": "La prop `value` accetta qualsiasi valore JavaScript. Nella pratica si passa un oggetto che raccoglie stati (`theme`, `appName`), setter (`setAppName`) e funzioni di business (`toggleTheme`, `addToCart`). Tutti i componenti a valle che consumano il contesto riceveranno esattamente questo oggetto."
+  },
+  {
+    "domanda": "Cosa succede se si chiama `useTheme()` in un componente che non ha `ThemeProvider` tra i suoi antenati?",
+    "risposte": [
+      "React usa il valore di default passato a `createContext()`, quindi il componente funziona con `null`",
+      "Il custom hook `useTheme` lancia un `Error` con un messaggio descrittivo, bloccando il render",
+      "React lancia automaticamente un warning in console ma il componente continua a funzionare"
+    ],
+    "corretta": 1,
+    "spiegazione": "Con il pattern del custom hook, `useContext(ThemeContext)` restituisce `null` (il valore di fallback). Il controllo `if (context === null)` nel hook rileva questa situazione e lancia un `Error` esplicito. Questo trasforma un bug silenzioso (dati `null` non gestiti) in un errore immediato e leggibile durante lo sviluppo."
+  },
+  {
+    "domanda": "Nel `ProductContext`, la funzione `addToCart` aggiunge un prodotto già presente nel carrello. Cosa fa?",
+    "snippet": "```js\nconst addToCart = (productId) => {\n  const inCart = cartProducts.find(p => p.id === productId);\n  if (!inCart) {\n    setCartProducts([...cartProducts, { id: productId, qty: 1 }]);\n  } else {\n    setCartProducts(cartProducts.map(p =>\n      p.id === productId ? { ...p, qty: p.qty + 1 } : p\n    ));\n  }\n};\n```",
+    "risposte": [
+      "Aggiunge una seconda voce nell'array `cartProducts` con lo stesso `id` e `qty: 1`",
+      "Incrementa la proprietà `qty` dell'elemento esistente creando un nuovo array immutabile",
+      "Sostituisce l'intero array `cartProducts` con un array contenente solo il prodotto aggiunto"
+    ],
+    "corretta": 1,
+    "spiegazione": "Se il prodotto è già nel carrello, `map` scorre l'array e crea un nuovo array (immutabilità): per l'elemento con `id` corrispondente restituisce `{ ...p, qty: p.qty + 1 }` (spread + aggiornamento `qty`), per gli altri restituisce `p` invariato. Non si modifica mai l'array originale direttamente."
+  },
+  {
+    "domanda": "Perché `ThemeContext` e `ProductContext` sono due contesti separati invece di uno solo?",
+    "risposte": [
+      "React impone un limite di un context per file, quindi è obbligatorio separarli",
+      "Perché trasportano dati con responsabilità diverse e possono essere consumati indipendentemente, evitando re-render inutili",
+      "Per motivi di performance: React ottimizza automaticamente il rendering solo se i context sono definiti in file separati"
+    ],
+    "corretta": 1,
+    "spiegazione": "Separare i context rispetta il **principio di singola responsabilità**: `ThemeContext` gestisce tema e nome app, `ProductContext` gestisce prodotti e carrello. I componenti consumano solo il canale di cui hanno bisogno. Se fossero uniti, un aggiornamento del tema causerebbe il re-render di tutti i componenti che leggono anche solo i prodotti."
+  },
+  {
+    "domanda": "Qual è la differenza tra `ThemeProvider` e `ThemeContext` nel codice?",
+    "risposte": [
+      "`ThemeContext` è il componente che avvolge l'app; `ThemeProvider` è l'oggetto JavaScript che contiene i dati",
+      "`ThemeContext` è il 'canale' creato da `createContext()`; `ThemeProvider` è il componente che gestisce lo stato e lo riversa nel canale tramite la prop `value`",
+      "Sono sinonimi: entrambi si riferiscono allo stesso oggetto restituito da `createContext()`"
+    ],
+    "corretta": 1,
+    "spiegazione": "`ThemeContext` è l'oggetto canale creato da `createContext()` — è il 'fiume'. `ThemeProvider` è un componente wrapper che: 1) gestisce lo stato con `useState`, 2) costruisce l'oggetto `value`, 3) renderizza `<ThemeContext value={value}>` per versare i dati nel canale. I consumatori usano `useContext(ThemeContext)` per attingere dal canale."
+  },
+  {
+    "domanda": "In quale file dell'app di esempio viene fatto il fetch dei prodotti e perché lì?",
+    "risposte": [
+      "In `App.jsx`, così i dati sono disponibili prima del montaggio di qualsiasi componente figlio",
+      "In `Home.jsx`, al montaggio del componente, salvando i dati nel `ProductContext` così che `ProductSingle` possa riutilizzarli senza un secondo fetch",
+      "In `ProductContext.jsx` direttamente nel Provider, per centralizzare tutta la logica dei dati"
+    ],
+    "corretta": 1,
+    "spiegazione": "`Home.jsx` fa il fetch al montaggio con `useEffect` e salva i risultati nel `ProductContext` tramite `setProducts`. Quando l'utente naviga a `ProductSingle`, i dati sono già nel contesto e il componente li legge senza un nuovo fetch. `ProductSingle` fa comunque un fetch di fallback solo se `products` è vuoto (accesso diretto all'URL)."
+  },
+  {
+    "domanda": "Come viene applicato il tema Bootstrap a tutta la pagina nell'app di esempio?",
+    "snippet": "```jsx\nfunction MainLayout() {\n  const { theme } = useTheme();\n  return (\n    <div data-bs-theme={theme} className=\"min-vh-100 ...\">\n      <Header />\n      <main><Outlet /></main>\n    </div>\n  );\n}\n```",
+    "risposte": [
+      "Aggiungendo la classe CSS `bg-dark` o `bg-light` a ogni singolo componente tramite props",
+      "Tramite l'attributo `data-bs-theme` sul div radice di `MainLayout`, che Bootstrap 5.3 usa per attivare il color scheme su tutti i componenti discendenti",
+      "Importando dinamicamente due file CSS diversi (`bootstrap-dark.css` e `bootstrap-light.css`) in base al valore di `theme`"
+    ],
+    "corretta": 1,
+    "spiegazione": "Bootstrap 5.3 introduce il supporto nativo ai temi tramite l'attributo `data-bs-theme=\"dark\"` o `data-bs-theme=\"light\"`. Applicandolo al contenitore radice di `MainLayout`, tutti i componenti Bootstrap discendenti (navbar, card, badge, ecc.) adattano automaticamente i loro stili. `MainLayout` legge `theme` dal `ThemeContext` tramite `useTheme()`."
+  },
+  {
+    "domanda": "Quale delle seguenti affermazioni sul `value` del Provider è corretta?",
+    "risposte": [
+      "Se `value` cambia, solo i componenti che usano direttamente `useContext` si ri-renderizzano; i figli intermedi no",
+      "Se `value` cambia, tutti i componenti dell'albero si ri-renderizzano, indipendentemente dal fatto che consumino il contesto",
+      "Se `value` non cambia tra due render del Provider, i componenti consumatori non si ri-renderizzano"
+    ],
+    "corretta": 2,
+    "spiegazione": "React confronta il `value` del Provider con `Object.is`. Se il valore è uguale al render precedente, i componenti consumatori **non** si ri-renderizzano. Se cambia, solo i componenti che consumano quel contesto tramite `useContext` vengono ri-renderizzati — non tutti i figli del Provider. Questo è un vantaggio rispetto al prop drilling manuale."
+  }
+]
