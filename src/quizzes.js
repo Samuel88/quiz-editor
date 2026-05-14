@@ -97,6 +97,15 @@ export const quizzes = [
     icon: '🗺️',
     color: '#db2777',
     topics: ['History API', 'useNavigate', 'Navigate', 'PrivateRoute', 'CSS Modules', 'Rules of Hooks', 'useLocation', 'useSearchParams', 'NavLink end']
+  },
+  {
+    id: 'react-context',
+    title: 'Quiz React Context API',
+    subtitle: 'Metti alla prova le tue conoscenze sulla Context API e la gestione dello stato globale',
+    file: '/questions/react-context.json',
+    icon: '🌊',
+    color: '#0ea5e9',
+    topics: ['createContext', 'Provider', 'useContext', 'Custom Hook', 'Prop Drilling', 'value', 'Re-render']
   }
 ]
 
