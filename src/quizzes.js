@@ -99,6 +99,15 @@ export const quizzes = [
     topics: ['History API', 'useNavigate', 'Navigate', 'PrivateRoute', 'CSS Modules', 'Rules of Hooks', 'useLocation', 'useSearchParams', 'NavLink end']
   },
   {
+    id: 'nodejs-express',
+    title: 'Quiz Node.js + Express',
+    subtitle: 'Metti alla prova le tue conoscenze su Node.js, Express e le basi del backend',
+    file: '/questions/nodejs-express.json',
+    icon: '🟢',
+    color: '#16a34a',
+    topics: ['Server', 'Porta', 'Middleware', 'Rotte', 'Parametri', 'Query String', 'File Statici']
+  },
+  {
     id: 'react-context',
     title: 'Quiz React Context API',
     subtitle: 'Metti alla prova le tue conoscenze sulla Context API e la gestione dello stato globale',

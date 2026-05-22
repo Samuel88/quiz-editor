@@ -1,0 +1,134 @@
+[
+  {
+    "domanda": "Cos'è un server backend?",
+    "risposte": [
+      "Un programma che rimane in esecuzione e risponde alle richieste dei client, restituendo HTML, JSON o file statici",
+      "Un file HTML speciale che il browser carica automaticamente all'avvio",
+      "Un database che archivia i dati dell'applicazione sul cloud"
+    ],
+    "corretta": 0,
+    "spiegazione": "Un server backend è un processo che gira continuamente in attesa di richieste. Quando un client (es. il browser) contatta il server, questo elabora la richiesta e risponde con dati: una pagina HTML, un oggetto JSON, un file ecc. Node.js con Express è uno dei modi più comuni per costruire un server backend in JavaScript."
+  },
+  {
+    "domanda": "Cosa rappresenta la **porta** in un server Node.js?",
+    "risposte": [
+      "L'indirizzo IP pubblico su cui il server è raggiungibile da internet",
+      "La cartella del file system da cui vengono serviti i file statici",
+      "Il canale numerico su cui il server è in ascolto — `localhost:3000` contatta il server locale sulla porta 3000"
+    ],
+    "corretta": 2,
+    "spiegazione": "La porta è un numero (0–65535) che identifica un canale di comunicazione sul sistema. Un processo può essere in ascolto su una porta alla volta; il browser sa a quale processo parlare specificando la porta nell'URL. La porta 80 è il default per HTTP, la 443 per HTTPS; in sviluppo si usano spesso porte alte come 3000 o 5173 per evitare conflitti."
+  },
+  {
+    "domanda": "Cosa fa `next()` all'interno di un middleware Express?",
+    "risposte": [
+      "Termina la risposta HTTP e chiude la connessione con il client",
+      "Passa il controllo al middleware o alla rotta successiva nella catena",
+      "Reindirizza il client alla rotta `/` con uno status 302"
+    ],
+    "corretta": 1,
+    "spiegazione": "`next()` è la funzione che permette al flusso di proseguire: senza chiamarla, la richiesta si ferma in quel middleware e il client non riceve mai risposta. Chiamarla con un argomento — `next(err)` — salta direttamente al middleware di gestione degli errori. Ogni middleware deve o chiamare `next()` o inviare una risposta: una delle due, non entrambe."
+  },
+  {
+    "domanda": "Cosa succede se un middleware Express non chiama `next()` e non invia nessuna risposta?",
+    "risposte": [
+      "Express rileva automaticamente lo stallo e passa al middleware successivo dopo 30 secondi",
+      "La richiesta rimane bloccata: il client attende indefinitamente senza ricevere risposta",
+      "Express lancia un'eccezione a runtime e termina il processo Node.js"
+    ],
+    "corretta": 1,
+    "spiegazione": "Express è un framework *passivo*: non controlla se una risposta è stata inviata. Se il middleware non chiama `next()` e non risponde, la richiesta rimane semplicemente appesa. Il client (es. il browser) andrà in timeout dopo un certo tempo, ma il server non fa nulla di automatico per sbloccarla."
+  },
+  {
+    "domanda": "A cosa serve `express.static('public1')`?",
+    "risposte": [
+      "Serve i file presenti nella cartella `public1` senza dover scrivere una rotta per ciascuno",
+      "Comprime i file HTML e CSS prima di inviarli al client per ridurre il peso della risposta",
+      "Crea automaticamente un endpoint REST per ogni file presente nella cartella"
+    ],
+    "corretta": 0,
+    "spiegazione": "`express.static()` è un middleware built-in che mappa le richieste GET ai file del file system. Se il browser chiede `/style.css` e il file esiste in `public1/style.css`, Express lo serve direttamente — senza bisogno di scrivere un `app.get('/style.css', ...)`. Se invece il file non esiste, chiama `next()` e passa al middleware successivo."
+  },
+  {
+    "domanda": "Se lo stesso file `logo.png` esiste sia in `public1/` che in `public2/`, e i middleware sono registrati in quest'ordine: prima `express.static('public1')` poi `express.static('public2')`, quale viene servito?",
+    "risposte": [
+      "Quello in `public2/`, perché il secondo middleware ha la priorità come fallback",
+      "Express lancia un errore di conflitto e interrompe la richiesta",
+      "Quello in `public1/`, perché il primo middleware che trova il file lo serve e si ferma"
+    ],
+    "corretta": 2,
+    "spiegazione": "L'ordine dei middleware in Express è determinante. Il primo `express.static('public1')` cerca il file: se lo trova, risponde immediatamente senza chiamare `next()`. Il secondo middleware non viene mai raggiunto. `public2` funge quindi da fallback: viene usato solo per i file che non esistono in `public1`."
+  },
+  {
+    "domanda": "Come si legge il valore del segmento `:id` quando il browser visita `/utenti/42`?",
+    "snippet": "```js\napp.get('/utenti/:id', (request, response) => {\n  // come leggo il valore 42?\n});\n```",
+    "risposte": [
+      "`request.query.id`",
+      "`request.params.id`",
+      "`request.body.id`"
+    ],
+    "corretta": 1,
+    "spiegazione": "I segmenti dinamici dell'URL (quelli che iniziano con `:`) sono accessibili tramite `request.params`. Visitando `/utenti/42`, `request.params.id` contiene la stringa `\"42\"`. Se serve un numero, bisogna convertirlo esplicitamente: `Number(request.params.id)`. `request.query` riguarda la query string (`?key=value`); `request.body` riguarda il corpo delle richieste POST/PUT."
+  },
+  {
+    "domanda": "Come si accede al parametro `nome` nella query string della richiesta `GET /cerca?nome=Alice`?",
+    "risposte": [
+      "`request.params.nome`",
+      "`request.body.nome`",
+      "`request.query.nome`"
+    ],
+    "corretta": 2,
+    "spiegazione": "I parametri dopo il `?` nell'URL formano la **query string** e sono accessibili tramite `request.query`. Per `/cerca?nome=Alice`, `request.query.nome` vale `\"Alice\"`. Se il parametro non è presente nell'URL, `request.query.nome` è `undefined`. Più parametri si separano con `&`: `/cerca?nome=Alice&città=Roma`."
+  },
+  {
+    "domanda": "Qual è la relazione tra `response.json(obj)` e `response.type('json').send(obj)` in Express?",
+    "risposte": [
+      "`response.json()` è uno shortcut che imposta il Content-Type a `application/json` e serializza l'oggetto — sono equivalenti",
+      "`response.json()` supporta solo oggetti semplici; per array o valori nidificati serve `response.type('json').send()`",
+      "`response.type('json').send()` comprime automaticamente la risposta con gzip, `response.json()` no"
+    ],
+    "corretta": 0,
+    "spiegazione": "`response.json(obj)` è esattamente uno shortcut: imposta l'header `Content-Type: application/json`, serializza `obj` con `JSON.stringify()` e invia la risposta. È il modo idiomatico in Express per rispondere con dati strutturati. Funziona con qualsiasi valore JSON valido: oggetti, array, stringhe, numeri."
+  },
+  {
+    "domanda": "Perché leggere la porta da `process.env.SERVER_PORT` anziché scriverla direttamente nel codice?",
+    "risposte": [
+      "Perché `process.env` è più veloce di un valore letterale — Node.js ottimizza l'accesso alle variabili d'ambiente",
+      "Perché le variabili d'ambiente permettono di cambiare la porta in ambienti diversi (sviluppo, produzione) senza modificare il codice sorgente",
+      "Perché Node.js non può usare numeri letterali nella chiamata a `app.listen()`"
+    ],
+    "corretta": 1,
+    "spiegazione": "Inserire valori di configurazione (porte, chiavi API, URL di database) nel codice sorgente è una cattiva pratica: costringerebbe a modificare e ricompilare l'app per ogni ambiente. Le variabili d'ambiente si leggono da un file `.env` in sviluppo e vengono iniettate dal sistema in produzione — stessa codebase, configurazione diversa per contesto."
+  },
+  {
+    "domanda": "Cosa fa `app.listen(PORT, callback)` in Express?",
+    "risposte": [
+      "Avvia il server in ascolto sulla porta specificata ed esegue la callback una volta sola, quando il server è pronto (o in caso di errore)",
+      "Esegue la callback a ogni richiesta ricevuta sulla porta specificata",
+      "Crea un secondo processo Node.js dedicato esclusivamente alla gestione delle connessioni in entrata"
+    ],
+    "corretta": 0,
+    "spiegazione": "`app.listen()` dice a Node.js di aprire una socket TCP sulla porta indicata e mettersi in ascolto. La callback viene eseguita **una sola volta** al termine dell'operazione di avvio: è il posto giusto per loggare `\"Server avviato\"` o gestire errori di avvio. Da quel momento in poi, Express gestisce ogni richiesta in arrivo tramite i middleware e le rotte registrate."
+  },
+  {
+    "domanda": "In una rotta parametrica `/utenti/:id`, se si visita `/utenti/abc`, cosa contiene `request.params.id`?",
+    "risposte": [
+      "`undefined`, perché `:id` accetta solo segmenti numerici",
+      "La stringa `\"abc\"` — Express non valida il tipo, passa sempre il valore come stringa",
+      "`NaN`, perché Node.js tenta automaticamente la conversione numerica"
+    ],
+    "corretta": 1,
+    "spiegazione": "Express non fa nessuna validazione sul tipo dei parametri di rotta: tutto ciò che compare in quel segmento dell'URL viene passato come **stringa**. È responsabilità del codice applicativo verificare e convertire il valore (`Number(request.params.id)`, espressioni regolari nel path ecc.). Per limitare una rotta ai soli valori numerici si può usare la sintassi `:id(\\\\d+)`."
+  },
+  {
+    "domanda": "Cosa restituisce questa rotta se nessun utente ha `id === 99`?",
+    "snippet": "```js\napp.get('/utenti/:id', (request, response) => {\n  const id = Number(request.params.id);\n  const utente = utenti.find(u => u.id === id);\n  if (!utente) {\n    return response.status(404).json({ errore: 'Utente non trovato' });\n  }\n  response.json(utente);\n});\n```",
+    "risposte": [
+      "Un oggetto JSON con status 200 e corpo `{ errore: 'Utente non trovato' }`",
+      "Un oggetto JSON con status 404 e corpo `{ errore: 'Utente non trovato' }`",
+      "Nessuna risposta: il `return` impedisce l'esecuzione di `response.json(utente)` e la richiesta rimane bloccata"
+    ],
+    "corretta": 1,
+    "spiegazione": "`response.status(404)` imposta il codice HTTP della risposta, `.json(...)` invia il corpo. Il `return` serve solo a uscire dalla funzione per evitare che si esegua anche `response.json(utente)` dopo — se venisse omesso Express lancerebbe un errore \"headers already sent\". Lo status 404 (Not Found) è la risposta semanticamente corretta quando una risorsa non esiste."
+  }
+]
