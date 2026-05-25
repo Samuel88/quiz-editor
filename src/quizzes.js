@@ -99,6 +99,15 @@ export const quizzes = [
     topics: ['History API', 'useNavigate', 'Navigate', 'PrivateRoute', 'CSS Modules', 'Rules of Hooks', 'useLocation', 'useSearchParams', 'NavLink end']
   },
   {
+    id: 'nodejs-crud-1',
+    title: 'Quiz Node.js CRUD – Parte 1',
+    subtitle: 'REST API con Express: status code, body parsing, array methods e Router',
+    file: '/questions/nodejs-crud-1.json',
+    icon: '🍕',
+    color: '#dc2626',
+    topics: ['Status Code', '400 vs 404', 'sendStatus', 'Router', 'Controller', 'splice', 'findIndex', 'Body Parsing']
+  },
+  {
     id: 'nodejs-express',
     title: 'Quiz Node.js + Express',
     subtitle: 'Metti alla prova le tue conoscenze su Node.js, Express e le basi del backend',

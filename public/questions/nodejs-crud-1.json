@@ -1,0 +1,168 @@
+[
+  {
+    "domanda": "Cosa succede alle modifiche al menu effettuate in memoria (es. una DELETE) quando il server si riavvia?",
+    "snippet": "```js\n// data/menu.js — importato una sola volta all'avvio\nconst menu = [\n  { id: 1, name: 'Margherita', price: 9.00 },\n  // ...\n];\nexport default menu;\n```",
+    "risposte": [
+      "Node.js serializza automaticamente l'array in `menu.backup.json` — il file è escluso dal repo perché è nel `.gitignore` per ragioni di sicurezza commerciale",
+      "Solo le richieste POST vengono perse: le DELETE sopravvivono perché Express le registra in un log interno",
+      "Tutte le modifiche vengono perse: l'array vive solo in memoria, quindi al riavvio il menu torna allo stato iniziale del file",
+      "Il menu rimane invariato: Node.js tiene il modulo in cache tra un riavvio e l'altro, preservando le modifiche"
+    ],
+    "corretta": 2,
+    "spiegazione": "L'array `menu` viene caricato **una sola volta** all'avvio del processo Node.js. Tutte le modifiche (DELETE, POST…) esistono solo in RAM. Quando il server si spegne — o viene riavviato da `pnpm watch` ad ogni salvataggio di codice — la memoria viene liberata e il modulo re-importato daccapo. Per rendere i dati permanenti servirebbe un vero database o almeno scrivere su file."
+  },
+  {
+    "domanda": "Quale status HTTP restituisce il controller per la richiesta `GET /pizzas/ciao`?",
+    "snippet": "```js\nconst realId = Number(id.trim());\n\nif (isNaN(realId) || realId <= 0) {\n    response.status(400).json({\n        error: 'Id non valido',\n        results: null\n    });\n    return;\n}\n```",
+    "risposte": [
+      "400 — `ciao` non è un id valido, la richiesta è malformata",
+      "404 — `/pizzas/ciao` non corrisponde a nessuna pizza nel menu",
+      "500 — `Number('ciao')` restituisce `NaN` e Node.js lancia un'eccezione non gestita",
+      "418 I'm a Teapot — Express riconosce `ciao` come saluto italiano e reindirizza la richiesta all'endpoint regionale competente per territorio"
+    ],
+    "corretta": 0,
+    "spiegazione": "La distinzione chiave: **400 Bad Request** quando la *richiesta stessa* è sbagliata (parametro malformato, dati non validi); **404 Not Found** quando la richiesta è formalmente corretta ma la *risorsa* non esiste. `ciao` non sarà mai un id valido — il problema è nella richiesta, non nella ricerca. `Number('ciao')` restituisce `NaN` senza lanciare eccezioni: bisogna controllarlo esplicitamente con `isNaN()`."
+  },
+  {
+    "domanda": "Quale status HTTP restituisce il controller per la richiesta `GET /pizzas/9999` quando nessuna pizza ha quell'id?",
+    "snippet": "```js\nconst pizzaFound = menu.find(pizza => pizza.id === realId);\n\nif (pizzaFound === undefined) {\n    response.status(404).json({\n        error: 'Pizza non trovata',\n        results: null,\n    });\n    return;\n}\n```",
+    "risposte": [
+      "400 — l'id 9999 non esiste nel menu, quindi è un dato errato e la richiesta è sbagliata",
+      "404 — l'id è formalmente valido (numero positivo), ma la risorsa non esiste",
+      "301 Moved Permanently — la pizza 9999 esisteva, ma si è trasferita in un'altra pizzeria e ha lasciato il nuovo indirizzo all'ufficio immigrazione",
+      "200 — si risponde con 200 e si segnala l'assenza con `results: null` nel corpo JSON"
+    ],
+    "corretta": 1,
+    "spiegazione": "L'id `9999` è formalmente valido (numero positivo), quindi la richiesta è corretta. Il problema è che quella pizza non esiste: è un **404 Not Found**. Se l'id fosse `-5` o `ciao` — strutturalmente non valido — sarebbe un 400. Regola pratica: **400** = richiesta sbagliata; **404** = richiesta giusta, risorsa assente."
+  },
+  {
+    "domanda": "Cosa fa `response.sendStatus(204)` al termine di una DELETE andata a buon fine?",
+    "snippet": "```js\nmenu.splice(pizzaFoundIndex, 1);\nresponse.sendStatus(204);\n```",
+    "risposte": [
+      "Registra la cancellazione in `deleted.log` e invia una mail di notifica — funzionalità nativa di `sendStatus` attivata automaticamente in Express 5 quando il codice è 204",
+      "Imposta lo status 204 e attende che il controller invii il corpo con un successivo `response.send()`",
+      "Equivale a `response.json(null)` — invia `null` come corpo con status 200",
+      "Imposta lo status 204 e invia la risposta senza corpo — shortcut di `response.status(204).send('No Content')`"
+    ],
+    "corretta": 3,
+    "spiegazione": "`response.sendStatus(n)` è lo shortcut che imposta il codice HTTP **e** chiude la risposta in un solo passaggio, senza corpo. Il codice 204 (No Content) è quello semanticamente corretto per una DELETE riuscita: l'operazione è andata a buon fine, ma non c'è niente da restituire. Usare `response.status(204).json(...)` sarebbe contraddittorio: 204 significa esplicitamente \"nessun corpo\"."
+  },
+  {
+    "domanda": "Da dove provengono `id` e `priceMax` in questo codice?",
+    "snippet": "```js\n// Rotta: GET /pizzas/:id\n// URL:   GET /pizzas/3?priceMax=10\n\nconst { id } = request.params;\nconst { priceMax } = request.query;\n```",
+    "risposte": [
+      "`params` legge i parametri nel corpo della richiesta; `query` legge quelli nell'header HTTP",
+      "`params` è disponibile solo nelle rotte GET; `query` funziona con tutti i metodi HTTP",
+      "`params` legge i segmenti dinamici della rotta (`:id` → `\"3\"`); `query` legge i parametri dopo `?` nell'URL (`priceMax` → `\"10\"`)",
+      "`params` contiene i parametri obbligatori; `query` quelli facoltativi — il nome `query` deriva dal fatto che il client sta letteralmente *chiedendo un favore* al server"
+    ],
+    "corretta": 2,
+    "spiegazione": "`request.params` contiene i segmenti dinamici definiti nella rotta con `:nomeParametro` — nell'URL `/pizzas/3`, `params.id` vale `\"3\"`. `request.query` contiene i parametri dopo `?` — nell'URL `?priceMax=10`, `query.priceMax` vale `\"10\"`. In entrambi i casi i valori arrivano come **stringhe**: bisogna convertirli esplicitamente con `Number()` o `parseFloat()`."
+  },
+  {
+    "domanda": "A cosa serve `app.use(express.json())` registrato in `server.js`?",
+    "snippet": "```js\n// server.js\napp.use(express.json());\n\n// POST /pizzas con body: { \"name\": \"Capricciosa\", \"price\": 11.50 }\nfunction create(request, response) {\n    const { name, price } = request.body; // disponibile grazie al middleware\n}\n```",
+    "risposte": [
+      "Abilita il parsing del corpo delle richieste con `Content-Type: application/json`, rendendo disponibile `request.body`",
+      "Serializza automaticamente gli oggetti JavaScript in JSON prima di inviarli con `response.json()`",
+      "Valida che il JSON ricevuto rispetti uno schema predefinito e restituisce 400 automaticamente se non valido",
+      "Attiva la modalità TypeScript integrata di Node.js — `express.json()` compila al volo i controller `.ts` in JavaScript"
+    ],
+    "corretta": 0,
+    "spiegazione": "Express, di base, non sa come leggere il corpo di una richiesta. `express.json()` è un middleware built-in che intercetta le richieste con `Content-Type: application/json`, parsa il body con `JSON.parse()` e popola `request.body`. Senza di esso, `request.body` sarebbe `undefined`. Non fa nessuna validazione dello schema: quella è responsabilità del controller."
+  },
+  {
+    "domanda": "Cosa fa `currentIngredient.indexOf(ingredients)` nel filtro sugli ingredienti?",
+    "snippet": "```js\n// GET /pizzas?ingredients=mozza\n// ingredients = \"mozza\"\n\nfor (let i = 0; i < pizza.ingredients.length; i++) {\n    const currentIngredient = pizza.ingredients[i];\n    if (currentIngredient.indexOf(ingredients) !== -1) {\n        return true;\n    }\n}\n```",
+    "risposte": [
+      "Verifica che `currentIngredient` sia **esattamente uguale** a `ingredients` — confronto di uguaglianza tra due stringhe",
+      "Calcola la distanza di Levenshtein tra le due stringhe — un valore di `-1` indica che le stringhe non si sono mai incontrate",
+      "Suddivide `currentIngredient` in un array usando `ingredients` come separatore e restituisce i pezzi",
+      "Controlla se `currentIngredient` **contiene** la sottostringa `ingredients` — con `\"mozza\"` si trova anche `\"mozzarella\"`"
+    ],
+    "corretta": 3,
+    "spiegazione": "`String.indexOf(sottostringa)` restituisce la posizione della prima occorrenza, oppure `-1` se non trovata. Controllare `!== -1` equivale a \"la sottostringa è presente\". Essendo una ricerca per sottostringa, cercare `\"mozza\"` troverà anche `\"mozzarella\"` e `\"mozzarella di bufala\"`. Per un confronto esatto si userebbe `===`."
+  },
+  {
+    "domanda": "Perché `destroy()` usa `findIndex()` invece di `find()` per cercare la pizza da eliminare?",
+    "snippet": "```js\n// In show() — serve l'oggetto:\nconst pizzaFound = menu.find(pizza => pizza.id === realId);\n\n// In destroy() — serve la posizione:\nconst pizzaFoundIndex = menu.findIndex(pizza => pizza.id === idReal);\nmenu.splice(pizzaFoundIndex, 1);\n```",
+    "risposte": [
+      "Perché `findIndex()` è più veloce di `find()` su array con più di 5 elementi — Node.js usa un algoritmo ottimizzato diverso",
+      "Perché `splice()` richiede la **posizione** dell'elemento nell'array, non l'oggetto — e `findIndex()` restituisce proprio l'indice",
+      "Perché `find()` non funziona con le arrow function su array di oggetti",
+      "Perché `findIndex()` restituisce anche il colore dell'elemento come secondo valore di ritorno — informazione poi usata per il CSS della risposta JSON"
+    ],
+    "corretta": 1,
+    "spiegazione": "`Array.splice(indice, quanti)` modifica l'array originale a partire da una *posizione*. `find()` restituisce l'oggetto trovato — utile in `show()` per restituirlo al client — ma non dice dove si trova. `findIndex()` restituisce l'indice (oppure `-1` se non trovato): esattamente ciò che serve a `splice()`. Senza l'indice non sarebbe possibile eliminare l'elemento corretto."
+  },
+  {
+    "domanda": "Cosa fa `menu.splice(pizzaFoundIndex, 1)` se `pizzaFoundIndex` vale `2`?",
+    "snippet": "```js\n// menu prima: [ A, B, C, D, E ]  (5 elementi)\nmenu.splice(2, 1);\n// menu dopo:  [ A, B, D, E ]     (4 elementi)\n```",
+    "risposte": [
+      "Apre una connessione WebSocket con tutti i client connessi e li notifica in tempo reale della rimozione — è per questo che `splice()` viene preferito a `filter()` nelle REST API",
+      "Sostituisce l'elemento all'indice 2 con `undefined`, mantenendo la lunghezza dell'array",
+      "Rimuove tutti gli elementi dall'indice 2 in poi, troncando l'array a `[ A, B ]`",
+      "Rimuove 1 elemento a partire dall'indice 2, accorciando l'array di un posto"
+    ],
+    "corretta": 3,
+    "spiegazione": "`splice(start, deleteCount)` **modifica l'array originale**: a partire dall'indice `start`, elimina `deleteCount` elementi. Con `splice(2, 1)` si rimuove 1 solo elemento all'indice 2 e l'array si accorcia di uno. Il secondo argomento è fondamentale: `splice(2)` senza di esso rimuoverebbe *tutti* gli elementi dall'indice 2 in poi. `splice()` restituisce un array con gli elementi rimossi — qui il valore di ritorno viene ignorato."
+  },
+  {
+    "domanda": "Perché il controller usa `request.body || {}` invece di leggere `request.body` direttamente?",
+    "snippet": "```js\nfunction create(request, response) {\n    const { name, price } = request.body || {};\n    // ...\n}\n```",
+    "risposte": [
+      "Per impostare valori di default: se `name` o `price` non sono nel body, vengono inizializzati a `{}`",
+      "Per prevenire un errore runtime: se il client non invia `Content-Type: application/json`, Express non parsa il body e `request.body` rimane `undefined` — destrutturare `undefined` lancia un `TypeError`",
+      "Perché il `||` porta fortuna: i programmatori senior lo inseriscono vicino alle operazioni critiche, come il cornetto sulla scrivania o il rubber duck sul monitor",
+      "Per validare automaticamente che il body contenga almeno uno dei campi richiesti prima di procedere"
+    ],
+    "corretta": 1,
+    "spiegazione": "Se il client invia la richiesta senza l'header `Content-Type: application/json`, il middleware `express.json()` non interviene e `request.body` resta `undefined`. Scrivere `const { name } = undefined` causa un `TypeError` a runtime. L'operatore `|| {}` garantisce che, in quel caso, si destrutturi un oggetto vuoto — `name` e `price` risulteranno `undefined`, ma senza crash."
+  },
+  {
+    "domanda": "Qual è il principale vantaggio di usare `express.Router()` in un file separato?",
+    "snippet": "```js\n// routers/pizzas.js\nconst router = express.Router();\nrouter.get('/', index);\nrouter.get('/:id', show);\nrouter.post('/', create);\nrouter.delete('/:id', destroy);\nexport default router;\n\n// server.js\napp.use('/pizzas', pizzasRouter);\n```",
+    "risposte": [
+      "Separa le responsabilità: ogni router gestisce le rotte di una risorsa specifica, mantenendo `server.js` pulito e facilitando l'aggiunta di nuove risorse",
+      "Permette di definire rotte che rispondono a qualsiasi metodo HTTP senza dover specificare `get`, `post` o `delete` separatamente",
+      "Evita di riscrivere `/pizzas` in ogni rotta — è l'unico vero motivo per cui esiste `express.Router()`, ammesso pubblicamente dall'autore in un tweet del 2016 poi cancellato",
+      "Migliora le prestazioni: Express processa le rotte di un Router in parallelo invece che in sequenza"
+    ],
+    "corretta": 0,
+    "spiegazione": "`express.Router()` crea una mini-applicazione Express che raggruppa rotte correlate. Spostare le rotte di `/pizzas` in un file dedicato (e la logica nei controller) mantiene `server.js` minimale: aggiungere un endpoint `/orders` significherebbe solo creare `routers/orders.js` e una riga `app.use('/orders', ordersRouter)`. È il pattern **MVC** applicato a Node.js."
+  },
+  {
+    "domanda": "Cosa rappresentano le quattro lettere dell'acronimo **CRUD**?",
+    "risposte": [
+      "Create, Read, Update, Delete — le quattro operazioni fondamentali su una risorsa dati",
+      "Connect, Request, Upgrade, Deploy — le quattro fasi del ciclo di vita di una richiesta HTTP",
+      "Controllers, Routers, Utils, Data — i quattro moduli standard di un'app Express ben strutturata",
+      "È il cognome della famiglia protagonista de *I Croods* (DreamWorks, 2013) — Grug Crood era contrario alle innovazioni tecnologiche, ma Guy lo ha convinto che le REST API erano più sicure delle grotte"
+    ],
+    "corretta": 0,
+    "spiegazione": "CRUD descrive le quattro operazioni di base su qualsiasi risorsa: **C**reate (POST), **R**ead (GET), **U**pdate (PUT/PATCH), **D**elete (DELETE). Quasi ogni applicazione web ruota intorno a queste quattro operazioni. In questo progetto: `index` e `show` coprono la R, `create` la C, `destroy` la D — la U (update) arriverà nella prossima lezione."
+  },
+  {
+    "domanda": "Cosa significa l'acronimo **REST** nel contesto delle API web?",
+    "risposte": [
+      "Remote Execution of Server Tasks — uno standard per eseguire funzioni JavaScript lato server tramite chiamate HTTP",
+      "Representational State Transfer — un'architettura per sistemi distribuiti basata su risorse identificate da URL e operazioni HTTP standard",
+      "REpresentational Secure Transport — un protocollo crittografato sviluppato da Google per proteggere le API da attacchi man-in-the-middle",
+      "REST è quello che fa il programmatore il venerdì pomeriggio dopo il deploy in produzione — non a caso le API REST sono più stabili dei programmatori che le scrivono"
+    ],
+    "corretta": 1,
+    "spiegazione": "REST (Representational State Transfer) è uno stile architetturale definito da Roy Fielding nel 2000. I principi chiave: le risorse sono identificate da URL (`/pizzas`, `/pizzas/3`), le operazioni sono espresse dai metodi HTTP (GET, POST, PUT, DELETE), le risposte sono rappresentazioni della risorsa (tipicamente JSON). Un'API che segue questi principi si chiama **RESTful**."
+  },
+  {
+    "domanda": "Quale mapping tra metodi HTTP e operazioni CRUD è corretto in una REST API?",
+    "snippet": "```\nGET    /pizzas       → ?\nPOST   /pizzas       → ?\nPUT    /pizzas/:id   → ?\nDELETE /pizzas/:id   → ?\n```",
+    "risposte": [
+      "GET → Create, POST → Read, PUT → Update, DELETE → Delete — i verbi HTTP si usano nell'ordine delle lettere di CRUD",
+      "GET → Read, POST → Update, PUT → Create, DELETE → Delete — POST e PUT sono intercambiabili, si sceglie in base alle preferenze del team",
+      "GET → Read, POST → Create, PUT/PATCH → Update, DELETE → Delete",
+      "Tutti POST — il metodo HTTP è puramente estetico, ciò che conta è il campo `{ \"action\": \"delete\" }` nel body JSON"
+    ],
+    "corretta": 2,
+    "spiegazione": "In una REST API i metodi HTTP hanno un significato preciso: **GET** legge senza modificare (idempotente), **POST** crea una nuova risorsa, **PUT** sostituisce una risorsa esistente (idempotente), **PATCH** la modifica parzialmente, **DELETE** la elimina (idempotente). Rispettare questi significati rende le API prevedibili e facili da consumare."
+  }
+]
