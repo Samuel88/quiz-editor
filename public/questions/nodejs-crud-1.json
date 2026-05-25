@@ -137,7 +137,7 @@
       "Create, Read, Update, Delete — le quattro operazioni fondamentali su una risorsa dati",
       "Connect, Request, Upgrade, Deploy — le quattro fasi del ciclo di vita di una richiesta HTTP",
       "Controllers, Routers, Utils, Data — i quattro moduli standard di un'app Express ben strutturata",
-      "Non è un acronimo: è il suono che fa il database quando riceve una `DELETE` senza `WHERE` su una tabella da 10 milioni di righe in produzione senza backup"
+      "È il cognome della famiglia protagonista de *I Croods* (DreamWorks, 2013) — Grug Crood era contrario alle innovazioni tecnologiche, ma Guy lo ha convinto che le REST API erano più sicure delle grotte"
     ],
     "corretta": 0,
     "spiegazione": "CRUD descrive le quattro operazioni di base su qualsiasi risorsa: **C**reate (POST), **R**ead (GET), **U**pdate (PUT/PATCH), **D**elete (DELETE). Quasi ogni applicazione web ruota intorno a queste quattro operazioni. In questo progetto: `index` e `show` coprono la R, `create` la C, `destroy` la D — la U (update) arriverà nella prossima lezione."
