@@ -117,6 +117,15 @@ export const quizzes = [
     topics: ['Server', 'Porta', 'Middleware', 'Rotte', 'Parametri', 'Query String', 'File Statici']
   },
   {
+    id: 'intro-database',
+    title: 'Quiz Introduzione ai Database',
+    subtitle: 'Metti alla prova le tue conoscenze sui fondamenti dei database relazionali',
+    file: '/questions/intro-database.json',
+    icon: '🗄️',
+    color: '#0891b2',
+    topics: ['RDBMS', 'NoSQL', 'ACID', 'Tipi di dato', 'Indici', 'Primary Key', 'Foreign Key', 'SQL']
+  },
+  {
     id: 'react-context',
     title: 'Quiz React Context API',
     subtitle: 'Metti alla prova le tue conoscenze sulla Context API e la gestione dello stato globale',

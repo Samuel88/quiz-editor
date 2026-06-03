@@ -1,0 +1,203 @@
+[
+  {
+    "domanda": "Cosa si intende con il termine **database**?",
+    "risposte": [
+      "Il software che permette di gestire i dati (es. MySQL, PostgreSQL)",
+      "Una collezione organizzata di dati coerenti",
+      "Un linguaggio per interrogare i dati strutturati"
+    ],
+    "corretta": 1,
+    "spiegazione": "Il **database** è la collezione organizzata di dati coerenti. Il software che la gestisce si chiama **DBMS** (Database Management System). Nel linguaggio parlato i due termini vengono spesso usati in modo intercambiabile, ma tecnicamente sono concetti distinti."
+  },
+  {
+    "domanda": "Cosa differenzia un **RDBMS** da un semplice **DBMS**?",
+    "risposte": [
+      "L'RDBMS è più veloce in lettura rispetto a un DBMS generico",
+      "L'RDBMS organizza i dati in tabelle collegate tra loro secondo il modello relazionale di Codd",
+      "L'RDBMS supporta il linguaggio SQL mentre un DBMS no"
+    ],
+    "corretta": 1,
+    "spiegazione": "Un **RDBMS** (Relational DBMS) è un DBMS che implementa il modello relazionale proposto da Ted Codd nel 1970: i dati sono organizzati in **tabelle** con righe e colonne, collegabili tra loro tramite relazioni. La velocità e il supporto SQL non sono fattori distintivi di per sé."
+  },
+  {
+    "domanda": "Nel 1970 Ted Codd pubblicò un paper fondamentale per i database. Dove lavorava e qual era il suo contributo principale?",
+    "risposte": [
+      "Lavorava a Microsoft e propose il linguaggio SQL come standard universale",
+      "Lavorava all'IBM e propose il modello relazionale, in cui i dati sono organizzati in tabelle collegate tra loro",
+      "Lavorava a Stanford e progettò il primo DBMS commerciale della storia"
+    ],
+    "corretta": 1,
+    "spiegazione": "**Edgar Frank \"Ted\" Codd** lavorava all'IBM San Jose Research Laboratory. Il suo paper *\"A Relational Model of Data for Large Shared Data Banks\"* propose di organizzare i dati in **tabelle collegate** (relazioni) e di interrogarli con un linguaggio semplice accessibile a tutti, non solo ai programmatori. Da quella teoria nacquero MySQL, PostgreSQL, SQL Server e molti altri."
+  },
+  {
+    "domanda": "Quale proprietà ACID garantisce che, se anche solo una operazione di una transazione fallisce, l'intera transazione viene annullata?",
+    "risposte": [
+      "Consistency (Coerenza)",
+      "Durability (Durabilità)",
+      "Atomicity (Atomicità)"
+    ],
+    "corretta": 2,
+    "spiegazione": "**Atomicity** (Atomicità) significa che la transazione è indivisibile: o viene eseguita per intero, o non viene eseguita affatto. Non sono ammesse esecuzioni parziali. **Consistency** riguarda il rispetto dei vincoli di integrità; **Durability** garantisce che i dati sopravvivano a crash dopo il commit."
+  },
+  {
+    "domanda": "Un bonifico bancario scala i soldi dal conto A ma poi fallisce prima di accreditarli sul conto B. Quale meccanismo ACID entra in gioco per evitare che il denaro \"scompaia\"?",
+    "risposte": [
+      "Il **rollback**, che riporta il database allo stato precedente all'inizio della transazione",
+      "Il **commit**, che rende permanenti solo le operazioni andate a buon fine",
+      "L'**isolamento**, che impedisce alle altre transazioni di leggere lo stato intermedio"
+    ],
+    "corretta": 0,
+    "spiegazione": "Il **rollback** annulla tutte le operazioni eseguite fino a quel momento all'interno della transazione, riportando il database allo stato precedente. Questo è un esempio pratico della proprietà **Atomicity**: o il bonifico va a buon fine per intero, o non avviene nulla."
+  },
+  {
+    "domanda": "Cosa garantisce la proprietà **Durability** (Durabilità) delle transazioni ACID?",
+    "risposte": [
+      "Che due transazioni concorrenti non interferiscano tra loro",
+      "Che dopo un commit riuscito i dati non vengano persi nemmeno in caso di crash o interruzione di corrente",
+      "Che ogni transazione lasci il database in uno stato coerente con i vincoli definiti"
+    ],
+    "corretta": 1,
+    "spiegazione": "**Durability** garantisce che una volta eseguito il **commit**, i cambiamenti siano permanenti e sopravvivano a crash, interruzioni di corrente o altri guasti. La garanzia contro interferenze tra transazioni concorrenti è **Isolation**; il rispetto dei vincoli di integrità è **Consistency**."
+  },
+  {
+    "domanda": "Cosa garantisce la proprietà **Isolation** (Isolamento) delle transazioni ACID?",
+    "risposte": [
+      "Che i dati scritti da una transazione siano immediatamente visibili a tutte le altre transazioni in corso",
+      "Che ogni transazione venga eseguita in modo indipendente dalle altre: il risultato finale è lo stesso che si otterrebbe eseguendole una alla volta in sequenza",
+      "Che una transazione fallita venga automaticamente rieseguita dal database finché non ha successo"
+    ],
+    "corretta": 1,
+    "spiegazione": "**Isolation** garantisce che le transazioni concorrenti non si interferiscano a vicenda. Ogni transazione lavora come se fosse l'unica in esecuzione: lo stato intermedio non è visibile alle altre. Il risultato finale deve essere equivalente a un'esecuzione seriale (una dopo l'altra). Il fallimento di una transazione non deve interferire con le altre in corso."
+  },
+  {
+    "domanda": "Quale tipo di intero SQL è stato coinvolto nel famoso problema del contatore di Gangnam Style su YouTube nel 2014?",
+    "risposte": [
+      "SMALLINT (16 bit, massimo 32.767)",
+      "INT (32 bit signed, massimo 2.147.483.647)",
+      "BIGINT (64 bit, massimo ~9,2 × 10¹⁸)"
+    ],
+    "corretta": 1,
+    "spiegazione": "Il contatore era un **INT a 32 bit con segno**, il cui massimo è **2.147.483.647**. Gangnam Style stava per superarlo, costringendo YouTube a migrare d'urgenza a **BIGINT** (64 bit), che porta il limite a circa 9,2 × 10¹⁸. La morale: scegliere il tipo intero sbagliato può costare molto caro in produzione."
+  },
+  {
+    "domanda": "Per memorizzare prezzi e stipendi, quale tipo di dato numerico è più adatto in un database relazionale?",
+    "risposte": [
+      "`FLOAT`, perché è veloce e sufficientemente preciso per i valori monetari",
+      "`DOUBLE`, perché con ~15 cifre decimali gli errori di arrotondamento sono trascurabili",
+      "`DECIMAL`, perché memorizza le cifre in base 10 senza errori di arrotondamento"
+    ],
+    "corretta": 2,
+    "spiegazione": "**DECIMAL** è a precisione esatta: memorizza i numeri in base 10, quindi `0.1 + 0.2` fa esattamente `0.3`. **FLOAT** e **DOUBLE** usano la rappresentazione floating point IEEE 754 in base binaria, che introduce piccoli errori di arrotondamento — inaccettabili per calcoli finanziari. La regola pratica: se gestisci denaro, usa sempre DECIMAL."
+  },
+  {
+    "domanda": "Qual è la differenza principale tra `CHAR(n)` e `VARCHAR(n)`?",
+    "risposte": [
+      "`CHAR` supporta unicode mentre `VARCHAR` usa solo ASCII",
+      "`CHAR` ha lunghezza fissa (occupa sempre `n` byte), `VARCHAR` ha lunghezza variabile (occupa solo lo spazio necessario)",
+      "`CHAR` può contenere più caratteri di `VARCHAR` a parità di `n`"
+    ],
+    "corretta": 1,
+    "spiegazione": "**CHAR(n)** è a lunghezza fissa: occupa sempre esattamente `n` byte, riempiendo con spazi se il valore è più corto. **VARCHAR(n)** è a lunghezza variabile: occupa solo lo spazio del valore inserito più 1-2 byte di prefisso per la lunghezza. CHAR conviene quando tutti i valori hanno sempre la stessa lunghezza (es. codici fiscali); altrimenti VARCHAR è la scelta giusta."
+  },
+  {
+    "domanda": "Perché il limite più comune per `VARCHAR` è **255** caratteri, e non 256 o 300?",
+    "risposte": [
+      "È un limite arbitrario imposto dallo standard SQL per compatibilità storica",
+      "Perché 255 è il massimo rappresentabile con 1 byte (2⁸ = 256 valori, da 0 a 255), permettendo di usare un prefisso di soli 1 byte per la lunghezza",
+      "Perché oltre 255 caratteri il database converte automaticamente a tipo TEXT"
+    ],
+    "corretta": 1,
+    "spiegazione": "Con **1 byte** (8 bit) si possono rappresentare **256 valori** (da 0 a 255). Il prefisso che `VARCHAR` usa per memorizzare la lunghezza della stringa può quindi contenere valori fino a 255 con un solo byte. Dichiarando `VARCHAR(255)`, il prefisso rimane a 1 byte; oltre i 255 caratteri dichiarati, il prefisso deve salire a 2 byte."
+  },
+  {
+    "domanda": "Qual è il problema del **Y2K38** legato al tipo `TIMESTAMP`?",
+    "risposte": [
+      "`TIMESTAMP` non gestisce i fusi orari e dopo il 2038 potrebbe mostrare orari errati",
+      "`TIMESTAMP` è internamente un INT a 4 byte signed: il 19 gennaio 2038 raggiunge il valore massimo (2.147.483.647) e va in overflow",
+      "`TIMESTAMP` non supporta anni oltre il 9999 a causa del formato `YYYY-MM-DD`"
+    ],
+    "corretta": 1,
+    "spiegazione": "**TIMESTAMP** memorizza i dati come numero di secondi dal 1° gennaio 1970 UTC, usando un `INT` a **4 byte signed**. Il massimo rappresentabile è **2.147.483.647**, che corrisponde al **19 gennaio 2038**: dopo quella data va in overflow. È il cosiddetto problema **Y2K38**. DATETIME non ha questo problema perché memorizza il valore come testo letterale su 8 byte."
+  },
+  {
+    "domanda": "Quando conviene usare `DATETIME` invece di `TIMESTAMP`?",
+    "risposte": [
+      "Quando si vuole risparmiare spazio su disco (DATETIME occupa meno byte)",
+      "Quando la data/ora è indipendente dal fuso orario, come la data di nascita o l'orario di un evento locale",
+      "Quando si ha bisogno di tracciare automaticamente la data di creazione o modifica di un record"
+    ],
+    "corretta": 1,
+    "spiegazione": "**DATETIME** memorizza il valore come letterale e non gestisce i fusi orari — ideale per date che rappresentano un momento \"assoluto\" indipendente dalla timezone, come una data di nascita o l'orario di uno spettacolo. **TIMESTAMP** è invece preferito per `created_at`/`updated_at` perché converte automaticamente in UTC e si adatta al fuso orario del server."
+  },
+  {
+    "domanda": "Cos'è una **Primary Key** e quali attributi ha di default?",
+    "risposte": [
+      "Una colonna che collega due tabelle tra loro; ha di default l'attributo `FOREIGN KEY`",
+      "Una colonna con valore univoco che identifica ogni riga in modo inequivocabile; ha di default `NOT NULL` e `UNIQUE`",
+      "Una colonna numerica con incremento automatico; ha di default solo `AUTO_INCREMENT`"
+    ],
+    "corretta": 1,
+    "spiegazione": "La **Primary Key** è la colonna (o insieme di colonne) che identifica ogni riga in modo univoco. Ha di default gli attributi **NOT NULL** (non può essere vuota) e **UNIQUE** (nessun valore duplicato). Spesso viene anche dichiarata `AUTO_INCREMENT` per comodità, ma non è un requisito obbligatorio della chiave primaria."
+  },
+  {
+    "domanda": "Cosa fa l'attributo `DEFAULT` su una colonna?",
+    "risposte": [
+      "Imposta il valore massimo accettato per quella colonna",
+      "Impedisce che vengano inseriti valori duplicati nella colonna",
+      "Fornisce un valore automatico quando al momento dell'inserimento non viene passato alcun valore per quella colonna"
+    ],
+    "corretta": 2,
+    "spiegazione": "**DEFAULT** specifica il valore che il database assegna automaticamente alla colonna se durante l'`INSERT` non viene fornito nessun valore. Ad esempio, `DEFAULT(0)` su una colonna `acquisti` fa sì che ogni nuovo prodotto parta da zero acquisti senza doverlo specificare esplicitamente."
+  },
+  {
+    "domanda": "Perché gli **indici** di un database velocizzano le ricerche ma hanno un costo?",
+    "risposte": [
+      "Gli indici comprimono i dati riducendo lo spazio, ma richiedono più CPU per decomprimere durante la lettura",
+      "Gli indici sono strutture dati aggiuntive (tipicamente B-Tree) che evitano il full table scan, ma occupano spazio su disco e rallentano le operazioni di scrittura",
+      "Gli indici replicano l'intera tabella in memoria RAM per accesso rapido, aumentando il consumo di RAM"
+    ],
+    "corretta": 1,
+    "spiegazione": "Un **indice** è una struttura dati separata (tipicamente un **B-Tree**) che il database mantiene ordinata sui valori di una colonna, con puntatori alle righe. Evita il **full table scan** (scansione riga per riga) velocizzando le ricerche. Il costo è duplice: **spazio su disco** aggiuntivo e **lentezza in scrittura**, perché ogni `INSERT`, `UPDATE` o `DELETE` deve aggiornare anche tutti gli indici della tabella."
+  },
+  {
+    "domanda": "Cos'è una **Foreign Key** e a cosa serve?",
+    "risposte": [
+      "È una chiave primaria composta da due colonne, usata per identificare righe in modo univoco",
+      "È un indice automatico creato dal database su ogni colonna numerica",
+      "È una colonna che fa riferimento alla Primary Key di un'altra tabella, permettendo di mettere in relazione le tabelle e garantire l'integrità referenziale"
+    ],
+    "corretta": 2,
+    "spiegazione": "La **Foreign Key** (chiave esterna) è un valore in una tabella che punta alla **Primary Key** di un'altra tabella. Nell'esempio della lezione, `utente_id` nella tabella `ordini` fa riferimento all'`id` nella tabella `utenti`. Il database può usare questo vincolo per garantire l'**integrità referenziale**: impedisce, ad esempio, di inserire un ordine con un `utente_id` inesistente."
+  },
+  {
+    "domanda": "SQL è definito un linguaggio **dichiarativo**. Cosa significa in pratica?",
+    "risposte": [
+      "Si descrive **cosa** si vuole ottenere e il database decide come eseguirlo nel modo più efficiente, senza scrivere loop o algoritmi",
+      "Si scrive il **come** ottenere il risultato passo per passo, come in un linguaggio imperativo",
+      "Il codice SQL viene dichiarato una sola volta e non può essere modificato dopo la prima esecuzione"
+    ],
+    "corretta": 0,
+    "spiegazione": "In un linguaggio **dichiarativo** si descrive il **risultato desiderato**, non i passi per ottenerlo. Con `SELECT * FROM utenti WHERE citta = 'Roma'` dici al database cosa vuoi; lui usa il query optimizer, gli indici e le statistiche per trovare da solo il modo più efficiente. In un linguaggio imperativo (JavaScript, Python) dovresti scrivere il loop e la logica di filtraggio tu stesso."
+  },
+  {
+    "domanda": "Qual è il valore stampato in console da questo codice JavaScript?",
+    "snippet": "```js\nconsole.log(0.1 + 0.2)\n```",
+    "risposte": [
+      "`0.3`",
+      "`0.30000000000000004`",
+      "`NaN`"
+    ],
+    "corretta": 1,
+    "spiegazione": "Il risultato è `0.30000000000000004`, non `0.3`. `FLOAT` e `DOUBLE` usano la rappresentazione **IEEE 754** in base binaria: `0.1` in binario è un numero periodico infinito (`0.000110011001100...`) che viene troncato, introducendo un piccolo errore di arrotondamento. Per questo nei database si usa **DECIMAL** quando la precisione è fondamentale, ad esempio per prezzi e calcoli finanziari."
+  },
+  {
+    "domanda": "Quando è preferibile scegliere un **RDBMS** rispetto a un database **NoSQL**?",
+    "risposte": [
+      "Quando i dati cambiano spesso forma e hai bisogno di scalare orizzontalmente su grandi volumi",
+      "Quando la struttura dei dati è ben definita, le relazioni tra entità sono complesse e la coerenza dei dati è prioritaria",
+      "Quando la velocità di lettura/scrittura è più importante della coerenza assoluta"
+    ],
+    "corretta": 1,
+    "spiegazione": "Un **RDBMS** è la scelta giusta quando i dati hanno una **struttura stabile**, ci sono **relazioni complesse** tra entità e l'**integrità e coerenza** dei dati sono prioritarie (es. banche, e-commerce). I database **NoSQL** brillano invece con dati non strutturati, schemi variabili o quando serve scalabilità orizzontale massiva e si può accettare una coerenza eventuale."
+  }
+]
