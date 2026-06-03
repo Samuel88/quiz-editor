@@ -60,6 +60,16 @@
     "spiegazione": "**Durability** garantisce che una volta eseguito il **commit**, i cambiamenti siano permanenti e sopravvivano a crash, interruzioni di corrente o altri guasti. La garanzia contro interferenze tra transazioni concorrenti è **Isolation**; il rispetto dei vincoli di integrità è **Consistency**."
   },
   {
+    "domanda": "Cosa garantisce la proprietà **Isolation** (Isolamento) delle transazioni ACID?",
+    "risposte": [
+      "Che i dati scritti da una transazione siano immediatamente visibili a tutte le altre transazioni in corso",
+      "Che ogni transazione venga eseguita in modo indipendente dalle altre: il risultato finale è lo stesso che si otterrebbe eseguendole una alla volta in sequenza",
+      "Che una transazione fallita venga automaticamente rieseguita dal database finché non ha successo"
+    ],
+    "corretta": 1,
+    "spiegazione": "**Isolation** garantisce che le transazioni concorrenti non si interferiscano a vicenda. Ogni transazione lavora come se fosse l'unica in esecuzione: lo stato intermedio non è visibile alle altre. Il risultato finale deve essere equivalente a un'esecuzione seriale (una dopo l'altra). Il fallimento di una transazione non deve interferire con le altre in corso."
+  },
+  {
     "domanda": "Quale tipo di intero SQL è stato coinvolto nel famoso problema del contatore di Gangnam Style su YouTube nel 2014?",
     "risposte": [
       "SMALLINT (16 bit, massimo 32.767)",
@@ -170,24 +180,15 @@
     "spiegazione": "In un linguaggio **dichiarativo** si descrive il **risultato desiderato**, non i passi per ottenerlo. Con `SELECT * FROM utenti WHERE citta = 'Roma'` dici al database cosa vuoi; lui usa il query optimizer, gli indici e le statistiche per trovare da solo il modo più efficiente. In un linguaggio imperativo (JavaScript, Python) dovresti scrivere il loop e la logica di filtraggio tu stesso."
   },
   {
-    "domanda": "A quale categoria SQL appartengono i comandi `CREATE`, `ALTER` e `DROP`?",
+    "domanda": "Qual è il valore stampato in console da questo codice JavaScript?",
+    "snippet": "```js\nconsole.log(0.1 + 0.2)\n```",
     "risposte": [
-      "DML — Data Manipulation Language",
-      "DDL — Data Definition Language",
-      "TCL — Transaction Control Language"
+      "`0.3`",
+      "`0.30000000000000004`",
+      "`NaN`"
     ],
     "corretta": 1,
-    "spiegazione": "**DDL** (Data Definition Language) comprende i comandi che **definiscono la struttura** del database: `CREATE` (crea tabelle/indici), `ALTER` (modifica la struttura), `DROP` (elimina oggetti). **DML** gestisce i dati (`SELECT`, `INSERT`, `UPDATE`, `DELETE`); **TCL** gestisce le transazioni (`COMMIT`, `ROLLBACK`)."
-  },
-  {
-    "domanda": "Quale famiglia di database NoSQL è più indicata per gestire relazioni complesse come quelle di un social network?",
-    "risposte": [
-      "Documentale (es. MongoDB) — perché archivia i dati come documenti JSON flessibili",
-      "Chiave-Valore (es. Redis) — perché offre accesso rapidissimo tramite chiave",
-      "A grafo (es. Neo4j) — perché rappresenta i dati come nodi e archi, ideali per relazioni complesse"
-    ],
-    "corretta": 2,
-    "spiegazione": "I database **a grafo** come Neo4j modellano i dati come **nodi** (entità) e **archi** (relazioni tra entità), rendendoli naturalmente adatti a scenari con relazioni complesse e interconnesse come social network, sistemi di raccomandazione o grafi di dipendenze. I database documentali sono ottimi per cataloghi e CMS; i chiave-valore per cache e sessioni."
+    "spiegazione": "Il risultato è `0.30000000000000004`, non `0.3`. `FLOAT` e `DOUBLE` usano la rappresentazione **IEEE 754** in base binaria: `0.1` in binario è un numero periodico infinito (`0.000110011001100...`) che viene troncato, introducendo un piccolo errore di arrotondamento. Per questo nei database si usa **DECIMAL** quando la precisione è fondamentale, ad esempio per prezzi e calcoli finanziari."
   },
   {
     "domanda": "Quando è preferibile scegliere un **RDBMS** rispetto a un database **NoSQL**?",
